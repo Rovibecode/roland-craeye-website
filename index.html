@@ -93,6 +93,19 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        
+        .macrosweep-gradient {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffd700 100%);
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(255, 107, 53, 0.8); }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -106,12 +119,11 @@
                 </div>
                 <div class="hidden lg:flex space-x-8">
                     <a href="#about" class="text-gray-600 hover:text-3366cc transition-colors font-medium">About</a>
-                    <a href="#services" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Services</a>
-                    <a href="#real-estate" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Real Estate</a>
-                    <a href="#ai-systems" class="text-gray-600 hover:text-3366cc transition-colors font-medium">AI Systems</a>
-                    <a href="#funding" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Funding</a>
+                    <a href="#start-here" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Start Here</a>
+                    <a href="#core-services" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Core Services</a>
+                    <a href="#wealth-building" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Wealth Building</a>
+                    <a href="#macrosweep" class="text-gray-600 hover:text-3366cc transition-colors font-medium">MacroSweep</a>
                     <a href="#testimonials" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Results</a>
-                    <a href="#contact" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Contact</a>
                 </div>
                 <div class="lg:hidden flex items-center">
                     <button class="text-gray-600 focus:outline-none" onclick="toggleMobileMenu()">
@@ -122,12 +134,11 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden lg:hidden pb-4">
                 <a href="#about" class="block text-gray-600 hover:text-3366cc py-2 font-medium">About</a>
-                <a href="#services" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Services</a>
-                <a href="#real-estate" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Real Estate</a>
-                <a href="#ai-systems" class="block text-gray-600 hover:text-3366cc py-2 font-medium">AI Systems</a>
-                <a href="#funding" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Funding</a>
+                <a href="#start-here" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Start Here</a>
+                <a href="#core-services" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Core Services</a>
+                <a href="#wealth-building" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Wealth Building</a>
+                <a href="#macrosweep" class="block text-gray-600 hover:text-3366cc py-2 font-medium">MacroSweep</a>
                 <a href="#testimonials" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Results</a>
-                <a href="#contact" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Contact</a>
             </div>
         </div>
     </nav>
@@ -149,12 +160,13 @@
                         <strong>Location-proof income that works whether you're present or not.</strong>
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20ready%20to%20build%20unstoppable%20income%20systems." target="_blank" 
+                        <a href="#start-here" 
                            class="cta-button inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg">
-                            <i class="fab fa-whatsapp mr-2"></i> Start Building Now
+                            <i class="fas fa-rocket mr-2"></i> Start Here - See Pricing
                         </a>
-                        <a href="#services" class="glass-effect inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg hover:bg-white hover:text-3366cc transition-all">
-                            <i class="fas fa-play mr-2"></i> See How It Works
+                        <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20ready%20to%20build%20core%20income%20systems." target="_blank" 
+                           class="glass-effect inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg hover:bg-white hover:text-3366cc transition-all">
+                            <i class="fab fa-whatsapp mr-2"></i> Get Started Now
                         </a>
                     </div>
                 </div>
@@ -170,9 +182,6 @@
                             </div>
                         </div>
                         
-                    
-                        
-                        
                         <ul class="space-y-4 mb-8">
                             <li class="flex items-center">
                                 <i class="fas fa-check-circle text-green-500 mr-3 text-lg"></i>
@@ -180,11 +189,11 @@
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check-circle text-green-500 mr-3 text-lg"></i>
-                                <span class="font-medium">Real estate investment & deal analysis</span>
+                                <span class="font-medium">AI-driven real estate analysis & deals</span>
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check-circle text-green-500 mr-3 text-lg"></i>
-                                <span class="font-medium">Business funding & capital solutions</span>
+                                <span class="font-medium">Automated funding & capital solutions</span>
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check-circle text-green-500 mr-3 text-lg"></i>
@@ -199,6 +208,137 @@
                             </p>
                          </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Start Here Section -->
+    <section id="start-here" class="py-24 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="container px-4 mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Start Here: Your Path to Income Freedom</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Clear pricing, proven process, immediate action. Choose your tier and start building today.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Tier 1 Pricing Card -->
+                <div class="service-card bg-white rounded-2xl shadow-lg p-8 border-2 border-blue-200">
+                    <div class="text-center mb-8">
+                        <div class="expertise-badge inline-block px-4 py-2 rounded-full mb-4">
+                            <span class="text-3366cc font-semibold">TIER 1 - START HERE</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-800 mb-4">Core AI Systems</h3>
+                        <div class="text-5xl font-bold text-3366cc mb-2">$5K-15K</div>
+                        <p class="text-gray-600">One-time investment</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-robot text-blue-500 mt-1 mr-3"></i>
+                            <span>AI workflow automation design</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-globe text-blue-500 mt-1 mr-3"></i>
+                            <span>Income system architecture</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-line text-blue-500 mt-1 mr-3"></i>
+                            <span>Business optimization analysis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-video text-blue-500 mt-1 mr-3"></i>
+                            <span>Content & UGC systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-clock text-blue-500 mt-1 mr-3"></i>
+                            <span>4-8 week implementation</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20ready%20to%20start%20with%20Tier%201%20Core%20AI%20Systems." target="_blank" 
+                       class="cta-button w-full text-center inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg">
+                        <i class="fas fa-rocket mr-2"></i> Start Tier 1 Now
+                    </a>
+                </div>
+                
+                <!-- Tier 2 Pricing Card -->
+                <div class="service-card bg-white rounded-2xl shadow-lg p-8 border-2 border-green-200">
+                    <div class="text-center mb-8">
+                        <div class="expertise-badge inline-block px-4 py-2 rounded-full mb-4" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #10b981;">
+                            <span class="text-green-600 font-semibold">TIER 2 - SCALE UP</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-800 mb-4">AI Wealth Building</h3>
+                        <div class="text-5xl font-bold text-green-600 mb-2">$10K-25K</div>
+                        <p class="text-gray-600">Additional investment</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-brain text-green-500 mt-1 mr-3"></i>
+                            <span>AI-powered real estate analysis</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-building text-green-500 mt-1 mr-3"></i>
+                            <span>Automated deal evaluation systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-dollar-sign text-green-500 mt-1 mr-3"></i>
+                            <span>AI-driven funding solutions</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-pie text-green-500 mt-1 mr-3"></i>
+                            <span>Automated investment tracking</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users text-green-500 mt-1 mr-3"></i>
+                            <span>Requires Tier 1 completion</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20interested%20in%20Tier%202%20AI%20Wealth%20Building%20services." target="_blank" 
+                       class="w-full text-center inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors">
+                        <i class="fas fa-chart-line mr-2"></i> Explore Tier 2
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Process Steps -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">Simple 3-Step Process</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white font-bold text-xl">1</span>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Free 30-Min Consultation</h4>
+                        <p class="text-gray-600">WhatsApp call to assess your needs and recommend the right tier</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white font-bold text-xl">2</span>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Custom Proposal</h4>
+                        <p class="text-gray-600">Detailed scope, timeline, and investment based on your specific situation</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-white font-bold text-xl">3</span>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2">Implementation</h4>
+                        <p class="text-gray-600">Weekly check-ins, milestone delivery, and system optimization</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <div class="bg-red-100 border border-red-300 rounded-lg p-4 inline-block">
+                        <p class="text-red-700 font-semibold">
+                            <i class="fas fa-clock mr-2"></i>
+                            Limited: Only 3 new clients per month
+                        </p>
                     </div>
                 </div>
             </div>
@@ -229,24 +369,15 @@
                     </div>
                 </div>
                 <div class="w-full lg:w-1/2 lg:pl-16">
-                    <h2 class="section-heading text-4xl font-bold text-gray-800 mb-8">Multi-Domain Expertise</h2>
+                    <h2 class="section-heading text-4xl font-bold text-gray-800 mb-8">Multi-Domain AI Expertise</h2>
                     <p class="text-gray-600 mb-8 text-lg">
-                        I design income systems and AI-powered workflows for professionals who work across borders. As Principal Consultant at Global Operator Systems, I combine strategic business thinking with cutting-edge technology to help clients optimize their global operations.
+                        I design AI-powered income systems for professionals who work across borders. Every service tier leverages artificial intelligence to maximize efficiency and profitability.
                     </p>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
                         <div class="bg-white p-6 rounded-xl shadow-lg">
                             <div class="flex items-center mb-4">
-                                <i class="fas fa-globe-americas text-3366cc mr-4 text-2xl"></i>
-                                <div>
-                                    <p class="font-bold text-lg">Global Operations</p>
-                                    <p class="text-sm text-gray-600">US, Europe, Asia</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-brain text-3366cc mr-4 text-2xl"></i>
+                                <i class="fas fa-robot text-3366cc mr-4 text-2xl"></i>
                                 <div>
                                     <p class="font-bold text-lg">AI Systems Design</p>
                                     <p class="text-sm text-gray-600">Cutting-edge workflows</p>
@@ -255,37 +386,28 @@
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow-lg">
                             <div class="flex items-center mb-4">
-                                <i class="fas fa-building text-3366cc mr-4 text-2xl"></i>
+                                <i class="fas fa-brain text-3366cc mr-4 text-2xl"></i>
                                 <div>
-                                    <p class="font-bold text-lg">Real Estate Investment</p>
-                                    <p class="text-sm text-gray-600">Multi-family, commercial</p>
+                                    <p class="font-bold text-lg">AI Real Estate Analysis</p>
+                                    <p class="text-sm text-gray-600">Data-driven investments</p>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow-lg">
                             <div class="flex items-center mb-4">
-                                <i class="fas fa-dollar-sign text-3366cc mr-4 text-2xl"></i>
+                                <i class="fas fa-chart-line text-3366cc mr-4 text-2xl"></i>
                                 <div>
-                                    <p class="font-bold text-lg">Business Funding</p>
-                                    <p class="text-sm text-gray-600">Capital & financing</p>
+                                    <p class="font-bold text-lg">AI Funding Solutions</p>
+                                    <p class="text-sm text-gray-600">Automated capital access</p>
                                 </div>
                             </div>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow-lg">
                             <div class="flex items-center mb-4">
-                                <i class="fas fa-video text-3366cc mr-4 text-2xl"></i>
+                                <i class="fas fa-globe text-3366cc mr-4 text-2xl"></i>
                                 <div>
-                                    <p class="font-bold text-lg">Content Systems</p>
-                                    <p class="text-sm text-gray-600">UGC & monetization</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-award text-3366cc mr-4 text-2xl"></i>
-                                <div>
-                                    <p class="font-bold text-lg">Agile Methodologies</p>
-                                    <p class="text-sm text-gray-600">Scrum Master</p>
+                                    <p class="font-bold text-lg">Global Operations</p>
+                                    <p class="text-sm text-gray-600">US, Europe, Asia</p>
                                 </div>
                             </div>
                         </div>
@@ -295,16 +417,21 @@
         </div>
     </section>
 
-    <!-- Services Overview -->
-    <section id="services" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+    <!-- Core Services (Tier 1) -->
+    <section id="core-services" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div class="container px-4 mx-auto">
             <div class="text-center mb-20">
-                <h2 class="text-4xl font-bold text-gray-800 mb-6">Complete Income System Solutions</h2>
+                <div class="expertise-badge inline-block px-6 py-3 rounded-full mb-6">
+                    <span class="text-3366cc font-semibold">TIER 1 - CORE SERVICES</span>
+                </div>
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">AI Automation & Business Systems</h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    From AI automation to real estate investments and business funding - everything you need to build sustainable, location-independent wealth.
+                    My primary expertise: Building intelligent systems that automate your business operations and create sustainable income streams that work 24/7.
                 </p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- AI Workflow Design Card -->
                 <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
                     <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-8">
                         <i class="fas fa-robot text-white text-2xl"></i>
@@ -329,58 +456,7 @@
                     </ul>
                 </div>
                 
-                <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i class="fas fa-building text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Real Estate Investment</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Data-driven real estate analysis, deal evaluation, and investment strategies for multi-family, commercial, residential, new construction, and fix-and-flip properties.
-                    </p>
-                    <ul class="text-gray-600 space-y-3 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Multi-family deal analysis</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Fix & flip evaluation</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Commercial property assessment</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i class="fas fa-dollar-sign text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Business Funding Solutions</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Working capital, commercial real estate financing, and alternative funding solutions for businesses and investors.
-                    </p>
-                    <ul class="text-gray-600 space-y-3 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Working capital solutions</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Commercial real estate loans</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Alternative financing options</span>
-                        </li>
-                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Foreign investor financing</span>
-                        </li>
-                    </ul>
-                </div>
-                
+                <!-- Income Systems Architecture Card -->
                 <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
                     <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center mb-8">
                         <i class="fas fa-globe text-white text-2xl"></i>
@@ -404,51 +480,70 @@
                         </li>
                     </ul>
                 </div>
-                
+            </div>
+        </div>
+    </section>
+
+    <!-- Wealth Building Services (Tier 2) -->
+    <section id="wealth-building" class="py-24">
+        <div class="container px-4 mx-auto">
+            <div class="text-center mb-20">
+                <div class="expertise-badge inline-block px-6 py-3 rounded-full mb-6" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #10b981;">
+                    <span class="text-green-600 font-semibold">TIER 2 - WEALTH BUILDING SERVICES</span>
+                </div>
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">AI-Powered Real Estate & Funding</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Advanced AI systems for clients ready to scale wealth through automated real estate analysis and intelligent funding solutions.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- AI Real Estate Investment Card -->
                 <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i class="fas fa-video text-white text-2xl"></i>
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-8">
+                        <i class="fas fa-brain text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Content & UGC Systems</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">AI Real Estate Analysis</h3>
                     <p class="text-gray-600 mb-6 leading-relaxed">
-                        User-generated content strategies, content ecosystem development, and monetization systems for digital creators.
+                        Machine learning-powered deal evaluation, market analysis, and investment strategies for multi-family, commercial, and fix-and-flip properties.
                     </p>
                     <ul class="text-gray-600 space-y-3 mb-6">
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>UGC strategy development</span>
+                            <i class="fas fa-robot text-green-500 mt-1 mr-3"></i>
+                            <span>AI-powered deal scoring</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Content monetization systems</span>
+                            <i class="fas fa-chart-bar text-green-500 mt-1 mr-3"></i>
+                            <span>Automated market analysis</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Creator ecosystem design</span>
+                            <i class="fas fa-calculator text-green-500 mt-1 mr-3"></i>
+                            <span>Predictive ROI modeling</span>
                         </li>
                     </ul>
                 </div>
                 
+                <!-- AI Funding Solutions Card -->
                 <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i class="fas fa-chart-line text-white text-2xl"></i>
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-8">
+                        <i class="fas fa-microchip text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Business Analysis & Optimization</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">AI Funding Solutions</h3>
                     <p class="text-gray-600 mb-6 leading-relaxed">
-                        Comprehensive business analysis, performance optimization, and strategic consulting for sustainable growth.
+                        Intelligent capital matching, automated application processing, and AI-driven funding optimization for businesses and investments.
                     </p>
                     <ul class="text-gray-600 space-y-3 mb-6">
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Business performance analysis</span>
+                            <i class="fas fa-search text-purple-500 mt-1 mr-3"></i>
+                            <span>AI lender matching</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Strategic optimization</span>
+                            <i class="fas fa-cogs text-purple-500 mt-1 mr-3"></i>
+                            <span>Automated application prep</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Growth strategy development</span>
+                            <i class="fas fa-chart-line text-purple-500 mt-1 mr-3"></i>
+                            <span>Funding optimization algorithms</span>
                         </li>
                     </ul>
                 </div>
@@ -456,525 +551,285 @@
         </div>
     </section>
 
-    <!-- Real Estate Section -->
-    <section id="real-estate" class="py-24">
+    <!-- MacroSweep Section -->
+    <section id="macrosweep" class="py-24 macrosweep-gradient">
         <div class="container px-4 mx-auto">
-            <div class="flex flex-wrap items-center">
-                <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
-                    <h2 class="section-heading text-4xl font-bold text-gray-800 mb-8">Data-Driven Real Estate Investment</h2>
-                    <p class="text-gray-600 mb-8 text-lg leading-relaxed">
-                        Leverage advanced analysis tools and market intelligence to identify profitable real estate opportunities. From multi-family properties to commercial deals, I help investors make informed decisions with comprehensive deal evaluation.
-                    </p>
-                    <div class="mb-8">
-                        <h4 class="font-bold text-xl mb-4 text-gray-800">Investment Specializations:</h4>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <div class="bg-green-100 rounded-full p-2 mt-1 mr-4">
-                                    <i class="fas fa-home text-green-600"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800">Multi-Family Properties</p>
-                                    <p class="text-gray-600">Comprehensive analysis of rental properties, cash flow projections, and ROI calculations</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="bg-blue-100 rounded-full p-2 mt-1 mr-4">
-                                    <i class="fas fa-tools text-blue-600"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800">Fix & Flip Analysis</p>
-                                    <p class="text-gray-600">Detailed renovation cost estimates, market value assessments, and profit projections</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="bg-purple-100 rounded-full p-2 mt-1 mr-4">
-                                    <i class="fas fa-building text-purple-600"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800">Commercial Real Estate</p>
-                                    <p class="text-gray-600">Advanced underwriting, market analysis, and investment strategy development</p>
-                                </div>
-                            </li>
-                        </ul>
+            <div class="text-center text-white mb-16">
+                <div class="inline-block bg-white bg-opacity-20 px-6 py-3 rounded-full mb-6 pulse-glow">
+                    <span class="font-bold text-lg">NOW ACCEPTING PREORDERS</span>
+                </div>
+                <h2 class="text-5xl font-bold mb-6">MacroSweep Reflex™</h2>
+                <p class="text-2xl mb-8 opacity-95 max-w-2xl mx-auto">
+                    Built for traders navigating chaos.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 border border-white border-opacity-20">
+                    <div class="text-white text-center mb-8">
+                        <p class="text-xl leading-relaxed mb-6">
+                            MacroSweep Reflex™ delivers <strong>sniper-grade clarity</strong> in volatile markets—pinpointing high-probability trade setups using real-time macro triggers, RRR enforcement, and execution-tier logic.
+                        </p>
+                        <p class="text-lg mb-8">
+                            Whether you're trading <strong>gold, BTC, FX, or indices</strong>, this isn't a newsletter. It's a tactical system.
+                        </p>
                     </div>
-                    <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'd%20like%20to%20discuss%20real%20estate%20investment%20opportunities." target="_blank" 
-                       class="cta-button inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg">
-                        <i class="fas fa-calculator mr-2"></i> Analyze Your Deal
-                    </a>
-                </div>
-     <div class="w-full lg:w-1/2 lg:pl-16">
-    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
-        <div class="p-2 bg-gradient-to-r from-green-500 to-emerald-600"></div>
-        <div class="p-8">
-            <div class="flex items-center justify-between mb-8">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                        <i class="fas fa-chart-bar text-green-600"></i>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-crosshairs text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2">Sniper-Grade Precision</h4>
+                            <p class="opacity-90">High-probability setups only</p>
+                        </div>
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-bolt text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2">Real-Time Triggers</h4>
+                            <p class="opacity-90">Macro-driven execution signals</p>
+                        </div>
+                        <div class="text-center text-white">
+                            <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-shield-alt text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-lg mb-2">RRR Enforcement</h4>
+                            <p class="opacity-90">Risk-reward optimization</p>
+                        </div>
                     </div>
-                    <h3 class="font-bold text-xl ml-3">Deal Analysis Dashboard</h3>
+                    
+                    <div class="text-center">
+                        <p class="text-white text-xl font-bold mb-6">
+                            Preorder now to be first in when the gate drops.
+                        </p>
+                        <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I%20want%20to%20preorder%20MacroSweep%20Reflex™." target="_blank" 
+                           class="inline-block bg-white text-orange-600 font-bold px-8 py-4 rounded-lg text-lg hover:bg-gray-100 transition-colors pulse-glow">
+                            <i class="fas fa-rocket mr-2"></i> Preorder MacroSweep Reflex™
+                        </a>
+                    </div>
                 </div>
-                <div class="text-green-500 flex items-center">
-                    <span class="mr-1 font-medium">Live Data</span>
-                    <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                </div>
-            </div>
-            
-            <div class="mb-8">
-                <div class="flex justify-between mb-2">
-                    <span class="text-gray-600">Cash-on-Cash Return</span>
-                    <span class="font-bold text-green-600">32.8%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-3">
-                    <div class="bg-green-500 h-3 rounded-full" style="width: 95%"></div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-6 mb-8">
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-green-600">$8,750</div>
-                    <div class="text-gray-600 text-sm">Monthly Cash Flow</div>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-blue-600">$95k</div>
-                    <div class="text-gray-600 text-sm">Total Investment</div>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-purple-600">2.1%</div>
-                    <div class="text-gray-600 text-sm">Price-to-Rent Ratio</div>
-                </div>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <div class="text-2xl font-bold text-orange-600">14mo</div>
-                    <div class="text-gray-600 text-sm">Payback Period</div>
-                </div>
-            </div>
-            
-            <div class="text-sm text-center text-gray-500">
-                <p>Sample multi-family property analysis</p>
             </div>
         </div>
-    </div>
-</div>
     </section>
 
-    <!-- AI Systems Section -->
-    <section id="ai-systems" class="py-24 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div class="container px-4 mx-auto">
-            <div class="flex flex-wrap items-center">
-                <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
-                    <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
-                        <div class="p-2 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
-                        <div class="p-8">
-                            <div class="flex items-center justify-between mb-8">
-                                <div class="flex items-center">
-                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                        <i class="fas fa-brain text-blue-600"></i>
-                                    </div>
-                                    <h3 class="font-bold text-xl ml-3">AI Workflow Dashboard</h3>
-                                </div>
-                                <div class="text-green-500 flex items-center">
-                                    <span class="mr-1 font-medium">Active</span>
-                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                                </div>
+            <div class="text-center mb-20">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Real Results from Real Clients</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    See how professionals across industries have transformed their businesses with AI-powered income systems.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600 font-medium">AI Automation</span>
+                    </div>
+                    <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
+                        "The AI workflow system generates consistent leads while I sleep. What used to take 20 hours a week now runs on autopilot, and my conversion rates improved by 35%."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="mr-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-3366cc font-bold">CZ</span>
                             </div>
-                            <div class="mb-8">
-                                <div class="flex justify-between mb-2">
-                                    <span class="text-gray-600">Automation Efficiency</span>
-                                    <span class="font-semibold">94.2%</span>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 94.2%"></div>
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-2 gap-6 mb-8">
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <div class="text-3xl font-bold text-blue-600">847</div>
-                                    <div class="text-gray-600 text-sm">Tasks Automated</div>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <div class="text-3xl font-bold text-green-600">156h</div>
-                                    <div class="text-gray-600 text-sm">Time Saved/Month</div>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <div class="text-3xl font-bold text-purple-600">12</div>
-                                    <div class="text-gray-600 text-sm">Active Workflows</div>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-lg">
-                                    <div class="text-3xl font-bold text-orange-600">$47k</div>
-                                    <div class="text-gray-600 text-sm">Cost Savings</div>
-                                </div>
-                            </div>
-                            <div class="text-sm text-center text-gray-500">
-                                <p>Real-time AI workflow performance metrics</p>
-                            </div>
+                        </div>
+                        <div>
+                            <p class="font-bold">Christina Z.</p>
+                            <p class="text-sm text-gray-600">Digital Marketing Agency Owner</p>
                         </div>
                     </div>
                 </div>
-                <div class="w-full lg:w-1/2 lg:pl-16">
-                    <h2 class="section-heading text-4xl font-bold text-gray-800 mb-8">AI-Powered Business Automation</h2>
-                    <p class="text-gray-600 mb-8 text-lg leading-relaxed">
-                        Transform your business operations with intelligent automation systems that work 24/7. From lead generation to customer service, my AI solutions eliminate bottlenecks and create scalable income streams.
-                    </p>
-                    <div class="mb-8">
-                        <h4 class="font-semibold text-xl mb-4 text-gray-800">AI Implementation Areas:</h4>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <div class="bg-blue-100 rounded-full p-2 mt-1 mr-4">
-                                    <i class="fas fa-bolt text-blue-600"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800">Autonomous Sales Systems</p>
-                                    <p class="text-gray-600">AI-powered lead qualification, nurturing, and conversion without human intervention</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="bg-green-100 rounded-full p-2 mt-1 mr-4">
-                                    <i class="fas fa-chart-line text-green-600"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800">Predictive Analytics</p>
-                                    <p class="text-gray-600">Market trend analysis, customer behavior prediction, and revenue forecasting</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <div class="bg-purple-100 rounded-full p-2 mt-1 mr-4">
-                                    <i class="fas fa-cogs text-purple-600"></i>
-                                </div>
-                                <div>
-                                    <p class="font-semibold text-gray-800">Process Optimization</p>
-                                    <p class="text-gray-600">Workflow analysis, bottleneck identification, and automated solution implementation</p>
-                                </div>
-                            </li>
-                        </ul>
+                
+                <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600 font-medium">AI Real Estate</span>
                     </div>
-                    <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'd%20like%20to%20explore%20AI%20automation%20for%20my%20business." target="_blank" 
-                       class="cta-button inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg">
-                        <i class="fas fa-robot mr-2"></i> Automate My Business
-                    </a>
+                    <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
+                        "The AI real estate analysis helped me identify a multi-family deal that generates $4,200 monthly cash flow. The automated screening saved me from several bad investments too."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="mr-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-3366cc font-bold">MT</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-bold">Michael T.</p>
+                            <p class="text-sm text-gray-600">Real Estate Investor</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600 font-medium">AI Funding</span>
+                    </div>
+                    <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
+                        "The AI funding system matched me with the perfect lender and automated the entire application process. Secured $250K in working capital in just 48 hours."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="mr-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-3366cc font-bold">SB</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-bold">Sarah B.</p>
+                            <p class="text-sm text-gray-600">SaaS Company Founder</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Funding Solutions Section -->
-    <section id="funding" class="py-24">
+    <!-- Stats Section -->
+    <section class="py-24 animated-bg">
         <div class="container px-4 mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-800 mb-6">Business Funding & Capital Solutions</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Access working capital, commercial real estate financing, and alternative funding solutions to fuel your business growth and investment opportunities.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
-                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-handshake text-white text-2xl"></i>
+            <div class="text-center text-white">
+                <h2 class="text-4xl font-bold mb-16">Proven AI-Powered Results</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="stats-counter mb-4">150+</div>
+                        <p class="text-xl font-medium">AI Systems Deployed</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Working Capital</h3>
-                    <p class="text-gray-600 mb-6">
-                        Fast access to business funding for operations, inventory, payroll, and growth initiatives.
-                    </p>
-                    <ul class="text-gray-600 space-y-2 text-left">
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>$10K - $5M funding range</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>24-48 hour approval</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Flexible repayment terms</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
-                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-building text-white text-2xl"></i>
+                    <div class="text-center">
+                        <div class="stats-counter mb-4">$12M+</div>
+                        <p class="text-xl font-medium">Revenue Generated</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Commercial Real Estate</h3>
-                    <p class="text-gray-600 mb-6">
-                        Financing solutions for commercial property acquisition, refinancing, and development projects.
-                    </p>
-                    <ul class="text-gray-600 space-y-2 text-left">
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Purchase & refinance loans</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Construction financing</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Bridge & hard money loans</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
-                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-chart-pie text-white text-2xl"></i>
+                    <div class="text-center">
+                        <div class="stats-counter mb-4">85%</div>
+                        <p class="text-xl font-medium">Client Retention Rate</p>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Alternative Financing</h3>
-                    <p class="text-gray-600 mb-6">
-                        Creative funding solutions for unique situations, including revenue-based financing and equity partnerships.
-                    </p>
-                    <ul class="text-gray-600 space-y-2 text-left">
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Revenue-based financing</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Equipment financing</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check text-green-500 mr-2"></i>
-                            <span>Merchant cash advances</span>
-                        </li>
-                    </ul>
+                    <div class="text-center">
+                        <div class="stats-counter mb-4">30+</div>
+                        <p class="text-xl font-medium">Countries Served</p>
+                    </div>
                 </div>
             </div>
-            
-            <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 text-center text-white">
-                <h3 class="text-2xl font-bold mb-4">Need Funding for Your Next Project?</h3>
-                <p class="text-xl mb-6 opacity-90">
-                    Let's discuss your funding needs and find the right solution for your business or investment goals.
-                </p>
-                <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'd%20like%20to%20discuss%20funding%20options%20for%20my%20business." target="_blank" 
-                   class="inline-block bg-white text-blue-600 font-semibold px-8 py-4 rounded-lg text-lg hover:bg-gray-100 transition-colors">
-                    <i class="fas fa-comments mr-2"></i> Discuss Funding Options
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="py-24 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <div class="container px-4 mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Ready to Build Your AI-Powered Income System?</h2>
+            <p class="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
+                Start with Tier 1 core automation, then scale to AI-powered wealth building. Your journey to financial freedom starts with one WhatsApp message.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20ready%20to%20start%20with%20Tier%201%20AI%20systems." target="_blank" 
+                   class="bg-white text-blue-600 font-semibold px-8 py-4 rounded-lg text-lg hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-rocket mr-2"></i> Start Tier 1 Now ($5K-15K)
+                </a>
+                <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I%20want%20to%20learn%20about%20the%20complete%20system." target="_blank" 
+                   class="glass-effect border-2 border-white text-white font-semibold px-8 py-4 rounded-lg text-lg hover:bg-white hover:text-blue-600 transition-all">
+                    <i class="fas fa-comments mr-2"></i> Free Consultation
                 </a>
             </div>
         </div>
     </section>
 
-<!-- Testimonials Section -->
-<section id="testimonials" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-    <div class="container px-4 mx-auto">
-        <div class="text-center mb-20">
-            <h2 class="text-4xl font-bold text-gray-800 mb-6">Real Results from Real Clients</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                See how professionals across industries have transformed their businesses and built sustainable income systems.
-            </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                <div class="flex items-center mb-6">
-                    <div class="text-yellow-400 flex">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <span class="ml-2 text-gray-600 font-medium">AI Automation</span>
-                </div>
-                <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
-                    "The AI workflow system generates consistent leads while I sleep. What used to take 20 hours a week now runs on autopilot, and my conversion rates improved by 35%."
-                </p>
-                <div class="flex items-center">
-                    <div class="mr-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-3366cc font-bold">CZ</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="font-bold">Christina Z.</p>
-                        <p class="text-sm text-gray-600">Digital Marketing Agency Owner</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                <div class="flex items-center mb-6">
-                    <div class="text-yellow-400 flex">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <span class="ml-2 text-gray-600 font-medium">Real Estate</span>
-                </div>
-                <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
-                    "This data-driven real estate analysis helped me identify a multi-family deal that generates $4,200 monthly cash flow. The approach saved me from several bad investments too."
-                </p>
-                <div class="flex items-center">
-                    <div class="mr-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-3366cc font-bold">MT</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="font-bold">Michael T.</p>
-                        <p class="text-sm text-gray-600">Real Estate Investor</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                <div class="flex items-center mb-6">
-                    <div class="text-yellow-400 flex">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <span class="ml-2 text-gray-600 font-medium">Business Funding</span>
-                </div>
-                <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
-                    "Secured $250K in working capital for our expansion in just 48 hours. The funding connections and expertise made the impossible possible."
-                </p>
-                <div class="flex items-center">
-                    <div class="mr-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-3366cc font-bold">SB</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="font-bold">Sarah B.</p>
-                        <p class="text-sm text-gray-600">SaaS Company Founder</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                <div class="flex items-center mb-6">
-                    <div class="text-yellow-400 flex">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <span class="ml-2 text-gray-600 font-medium">Income Systems</span>
-                </div>
-                <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
-                    "The income system architecture helped me diversify revenue streams across three countries while reducing my workload by 40%. True location independence achieved."
-                </p>
-                <div class="flex items-center">
-                    <div class="mr-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-3366cc font-bold">DK</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="font-bold">David K.</p>
-                        <p class="text-sm text-gray-600">Digital Nomad Entrepreneur</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                <div class="flex items-center mb-6">
-                    <div class="text-yellow-400 flex">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <span class="ml-2 text-gray-600 font-medium">Content Systems</span>
-                </div>
-                <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
-                    "Our UGC strategy completely transformed content creation. We now generate 10x more engagement with half the effort through systematic optimization."
-                </p>
-                <div class="flex items-center">
-                    <div class="mr-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-3366cc font-bold">LM</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="font-bold">Lisa M.</p>
-                        <p class="text-sm text-gray-600">Content Creator & Influencer</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                <div class="flex items-center mb-6">
-                    <div class="text-yellow-400 flex">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <span class="ml-2 text-gray-600 font-medium">Business Analysis</span>
-                </div>
-                <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
-                    "A comprehensive business analysis revealed inefficiencies costing us $50K annually. The optimization strategies increased our profit margins by 28% within months."
-                </p>
-                <div class="flex items-center">
-                    <div class="mr-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span class="text-3366cc font-bold">JR</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="font-bold">James R.</p>
-                        <p class="text-sm text-gray-600">Manufacturing Company CEO</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- CTA Section -->
-    <section class="py-24 bg-3366cc relative overflow-hidden">
-        <div class="absolute inset-0 animated-bg opacity-20"></div>
-        <div class="container px-4 mx-auto relative z-10">
-            <div class="text-center">
-                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to Build Your Unstoppable Income System?</h2>
-                <p class="text-xl text-white opacity-95 mb-10 max-w-3xl mx-auto leading-relaxed">
-                    Whether you need AI automation, real estate analysis, business funding, or complete income system architecture - let's create a custom strategy that works for your unique situation and goals.
-                </p>
-                <div class="flex flex-wrap justify-center gap-6">
-                    <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20ready%20to%20build%20unstoppable%20income%20systems." target="_blank" 
-                       class="inline-block bg-white text-3366cc font-bold px-10 py-5 rounded-lg text-xl shadow-2xl hover:bg-gray-100 transition-all transform hover:scale-105">
-                        <i class="fab fa-whatsapp mr-3"></i> Start Building Now
-                    </a>
-                    <a href="#contact" class="glass-effect inline-block text-white font-bold px-10 py-5 rounded-lg text-xl hover:bg-white hover:text-3366cc transition-all">
-                        <i class="fas fa-calendar mr-3"></i> Schedule Strategy Call
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24">
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
         <div class="container px-4 mx-auto">
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-full lg:w-1/2 px-4 mb-12 lg:mb-0">
-                    <h2 class="section-heading text-4xl font-bold text-gray-800 mb-8">Let's Build Something Extraordinary</h2>
-                    <p class="text-gray-600 mb-8 text-lg leading-relaxed">
-                        Whether you're looking to optimize an existing business, analyze real estate deals, secure funding, or build a new income system from scratch - I'm here to help you create sustainable, location-independent success.
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-2">
+                    <div class="text-2xl font-bold mb-4">
+                        <span class="text-blue-400">Roland</span> Craeye
+                    </div>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Global Systems Architect specializing in AI automation, income system design, AI-powered real estate investment, and intelligent funding solutions. Building the post-employment economy one AI system at a time.
                     </p>
-                    
-                    <div class="space-y-6 mb-10">
-                        <div class="flex items-center p-4 bg-white rounded-xl shadow-lg">
-                            <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mr-6">
-                                <i class="fab fa-whatsapp text-green-600 text-xl"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold text-lg">WhatsApp (Preferred)</p>
-                                <a href="https://wa.me/15127313529" class="text-3366cc hover:underline text-lg">+1 (512) 731-3529</a>
-                            </div>
-                        </div>
-                        <div class="flex items-center p-4 bg-white rounded-xl shadow-lg">
-                            <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mr-6">
-                                <i class="fab fa-linkedin-in text-blue-600 text-xl"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold text-lg">LinkedIn</p>
-                                <a href="https://www.linkedin.com/in/rolandcraeye/" target="_blank" class="text-3366cc hover:underline">linkedin.com/in/rolandcraeye</a>
-                            </div>
-                        </div>
+                    <div class="flex space-x-4">
+                        <a href="https://wa.me/15127313529" target="_blank" class="text-gray-400 hover:text-green-400 transition-colors">
+                            <i class="fab fa-whatsapp text-2xl"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/rolandcraeye" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">AI-Powered Services</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#core-services" class="hover:text-white transition-colors">Tier 1: Core AI Systems</a></li>
+                        <li><a href="#wealth-building" class="hover:text-white transition-colors">Tier 2: AI Wealth Building</a></li>
+                        <li><a href="#macrosweep" class="hover:text-white transition-colors">MacroSweep Reflex™</a></li>
+                        <li><a href="#start-here" class="hover:text-white transition-colors">Start Here</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Roland Craeye | Global Operator Systems. All rights reserved.</p>
+                <p class="mt-2">Building unstoppable AI-powered income systems across borders.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="floating-whatsapp">
+        <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20interested%20in%20your%20AI-powered%20services." target="_blank" 
+           class="bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all hover:scale-110">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-white', 'shadow-lg');
+            } else {
+                nav.classList.remove('bg-white', 'shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
