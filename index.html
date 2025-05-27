@@ -823,14 +823,15 @@
         });
 
         // Add scroll effect to navigation
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.classList.add('bg-white', 'shadow-lg');
-            } else {
-                nav.classList.remove('bg-white', 'shadow-lg');
-            }
-        });
+        // Add scroll effect to navigation
+window.addEventListener('scroll', function() {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 100) {
+        nav.classList.add('shadow-xl');
+    } else {
+        nav.classList.remove('shadow-xl');
+    }
+});
     </script>
 </body>
 </html>
