@@ -355,6 +355,27 @@
     box-shadow: 0 10px 25px rgba(0, 255, 136, 0.4);
     background: linear-gradient(135deg, #00aaff 0%, #00ff88 100%);
 }
+
+        /* CSS for responsive video embedding */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio (height / width = 9 / 16 = 0.5625) */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000; /* Fallback background for loading */
+    border-radius: 8px; /* Consistent with your website's rounded corners */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0; /* Ensures no default iframe border */
+    border-radius: 8px; /* Match container rounding */
+}
     </style>
 </head>
 <body class="bg-gray-50">
@@ -511,6 +532,16 @@
                 </div>
             </div>
         </div>
+        <!-- Responsive Video Embed Code -->
+<div class="video-container">
+    <iframe
+        src="https://www.youtube.com/embed/IU56oX0x2L4?modestbranding=1&amp;rel=0"
+        title="YouTube video player"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+    </iframe>
+</div>
         <div class="toolkit-cta">
     <p class="cta-text">These systems are currently deployed with select clients.</p>
     <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I%20want%20early%20access%20to%20your%20AI%20toolkits.%20Can%20we%20discuss%20implementation?" class="cta-button-toolkit">
