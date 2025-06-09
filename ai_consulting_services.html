@@ -96,18 +96,21 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 5rem; /* Increased gap for more separation */
         }
 
         .nav-links a {
             text-decoration: none;
             color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
-            transition: all 0.3s;
+            transition: all 0.3s ease; /* Unified transition */
             padding: 0.5rem 1rem;
             border-radius: 25px;
             position: relative;
             overflow: hidden;
+            transform: translateZ(0); /* Force hardware acceleration */
+            z-index: 1; /* Ensure proper layering */
+            will-change: transform, color, background, box-shadow; /* Hint to browser for optimization */
         }
 
         .nav-links a::before {
@@ -118,7 +121,8 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s;
+            transition: left 0.5s ease; /* Explicit transition for before element */
+            z-index: -1; /* Ensure it stays behind the text */
         }
 
         .nav-links a:hover::before {
@@ -129,6 +133,7 @@
             color: #667eea;
             background: rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transform: translateZ(0); /* Keep consistency */
         }
 
         /* Hero Section Styles */
@@ -208,12 +213,14 @@
             border-radius: 50px;
             font-weight: bold;
             font-size: 1.2rem;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* More explicit transition */
             box-shadow: 
                 0 10px 30px rgba(102, 126, 234, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
+            transform: translateZ(0); /* Force hardware acceleration */
+            will-change: transform, box-shadow; /* Hint to browser for optimization */
         }
 
         .cta-button::before {
@@ -224,7 +231,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: left 0.5s ease;
         }
 
         .cta-button:hover::before {
@@ -232,7 +239,7 @@
         }
 
         .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-5px) scale(1.05) translateZ(0); /* Keep consistency */
             box-shadow: 
                 0 20px 40px rgba(102, 126, 234, 0.6),
                 inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -310,7 +317,9 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* More explicit transition */
+            transform: translateZ(0); /* Force hardware acceleration */
+            will-change: transform, box-shadow; /* Hint to browser for optimization */
         }
 
         .challenge-card::before {
@@ -324,7 +333,7 @@
         }
 
         .challenge-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-10px) scale(1.02) translateZ(0); /* Keep consistency */
             box-shadow: 
                 0 20px 40px rgba(102, 126, 234, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -354,10 +363,9 @@
             border-radius: 20px;
             position: relative;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* More explicit transition */
+            transform: translateZ(0); /* Force hardware acceleration */
+            will-change: transform, box-shadow; /* Hint to browser for optimization */
         }
 
         .solution-item::before {
@@ -371,7 +379,7 @@
         }
 
         .solution-item:hover {
-            transform: translateY(-8px);
+            transform: translateY(-8px) translateZ(0); /* Keep consistency */
             box-shadow: 
                 0 20px 40px rgba(102, 126, 234, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -418,6 +426,8 @@
             box-shadow: 
                 0 15px 35px rgba(0, 0, 0, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: translateZ(0); /* Force hardware acceleration */
+            will-change: transform, box-shadow; /* Hint to browser for optimization */
         }
 
         .success-story h3 {
@@ -455,13 +465,15 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 1.5rem;
             border-radius: 15px;
-            min-width: 120px;
-            transition: all 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s; /* More explicit transition */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+            transform: translateZ(0); /* Force hardware acceleration */
+            will-change: transform, box-shadow; /* Hint to browser for optimization */
         }
 
         .stat:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) translateZ(0); /* Keep consistency */
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
 
@@ -487,6 +499,8 @@
             margin: 2rem auto; /* Added auto margin for centering */
             max-width: 1200px; /* Constrain width to container */
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateZ(0); /* Force hardware acceleration */
+            will-change: transform, box-shadow; /* Hint to browser for optimization */
         }
 
         .contact-info {
@@ -506,10 +520,12 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 1rem 2rem; /* Adjusted padding */
             border-radius: 50px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* More explicit transition */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            transform: translateZ(0); /* Force hardware acceleration */
+            will-change: transform, box-shadow; /* Hint to browser for optimization */
         }
 
         .contact-item::before {
@@ -520,7 +536,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s;
+            transition: left 0.5s ease;
         }
 
         .contact-item:hover::before {
@@ -528,7 +544,7 @@
         }
 
         .contact-item:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-5px) scale(1.05) translateZ(0); /* Keep consistency */
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Adjusted shadow on hover */
         }
 
