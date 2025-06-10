@@ -38,6 +38,8 @@
                 linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
             z-index: -1;
             animation: backgroundShift 20s ease infinite;
+            transform: translateZ(0); /* Force hardware acceleration for background */
+            will-change: background; /* Hint to browser for optimization */
         }
 
         @keyframes backgroundShift {
@@ -97,20 +99,22 @@
             display: flex;
             list-style: none;
             gap: 5rem; /* Increased gap for more separation */
+            transform: translateZ(0); /* Promote container to GPU layer */
         }
 
         .nav-links a {
             text-decoration: none;
             color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
-            transition: all 0.3s ease; /* Unified transition */
+            /* Simplified transition: removed box-shadow */
+            transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease; 
             padding: 0.5rem 1rem;
             border-radius: 25px;
             position: relative;
             overflow: hidden;
             transform: translateZ(0); /* Force hardware acceleration */
             z-index: 1; /* Ensure proper layering */
-            will-change: transform, color, background, box-shadow; /* Hint to browser for optimization */
+            will-change: transform, color, background; /* Hint to browser for optimization */
         }
 
         .nav-links a::before {
@@ -123,6 +127,7 @@
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
             transition: left 0.5s ease; /* Explicit transition for before element */
             z-index: -1; /* Ensure it stays behind the text */
+            transform: translateZ(0); /* Force hardware acceleration for pseudo-element */
         }
 
         .nav-links a:hover::before {
@@ -132,7 +137,7 @@
         .nav-links a:hover {
             color: #667eea;
             background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            /* Removed box-shadow on hover for nav links */
             transform: translateZ(0); /* Keep consistency */
         }
 
@@ -165,6 +170,8 @@
                     transparent 360deg);
             animation: rotate 20s linear infinite;
             z-index: -1;
+            transform: translateZ(0); /* Force hardware acceleration */
+            will-change: transform, background; /* Hint to browser for optimization */
         }
 
         @keyframes rotate {
@@ -232,6 +239,7 @@
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s ease;
+            transform: translateZ(0); /* Force hardware acceleration for pseudo-element */
         }
 
         .cta-button:hover::before {
@@ -257,6 +265,7 @@
             overflow: hidden;
             margin-bottom: 3rem;
             position: relative;
+            transform: translateZ(0); /* Force hardware acceleration */
         }
 
         .main-content::before {
@@ -272,6 +281,7 @@
         .content-section {
             padding: 4rem;
             color: rgba(255, 255, 255, 0.9);
+            transform: translateZ(0); /* Force hardware acceleration */
         }
 
         .content-section:nth-child(even) {
