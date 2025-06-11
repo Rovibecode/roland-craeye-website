@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI Second Brain - Own Your Digital Intelligence</title>
+    <!-- Font Import: Inter from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* General Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            /* Added for smooth scroll offset with fixed header */
+            scroll-padding-top: 90px; 
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7; /* Slightly increased for readability */
+            color: #e0e0e0; /* Default text color for dark background */
+            background: linear-gradient(135deg, #0f0f1c 0%, #030308 100%); /* Deep dark background */
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll from overflow */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px; /* Slightly increased padding */
+        }
+
+        .section {
+            padding: 100px 0; /* Increased section padding */
+        }
+
+        .section-alt {
+            background: #1a1a2e; /* Slightly lighter dark background for alternating sections */
+            box-shadow: inset 0 5px 20px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 20, 0.6); /* Translucent dark initial background */
+            backdrop-filter: blur(25px); /* Increased blur */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: background 0.3s ease, border-bottom 0.3s ease; /* Added transition */
+        }
+
+        header.scrolled { /* Class added by JS on scroll */
+            background: rgba(25, 25, 40, 0.95); /* Slightly brighter dark when scrolled */
+            border-bottom: 1px solid rgba(200, 200, 200, 0.05); /* Very subtle border */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 26px; /* Slightly larger logo */
+            font-weight: 800; /* Bolder logo */
+            color: white; /* Initial logo color */
+            text-decoration: none;
+            display: flex; /* For better icon alignment */
+            align-items: center;
+            gap: 8px; /* Space between brain icon and text */
+        }
+
+        .logo-icon {
+            font-size: 28px; /* Size for the brain emoji icon */
+            line-height: 1; /* Adjust line height for icon */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px; /* Increased gap */
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white; /* Initial nav link color */
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 5px 0; /* Add padding for click area */
+        }
+
+        .nav-links a:hover {
+            color: #64ffda;
+        }
+
+        /* Nav links color when header is scrolled */
+        header.scrolled .nav-links a {
+            color: #64ffda; /* Accent color on hover when scrolled */
+        }
+        header.scrolled .nav-links a:hover {
+            color: #00bcd4; /* Brighter accent on hover when scrolled */
+        }
+        
+        /* Hamburger Menu */
+        .hamburger-menu {
+            display: none; /* Hidden by default, shown on mobile */
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            cursor: pointer;
+            z-index: 1001; /* Above mobile nav itself */
+        }
+
+        .hamburger-menu div {
+            width: 100%;
+            height: 3px;
+            background-color: white; /* Initial hamburger color */
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+            transform-origin: 1px;
+        }
+
+        header.scrolled .hamburger-menu div {
+            background-color: #64ffda; /* Darken lines when scrolled */
+        }
+
+        .hamburger-menu.open div:nth-child(1) {
+            transform: rotate(45deg);
+        }
+
+        .hamburger-menu.open div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.open div:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+        .mobile-nav {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0f1c 0%, #030308 100%); /* Full dark gradient */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            z-index: 999;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+
+        .mobile-nav.open {
+            display: flex;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mobile-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            color: #64ffda;
+        }
+
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 120px; /* More generous padding */
+            text-align: center;
+            color: white;
+            background: linear-gradient(135deg, #0f0f1c 0%, #030308 100%); /* Ensure hero section has the deep dark background */
+        }
+
+        .hero h1 {
+            font-size: 4.2rem; /* Larger hero title */
+            font-weight: 800;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ffffff 0%, #64ffda 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.6rem; /* Larger subtitle */
+            margin-bottom: 50px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300; /* Lighter weight for subtitle */
+        }
+
+        /* Replaced video-placeholder with a summary block */
+        .hero-summary-block {
+            width: 100%;
+            max-width: 900px; /* Consistent with previous video placeholder size */
+            background: rgba(20, 20, 35, 0.6); /* Slightly lighter translucent dark */
+            border-radius: 20px;
+            margin: 50px auto;
+            padding: 50px 40px; /* More padding for text */
+            border: 2px solid rgba(100, 255, 218, 0.2); /* Subtle accent border */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); /* More prominent shadow for pop */
+            text-align: center;
+            color: white;
+            opacity: 0.95;
+        }
+
+        .hero-summary-block h3 {
+            font-size: 2.2rem; /* Impactful headline */
+            margin-bottom: 25px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #64ffda; /* Highlight headline */
+        }
+
+        .hero-summary-block p {
+            font-size: 1.3rem; /* Readable body text */
+            line-height: 1.6;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+
+        .cta-primary {
+            background: linear-gradient(135deg, #64ffda 0%, #00bcd4 100%);
+            color: #1a1a1a;
+            padding: 20px 45px; /* More padding for button */
+            font-size: 1.3rem; /* Larger font */
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 25px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 35px rgba(100, 255, 218, 0.4); /* Stronger shadow */
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-5px); /* More pronounced lift */
+            box-shadow: 0 18px 45px rgba(100, 255, 218, 0.6); /* Even stronger shadow on hover */
+        }
+
+        .cta-sub-text {
+            margin-top: 15px; 
+            opacity: 0.9;
+            font-size: 0.95rem; /* Slightly larger than before */
+            color: #b0b0b0; /* Lighter color for sub-text on dark */
+        }
+
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 50px; /* Increased gap */
+            margin-top: 60px; /* More space below CTA */
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Increased gap */
+            color: white;
+            font-weight: 600; /* Bolder text */
+            font-size: 1.1rem; /* Slightly larger text */
+        }
+
+        .trust-icon {
+            width: 30px; /* Larger icon container */
+            height: 30px;
+            background: linear-gradient(45deg, #64ffda, #00bcd4); /* Gradient background */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px; /* Size for placeholder emoji/SVG */
+            color: #1a1a1a;
+        }
+
+        /* Problem Section */
+        .problem h2 {
+            font-size: 3rem; /* Larger heading */
+            text-align: center;
+            margin-bottom: 70px;
+            color: white; /* Headings in this section should be white */
+        }
+
+        .problem-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+        }
+        
+        .problem-image {
+            flex: 1;
+            min-width: 300px; /* Ensures image doesn't get too small */
+            text-align: center;
+        }
+
+        .problem-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3); /* Stronger shadow for image */
+        }
+
+        .pain-points {
+            flex: 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Slightly adjusted min width */
+            gap: 30px;
+            padding-left: 20px; /* Align with image on larger screens */
+        }
+
+        .pain-point {
+            background: rgba(40, 40, 60, 0.7); /* Dark, translucent card */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+            border-left: 5px solid #ff6b6b; /* Red border */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            color: #e0e0e0; /* Light text for dark card */
+        }
+        
+        .pain-point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); /* More prominent shadow on hover */
+        }
+
+        .pain-point h3 {
+            color: #ff6b6b; /* Red for problem points */
+            margin-bottom: 15px;
+            font-size: 1.3rem; /* Slightly larger heading */
+            font-weight: 700;
+        }
+
+        /* Solution Section */
+        .solution h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 70px;
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted for better flow */
+            gap: 35px; /* Increased gap */
+        }
+
+        .feature {
+            background: rgba(40, 40, 60, 0.7); /* Dark, translucent card */
+            padding: 35px; /* Increased padding */
+            border-radius: 18px; /* Slightly more rounded */
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(100, 255, 218, 0.2); /* Subtle accent border */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            color: #e0e0e0; /* Light text for dark card */
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-icon {
+            width: 65px; /* Larger icon container */
+            height: 65px;
+            background: linear-gradient(45deg, #64ffda, #00bcd4); /* Vibrant gradient */
+            border-radius: 18px; /* Consistent with card radius */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px; /* More space below icon */
+            font-size: 30px; /* Larger icon size */
+            color: #1a1a1a; /* Dark text on vibrant icon */
+        }
+
+        .feature h3 {
+            font-size: 1.4rem; /* Larger heading */
+            margin-bottom: 18px;
+            font-weight: 700;
+            color: white; /* White heading */
+        }
+
+        /* How It Works */
+        .how-it-works h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 70px;
+            color: white; /* Heading should be white */
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Corrected minmod to minmax */
+            gap: 40px;
+            position: relative; /* For arrows */
+        }
+
+        /* Step Arrows for Desktop */
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(100, 255, 218, 0.5); /* Lighter arrow line */
+            z-index: 0;
+            transform: translateY(-50%);
+            display: block; /* Shown by default on larger screens */
+            width: calc(100% - 80px); /* Adjust width to fit within container and avoid overlapping steps */
+            left: 40px;
+        }
+        
+        /* Individual arrow heads */
+        .step {
+            position: relative; /* Ensure z-index works correctly */
+            z-index: 1; /* Ensure step content is above arrows */
+        }
+        
+        .step:not(:last-child)::after {
+            content: '→'; /* Arrow character */
+            position: absolute;
+            right: -20px; /* Position between steps */
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: #64ffda;
+            z-index: 1;
+            display: block; /* Shown by default on larger screens */
+        }
+        
+        @media (max-width: 992px) { /* Hide arrows on medium/small screens */
+            .steps::before, .step:not(:last-child)::after {
+                display: none; 
+            }
+        }
+
+
+        .step {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(40, 40, 60, 0.7); /* Dark, translucent card */
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative; /* For arrows */
+            z-index: 1; /* Ensure step content is above arrows */
+            color: #e0e0e0; /* Light text */
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #64ffda 0%, #00bcd4 100%); /* Vibrant gradient */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem; /* Larger number */
+            font-weight: 700;
+            color: #1a1a1a; /* Dark text on vibrant number */
+            margin: 0 auto 25px; /* More space below number */
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.5);
+        }
+
+        .step h3 {
+            font-size: 1.5rem; /* Larger heading */
+            margin-bottom: 15px;
+            color: white; /* White heading */
+            font-weight: 700;
+        }
+
+        /* Investment Callout Section */
+        .investment-callout {
+            background: #101025; /* Distinct deep dark background */
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            color: white; /* White text */
+            padding: 80px 0;
+        }
+
+        .investment-callout h2 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: #764ba2; /* Use a darker accent from the gradient */
+        }
+
+        .investment-callout p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .investment-callout ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto 40px;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .investment-callout ul li {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+            color: #e0e0e0; /* Light grey text */
+        }
+
+        .investment-callout ul li::before {
+            content: '✓'; /* Checkmark icon */
+            position: absolute;
+            left: 0;
+            color: #64ffda; /* Accent color */
+            font-size: 1.5rem;
+            line-height: 1;
+            top: 0;
+        }
+
+
+        /* Early Access */
+        .early-access {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a1a 100%); /* Retain dark gradient but specific for this section */
+            color: white;
+            text-align: center;
+        }
+
+        .early-access h2 {
+            font-size: 3rem;
+            margin-bottom: 50px; /* More space below heading */
+        }
+
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted min-width */
+            gap: 35px; /* Increased gap */
+            margin-bottom: 60px; /* More space below list */
+        }
+
+        .benefit {
+            background: rgba(40, 40, 60, 0.7); /* Dark, translucent card */
+            padding: 30px; /* Increased padding */
+            border-radius: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.15); /* Subtle border */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease, background 0.2s ease;
+            color: #e0e0e0; /* Light text */
+        }
+        
+        .benefit:hover {
+            transform: translateY(-5px);
+            background: rgba(60, 60, 90, 0.8); /* Slightly lighter on hover */
+        }
+
+        .benefit h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: #64ffda; /* Highlight benefit titles */
+        }
+        
+        .testimonial-box {
+            background: rgba(20, 20, 35, 0.7); /* Darker, more prominent */
+            padding: 40px; /* More padding */
+            border-radius: 18px; /* More rounded */
+            margin: 50px auto; /* Centered with more margin */
+            max-width: 800px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); /* Stronger shadow */
+            border: 1px solid rgba(100,255,218,0.2);
+            color: white;
+        }
+
+        .testimonial-box p {
+            font-style: italic; 
+            font-size: 1.4rem; /* Larger quote */
+            margin-bottom: 20px;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .testimonial-box small {
+            font-size: 1rem; /* Slightly larger attribution */
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .cta-secure-text {
+            margin-top: 25px; /* More space below CTA */
+            opacity: 0.85;
+            font-size: 0.95rem;
+            display: flex; /* For icon alignment */
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            color: #b0b0b0; /* Lighter color for sub-text on dark */
+        }
+        .cta-secure-text span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* FAQ */
+        .faq h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 70px;
+            color: white; /* Heading should be white */
+        }
+
+        .faq-list {
+            max-width: 900px; /* Constrain FAQ width */
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: rgba(40, 40, 60, 0.7); /* Dark, translucent card */
+            margin-bottom: 20px; /* More space between items */
+            border-radius: 12px; /* Slightly more rounded */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+            overflow: hidden;
+            border: 1px solid rgba(100, 255, 218, 0.1); /* Subtle border */
+        }
+
+        .faq-question {
+            padding: 25px 30px; /* More padding */
+            background: rgba(50, 50, 70, 0.8); /* Slightly lighter background for question */
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.15rem; /* Larger question font */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+            color: white; /* White question text */
+        }
+
+        .faq-question:hover {
+            background: rgba(60, 60, 80, 0.9); /* Subtle hover effect */
+        }
+
+        .faq-answer {
+            padding: 0 30px; /* Consistent padding */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Adjusted transition */
+            color: #b0b0b0; /* Lighter text for answer */
+        }
+
+        .faq-answer.active {
+            padding: 25px 30px; /* Padding when active */
+        }
+
+        .faq-toggle {
+            font-size: 1.8rem; /* Larger toggle */
+            transition: transform 0.3s ease;
+            color: #64ffda; /* Accent color for toggle */
+        }
+
+        .faq-toggle.active {
+            transform: rotate(45deg);
+            color: #ff6b6b; /* Red on active */
+        }
+        
+        .faq-contact-text {
+            text-align: center; 
+            margin-top: 50px; /* More space below FAQ */
+            font-size: 1.1rem;
+            color: #e0e0e0;
+        }
+        .faq-contact-text a {
+            color: #64ffda; /* Accent color for link */
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .faq-contact-text a:hover {
+            color: #00bcd4; /* Brighter accent on hover */
+        }
+
+        /* Footer */
+        footer {
+            background: #0d0d1a; /* Even darker footer background */
+            color: rgba(255, 255, 255, 0.75); /* Lighter text */
+            padding: 50px 0; /* More padding */
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 35px; /* Increased gap */
+            margin-bottom: 25px; /* More space */
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #64ffda;
+        }
+        
+        .footer-logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            .hero-summary-block {
+                padding: 40px 30px;
+            }
+            .hero-summary-block h3 {
+                font-size: 1.8rem;
+            }
+            .hero-summary-block p {
+                font-size: 1.1rem;
+            }
+            .problem-content {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .pain-points {
+                padding-left: 0;
+            }
+            /* Arrows are hidden by default at this breakpoint, as set in general media query */
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 20px;
+            }
+            .logo-icon {
+                font-size: 24px;
+            }
+            .nav-links {
+                display: none; /* Hide desktop nav */
+            }
+            .hamburger-menu {
+                display: flex; /* Show hamburger */
+            }
+            .hero {
+                padding: 120px 0 80px;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+                margin-bottom: 20px;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 30px;
+            }
+            .hero-summary-block {
+                padding: 30px 20px;
+                margin: 30px auto;
+            }
+            .hero-summary-block h3 {
+                font-size: 1.5rem;
+            }
+            .hero-summary-block p {
+                font-size: 1rem;
+            }
+            .cta-primary {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+            .section {
+                padding: 60px 0;
+            }
+            h2 { /* Apply to all section headings */
+                font-size: 2rem !important; /* Force smaller size for all h2 */
+            }
+            .pain-point, .feature, .benefit, .faq-item {
+                padding: 25px;
+            }
+            .pain-point h3, .feature h3, .benefit h3 {
+                font-size: 1.1rem;
+            }
+            .step-number {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+            .step h3 {
+                font-size: 1.2rem;
+            }
+            .testimonial-box p {
+                font-size: 1.1rem;
+            }
+            .trust-indicators, .footer-links {
+                gap: 20px;
+            }
+            .trust-item {
+                font-size: 0.95rem;
+            }
+            .trust-icon {
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            .hero-summary-block {
+                padding: 20px 15px;
+            }
+            .hero-summary-block h3 {
+                font-size: 1.2rem;
+            }
+            .hero-summary-block p {
+                font-size: 0.9rem;
+            }
+            .cta-primary {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            .trust-indicators {
+                flex-direction: column;
+            }
+            .pain-points {
+                grid-template-columns: 1fr;
+            }
+            .benefits-list {
+                grid-template-columns: 1fr;
+            }
+            .testimonial-box {
+                padding: 25px;
+            }
+            .testimonial-box p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="https://www.rolandcraeye.com" class="logo">
+                    <i class="fas fa-brain logo-icon" aria-hidden="true"></i> AI Second Brain
+                </a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="hamburger-menu" aria-label="Toggle navigation menu">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <a href="[YOUR_STRIPE_CHECKOUT_LINK]" class="cta-primary-mobile">Pre-Order Now</a> <!-- Mobile specific CTA -->
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Own Your Digital Intelligence</h1>
+                <p class="hero-subtitle">Your Private, Self-Hosted AI Assistant for Ultimate Productivity & Recall</p>
+                
+                <!-- Replaced Video Placeholder with Static Summary Block -->
+                <div class="hero-summary-block">
+                    <h3>Unlock Unprecedented Control Over Your Digital Life</h3>
+                    <p>Unlike fragmented cloud tools that harvest your data and charge endless subscriptions, the AI Second Brain lives entirely on your hardware. It unifies *all* your digital inputs – from voice notes and emails to meetings and news – into a single, intelligent memory you truly own. Experience privacy by design and automated workflows that adapt to your unique needs, for a one-time purchase.</p>
+                </div>
+
+                <a href="[YOUR_STRIPE_CHECKOUT_LINK]" class="cta-primary">Get Early Access & Pre-Order</a>
+                <p class="cta-sub-text">Limited Slots Available • Join 100+ Early Adopters</p>
+
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <div class="trust-icon" aria-hidden="true"><i class="fas fa-lock"></i></div>
+                        <span>Private</span>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon" aria-hidden="true"><i class="fas fa-server"></i></div>
+                        <span>Self-Hosted</span>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-icon" aria-hidden="true"><i class="fas fa-sack-dollar"></i></div>
+                        <span>One-Time Cost</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section class="section section-alt problem">
+            <div class="container">
+                <h2>Tired of AI Subscriptions & Data Silos?</h2>
+                <div class="problem-content">
+                    <div class="problem-image">
+                        <img src="https://placehold.co/600x400/D0E0E0/333333?text=Cluttered%20Digital%20Life" alt="Illustration of a cluttered digital workspace or fragmented data">
+                        <p style="margin-top: 20px; font-style: italic; color: #b0b0b0;">Is your digital life a mess?</p>
+                    </div>
+                    <div class="pain-points">
+                        <div class="pain-point">
+                            <h3>Information Overload</h3>
+                            <p>Scattered digital notes, emails, and documents make it impossible to find what you need when you need it.</p>
+                        </div>
+                        <div class="pain-point">
+                            <h3>Privacy Concerns</h3>
+                            <p>Sending sensitive data to cloud AI services puts your confidential information at risk.</p>
+                        </div>
+                        <div class="pain-point">
+                            <h3>Subscription Fatigue</h3>
+                            <p>Monthly AI subscriptions are adding up, costing hundreds or thousands per year.</p>
+                        </div>
+                        <div class="pain-point">
+                            <h3>Fragmented Tools</h3>
+                            <p>AI tools that don't communicate create more silos instead of solving the problem.</p>
+                        </div>
+                        <div class="pain-point">
+                            <h3>Manual Overhead</h3>
+                            <p>Still spending too much time transcribing, summarizing, and setting reminders manually.</p>
+                        </div>
+                         <div class="pain-point">
+                            <h3>Generic AI Outputs</h3>
+                            <p>Cloud AI often lacks the personal context to provide truly relevant, actionable intelligence for your unique workflow.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section class="section solution" id="features">
+            <div class="container">
+                <h2>Reclaim Your Time & Control</h2>
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon" aria-hidden="true"><i class="fas fa-shield-alt"></i></div>
+                        <h3>Private Memory</h3>
+                        <p>Your data, your rules. Everything stored securely on your hardware - never leaves your control.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon" aria-hidden="true"><i class="fas fa-brain"></i></div>
+                        <h3>Automatic Recall</h3>
+                        <p>Ask natural language questions and get instant answers from all your past interactions and documents.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon" aria-hidden="true"><i class="fas fa-bolt"></i></div>
+                        <h3>Smart Automation</h3>
+                        <p>Turn voice notes into tasks, summarize news, schedule events - all automatically based on your patterns.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon" aria-hidden="true"><i class="fas fa-gem"></i></div>
+                        <h3>One-Time Ownership</h3>
+                        <p>Invest once, benefit for life. No recurring costs, no subscription trap.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon" aria-hidden="true"><i class="fas fa-puzzle-piece"></i></div>
+                        <h3>Modular & Extensible</h3>
+                        <p>Customize with Zapier-like automations and add new data connectors easily.</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon" aria-hidden="true"><i class="fas fa-coins"></i></div>
+                        <h3>Cost-Effective</h3>
+                        <p>Runs on low-cost hardware or cheap VPS - truly "dirt cheap" to operate long-term.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="section section-alt how-it-works" id="how-it-works">
+            <div class="container">
+                <h2>Your AI Second Brain in Action</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Ingest</h3>
+                        <p>Connect your digital life - emails, calls, notes, messaging, news feeds, and documents all flow into your AI brain.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Intelligent Processing</h3>
+                        <p>AI transcribes, understands context, and connects the dots across all your data to build your personal knowledge graph.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Act & Recall</h3>
+                        <p>Ask questions, get proactive notifications, or automate tasks via your preferred messaging app or interface.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New: Investment Callout Section -->
+        <section class="section investment-callout">
+            <div class="container">
+                <h2>Your Investment: A Lifetime of Digital Freedom</h2>
+                <p>Forget monthly subscriptions and the constant worry of your data residing on someone else's servers. The AI Second Brain is a **one-time investment** that empowers you with:</p>
+                <ul>
+                    <li><b>Permanent Ownership:</b> Your data, your AI, always.</li>
+                    <li><b>Unmatched Privacy:</b> Everything runs on your hardware, under your control.</li>
+                    <li><b>Endless Scalability:</b> Customize and expand without recurring fees.</li>
+                </ul>
+                <p>A few hours of initial setup unlocks a lifetime of unparalleled productivity and peace of mind.</p>
+            </div>
+        </section>
+
+        <!-- Early Access -->
+        <section class="section early-access" id="preorder">
+            <div class="container">
+                <h2>Be Among the First to Own Your Intelligence</h2>
+                <div class="benefits-list">
+                    <div class="benefit">
+                        <h3><i class="fas fa-tags"></i> Exclusive Pricing</h3>
+                        <p>Save 30% with early access pricing - never to be offered again.</p>
+                    </div>
+                    <div class="benefit">
+                        <h3><i class="fas fa-rocket"></i> Shape the Future</h3>
+                        <p>Direct input on features and roadmap development, influence the next big upgrades.</p>
+                    </div>
+                    <div class="benefit">
+                        <h3><i class="fas fa-headset"></i> Priority Support</h3>
+                        <p>Get started immediately with dedicated technical support and direct access to our team.</p>
+                    </div>
+                    <div class="benefit">
+                        <h3><i class="fas fa-users"></i> Limited Slots</h3>
+                        <p>Exclusive access to ensure a high-quality early experience and personalized attention.</p>
+                    </div>
+                </div>
+                
+                <div class="testimonial-box">
+                    <p>"This is the future of personal productivity! I've saved countless hours and finally feel in control of my information. A truly revolutionary tool."</p>
+                    <small>- Alex R., Consultant & Early Beta Tester</small>
+                </div>
+
+                <a href="[YOUR_STRIPE_CHECKOUT_LINK]" class="cta-primary">Unlock Your Full Potential - Pre-Order Now</a>
+                <div class="cta-secure-text">
+                    <span><i class="fas fa-lock"></i> Secure Checkout</span>
+                    <span><i class="fas fa-shield-alt"></i> Privacy-Focused</span>
+                    <span><i class="fas fa-star"></i> Backed by Years of Expertise</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section section-alt faq" id="faq">
+            <div class="container">
+                <h2>Questions? We've Got Answers.</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What hardware do I need to run it?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The AI Second Brain runs on surprisingly modest hardware. You can use your existing laptop (Windows, macOS, Linux), a Raspberry Pi 4 (4GB+ RAM recommended), or a low-cost cloud VPS (e.g., DigitalOcean, Hetzner, Vultr for $5-10/month). It's designed to be resource-efficient while maintaining powerful capabilities.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How difficult is the setup for a non-developer?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Think of this as <b>building your custom-tailored digital fortress</b>, not just installing another app. We've designed the setup process to be as streamlined as possible, even if you're not a developer. With our clear, step-by-step guides and simplified Docker-based scripts, you can get the <b>core AI Second Brain operational and interacting with your messaging bot in just 2-3 hours.</b> That's your first major win! The primary time investment (typically <b>2-4 hours</b> for most users) is a one-time process for securely connecting <i>your specific personal accounts</i> (like your Telegram bot and Google Calendar/Email). This crucial step ensures <b>your data remains 100% private and under your control.</b> Consider this initial setup as a <b>permanent investment in digital freedom</b>, freeing you from endless subscriptions and fragmented cloud tools. Once your AI Second Brain is running, it's yours to continually expand and personalize with optional, rewarding automations—no ongoing technical effort required for daily use. We provide all the support you need to make it happen.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What about my data privacy?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Your data never leaves your control. Everything runs locally on your hardware or your chosen private server. There are no cloud dependencies for core operations, no third-party access, and absolutely no data mining. This is true privacy by design.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is this a subscription service?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely not. This is a one-time purchase. You own the software and the blueprint forever. There are no monthly fees, no hidden costs, and no subscription traps. The only ongoing cost is your choice of hardware/hosting, which can be very low (e.g., electricity for a Raspberry Pi or a $5 VPS).</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What's included in the early access purchase?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The early access purchase includes the complete AI Second Brain software package, comprehensive step-by-step setup guides, core integrations (e.g., Telegram, email ingestion), advanced automation templates, priority support for 6 months, and all major future updates to the core system at no extra cost.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I really customize the automations?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! The system includes a powerful, flexible YAML-based workflow engine that allows you to define custom automations similar to how Zapier works. You can easily create rules for summarization, task creation, calendar blocking, and more. For advanced users, adding custom scripts and integrations is also fully supported.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What if I need support?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Early access customers receive priority support via WhatsApp at **+15127313529** (message: "Hi, can I get some help with AI second brain please?"), our dedicated private community forum, and access to an extensive knowledge base. We are fully committed to ensuring your successful setup and ongoing use of the platform.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-contact-text">
+                    <p>Still have questions? <a href="https://wa.me/15127313529?text=Hi%2C%20can%20I%20get%20some%20help%20with%20AI%20second%20brain%20please%3F" target="_blank" rel="noopener noreferrer" style="color: #64ffda; text-decoration: none;">Contact our support team via WhatsApp</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <a href="https://www.rolandcraeye.com" class="footer-logo">
+                <i class="fas fa-brain" style="margin-right: 8px;"></i> AI Second Brain
+            </a>
+            <div class="footer-links">
+                <a href="https://www.rolandcraeye.com" id="home-link-footer">Home</a>
+                <a href="#faq">FAQ</a>
+                <!-- Updated Contact to WhatsApp -->
+                <a href="https://wa.me/15127313529?text=Hi%2C%20can%20I%20get%20some%20help%20with%20AI%20second%20brain%20please%3F" target="_blank" rel="noopener noreferrer">Contact</a>
+                <!-- Removed Privacy Policy and Terms of Service -->
+            </div>
+            <p>&copy; 2025 AI Second Brain. All rights reserved. Own your intelligence.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling for navigation links and mobile menu links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        const mobileNav = document.querySelector('.mobile-nav');
+                        const hamburger = document.querySelector('.hamburger-menu');
+                        if (mobileNav.classList.contains('open')) {
+                            mobileNav.classList.remove('open');
+                            hamburger.classList.remove('open');
+                        }
+
+                        // Scroll into view with offset
+                        window.scrollTo({
+                            top: targetElement.offsetTop - (document.querySelector('header').offsetHeight - 10), // Adjust for header height
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Header Scroll Effect
+            const header = document.querySelector('header');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const logo = document.querySelector('.logo');
+            const hamburgerDivs = document.querySelectorAll('.hamburger-menu div');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                    logo.style.color = '#64ffda'; // Change logo color to accent
+                    navLinks.forEach(link => {
+                        link.style.color = '#64ffda'; // Change nav link colors to accent
+                    });
+                    hamburgerDivs.forEach(div => {
+                        div.style.backgroundColor = '#64ffda'; // Change hamburger color to accent
+                    });
+                } else {
+                    header.classList.remove('scrolled');
+                    logo.style.color = 'white'; // Revert logo color
+                    navLinks.forEach(link => {
+                        link.style.color = 'white'; // Revert nav link colors
+                    });
+                    hamburgerDivs.forEach(div => {
+                        div.style.backgroundColor = 'white'; // Revert hamburger color
+                    });
+                }
+            });
+
+            // FAQ Toggle Functionality (Improved for dynamic height)
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const toggle = item.querySelector('.faq-toggle');
+                
+                question.addEventListener('click', function() {
+                    const wasActive = answer.classList.contains('active');
+                    
+                    // Close all other FAQ items
+                    faqItems.forEach(otherItem => {
+                        const otherAnswer = otherItem.querySelector('.faq-answer');
+                        const otherToggle = otherItem.querySelector('.faq-toggle');
+                        if (otherAnswer.classList.contains('active')) {
+                            otherAnswer.style.maxHeight = otherAnswer.scrollHeight + 'px'; // Capture current scrollHeight
+                            otherAnswer.classList.remove('active'); // Remove active class to remove padding
+                            getComputedStyle(otherAnswer).maxHeight; // Force reflow
+                            otherAnswer.style.maxHeight = '0'; // Set max-height to 0 for collapse transition
+                            otherToggle.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    if (!wasActive) {
+                        answer.classList.add('active'); // Add active class first to apply padding
+                        answer.style.maxHeight = answer.scrollHeight + 'px'; // Set max-height to content height (including new padding)
+                        toggle.classList.add('active');
+                        // After transition, set max-height to 'none' to allow responsive height changes
+                        answer.addEventListener('transitionend', function handler() {
+                            if (answer.classList.contains('active')) { // Ensure it's still active (not collapsed mid-transition)
+                                answer.style.maxHeight = 'none';
+                            }
+                            answer.removeEventListener('transitionend', handler);
+                        });
+                    } else {
+                        // If it was active, set max-height to its current scrollHeight, then collapse
+                        answer.style.maxHeight = answer.scrollHeight + 'px'; // Capture current scrollHeight (incl. padding)
+                        answer.classList.remove('active'); // Remove active class to remove padding
+                        getComputedStyle(answer).maxHeight; // Force reflow
+                        answer.style.maxHeight = '0'; // Set max-height to 0 for collapse transition
+                        toggle.classList.remove('active');
+                    }
+                });
+            });
+
+            // Hamburger Menu Toggle
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileNav = document.querySelector('.mobile-nav');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                mobileNav.classList.toggle('open');
+            });
+        });
+    </script>
+</body>
+</html>
