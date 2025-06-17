@@ -92,72 +92,14 @@ function NextLevelAILanding() {
     setAnswers(prev => ({ ...prev, [questionKey]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const msg = encodeURIComponent(
-      `🚀 NEXT-LEVEL AI AGENT REQUEST:\n\n🎯 VISION: {answers.q1}\n\n🔧 CURRENT TOOLS & GAPS: 
-𝑎
-𝑛
-𝑠
-𝑤
-𝑒
-𝑟
-𝑠
-.
-𝑞
-2
-\n
-\n
-⚡
-𝐵
-𝐼
-𝐺
-𝐺
-𝐸
-𝑆
-𝑇
-𝑊
-𝑂
-𝑅
-𝐾
-𝐹
-𝐿
-𝑂
-𝑊
-𝑃
-𝐴
-𝐼
-𝑁
-:
-answers.q2\n\n⚡BIGGESTWORKFLOWPAIN:
-{answers.q3}\n\nLet's build something SAVAGE! 🔥`
-    );
-    window.open(`
-𝑊
-𝐻
-𝐴
-𝑇
-𝑆
-𝐴
-𝑃
-𝑃
-𝐿
-𝐼
-𝑁
-𝐾
-?
-𝑡
-𝑒
-𝑥
-𝑡
-=
-WHATSAPP 
-L
-​
- INK?text=
-{msg}`, "_blank");
-    setSubmitted(true);
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const msg = encodeURIComponent(
+    `🚀 NEXT-LEVEL AI AGENT REQUEST:\n\n🎯 VISION: ${answers.q1}\n\n🔧 CURRENT TOOLS & GAPS: ${answers.q2}\n\n⚡ BIGGEST WORKFLOW PAIN: ${answers.q3}\n\nLet's build something SAVAGE!🔥`
+  );
+  window.open(`${WHATSAPP_LINK}?text=${msg}`, '_blank', 'noopener,noreferrer');
+  setSubmitted(true);
+};
 
   const isFormComplete = answers.q1.trim() && answers.q2.trim() && answers.q3.trim();
 
