@@ -1,0 +1,337 @@
+import React, { useState, useEffect, useRef } from "react";
+import { MessageCircle, Send, Zap, ArrowRight, Sparkles, Bot, Target, Rocket } from "lucide-react";
+
+const WHATSAPP_LINK = "https://wa.me/15127313529";
+
+export default function NextLevelAILanding() {
+  const [answers, setAnswers] = useState({
+    q1: "",
+    q2: "",
+    q3: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState({});
+  const canvasRef = useRef(null);
+
+  // Mouse tracking for interactive effects
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Animated background particles
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 2 + 1,
+        opacity: Math.random() * 0.3 + 0.1
+      });
+    }
+    
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        particle.x += particle.dx;
+        particle.y += particle.dy;
+        
+        if (particle.x < 0 || particle.x > canvas.width) particle.dx *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.dy *= -1;
+        
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(59, 130, 246, ${particle.opacity})`;
+        ctx.fill();
+      });
+      
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }, []);
+
+  const handleChange = (e, questionKey) => {
+    setAnswers(prev => ({ ...prev, [questionKey]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const msg = encodeURIComponent(
+      `🚀 NEXT-LEVEL AI AGENT REQUEST:\n\n🎯 VISION: ${answers.q1}\n\n🔧 CURRENT TOOLS & GAPS: ${answers.q2}\n\n⚡ BIGGEST WORKFLOW PAIN: ${answers.q3}\n\nLet's build something SAVAGE! 🔥`
+    );
+    window.open(`${WHATSAPP_LINK}?text=${msg}`, "_blank");
+    setSubmitted(true);
+  };
+
+  const isFormComplete = answers.q1.trim() && answers.q2.trim() && answers.q3.trim();
+
+  const questions = [
+    {
+      id: 'q1',
+      title: "What's your AI automation VISION?",
+      subtitle: "Dream without limits. What would change everything?",
+      placeholder: "I want AI to completely transform how I...",
+      icon: <Target className="w-6 h-6" />,
+      gradient: "from-purple-500 to-pink-500"
+    },
+    {
+      id: 'q2', 
+      title: "Current AI stack + what's MISSING?",
+      subtitle: "What tools do you use? Where do they fall short?",
+      placeholder: "I use ChatGPT/Claude for X, but they can't...",
+      icon: <Bot className="w-6 h-6" />,
+      gradient: "from-blue-500 to-cyan-500"
+    },
+    {
+      id: 'q3',
+      title: "Your biggest workflow NIGHTMARE?",
+      subtitle: "What makes you want to throw your computer?",
+      placeholder: "The most soul-crushing part of my day is...",
+      icon: <Zap className="w-6 h-6" />,
+      gradient: "from-orange-500 to-red-500"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Animated Background Canvas */}
+      <canvas 
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none opacity-30"
+      />
+      
+      {/* Interactive Cursor Glow */}
+      <div 
+        className="fixed w-96 h-96 rounded-full pointer-events-none z-10 transition-all duration-300 ease-out"
+        style={{
+          left: mousePos.x - 192,
+          top: mousePos.y - 192,
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="relative z-20">
+        {/* Hero Section */}
+        <section className="min-h-screen flex items-center justify-center px-4 relative">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
+          
+          <div className="text-center max-w-6xl mx-auto relative">
+            {/* Main Title with Staggered Animation */}
+            <div className="space-y-8 mb-12">
+              <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-lg border border-white/10 rounded-full px-6 py-3 text-blue-400 font-semibold">
+                <Sparkles className="w-5 h-5" />
+                AI AGENT ARCHITECT
+              </div>
+              
+              <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tight leading-none">
+                <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
+                  I BUILD
+                </span>
+                <span className="block text-white my-4 relative">
+                  SAVAGE
+                  <div className="absolute -inset-2 bg-gradient-to-r from-blue-500 to-purple-500 blur-xl opacity-20 animate-pulse"></div>
+                </span>
+                <span className="block bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 bg-clip-text text-transparent">
+                  AI AGENTS
+                </span>
+              </h1>
+              
+              <div className="text-3xl md:text-5xl font-bold text-gray-300 mt-8">
+                Which One Should Be{" "}
+                <span className="relative">
+                  <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                    YOURS?
+                  </span>
+                  <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"></div>
+                </span>
+              </div>
+            </div>
+
+            <p className="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed mb-12">
+              Tell me what you wish AI could automate in your work or business.
+              <br />
+              <span className="text-white font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                I'll make it devastatingly real.
+              </span>
+            </p>
+
+            {/* Scroll Indicator */}
+            <div className="animate-bounce mt-16">
+              <ArrowRight className="w-8 h-8 mx-auto rotate-90 text-blue-400" />
+            </div>
+          </div>
+        </section>
+
+        {/* Survey Section */}
+        <section className="py-16 px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-black mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                TELL ME EVERYTHING
+              </h2>
+              <p className="text-xl text-gray-400">3 questions. Unlimited possibilities.</p>
+            </div>
+
+            <div className="space-y-12">
+              {questions.map((question, index) => (
+                <div 
+                  key={question.id}
+                  className="group relative"
+                >
+                  {/* Question Card */}
+                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden transition-all duration-500 hover:border-white/20 hover:bg-white/10">
+                    {/* Gradient Background Effect */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${question.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                    
+                    {/* Question Header */}
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className={`p-3 rounded-xl bg-gradient-to-r ${question.gradient} text-white`}>
+                        {question.icon}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                          {question.title}
+                        </h3>
+                        <p className="text-gray-400 text-lg">
+                          {question.subtitle}
+                        </p>
+                      </div>
+                      <div className="text-4xl font-black text-gray-600">
+                        {String(index + 1).padStart(2, '0')}
+                      </div>
+                    </div>
+
+                    {/* Input Field */}
+                    <div className="relative">
+                      <textarea
+                        name={question.id}
+                        value={answers[question.id]}
+                        onChange={(e) => handleChange(e, question.id)}
+                        placeholder={question.placeholder}
+                        required
+                        rows={4}
+                        className="w-full bg-black/40 border-2 border-gray-700 rounded-2xl p-6 text-white placeholder-gray-500 text-lg resize-none focus:border-blue-400 focus:ring-4 focus:ring-blue-400/20 focus:bg-black/60 transition-all duration-300 hover:border-gray-600"
+                      />
+                      
+                      {/* Character Counter */}
+                      <div className="absolute bottom-4 right-4 text-sm text-gray-500">
+                        {answers[question.id].length} chars
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* Submit Button */}
+              <div className="text-center pt-8">
+                <button
+                  type="submit"
+                  disabled={!isFormComplete}
+                  className={`group relative px-12 py-6 text-xl font-black tracking-wide rounded-2xl transition-all duration-300 overflow-hidden ${
+                    isFormComplete
+                      ? 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white hover:shadow-2xl hover:shadow-purple-500/50 hover:scale-105 transform'
+                      : 'bg-gray-800 text-gray-500 cursor-not-allowed'
+                  }`}
+                >
+                  <div className="relative z-10 flex items-center justify-center gap-3">
+                    <Send className="w-6 h-6" />
+                    LAUNCH MY AI AGENT
+                    <Rocket className="w-6 h-6" />
+                  </div>
+                  
+                  {isFormComplete && (
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-blue-400/20 to-purple-400/20"></div>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* WhatsApp CTA Section */}
+        <section className="py-16 px-4 border-t border-white/10">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="mb-8">
+              <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
+                Prefer to talk it out?
+              </h3>
+              <p className="text-xl text-gray-400">
+                Sometimes the best ideas come from conversation.
+              </p>
+            </div>
+
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-black text-xl px-10 py-6 rounded-2xl hover:from-green-400 hover:to-emerald-400 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/40 group"
+            >
+              <MessageCircle className="w-7 h-7 group-hover:animate-bounce" />
+              MESSAGE ME ON WHATSAPP
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="py-8 px-4 border-t border-white/10">
+          <div className="text-center text-gray-500">
+            <p className="mb-2">© 2024 - Built to convert. Ready to automate.</p>
+            <p className="text-sm">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-semibold">
+                Which AI Agent Should I Build For You?
+              </span>
+            </p>
+          </div>
+        </footer>
+      </div>
+
+      {/* Success Modal */}
+      {submitted && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 md:p-12 max-w-md w-full text-center relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 to-emerald-500/20"></div>
+            
+            <div className="relative z-10">
+              <div className="text-6xl mb-4">🚀</div>
+              <h3 className="text-3xl font-black text-white mb-4">
+                MISSION LAUNCHED!
+              </h3>
+              <p className="text-gray-300 text-lg mb-6">
+                Your AI agent blueprint is incoming.
+                <br />
+                I'll hit you up on WhatsApp ASAP.
+              </p>
+              
+              <button
+                onClick={() => setSubmitted(false)}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold px-8 py-3 rounded-xl hover:from-blue-400 hover:to-purple-400 transition-all duration-300"
+              >
+                Got it! 🔥
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
