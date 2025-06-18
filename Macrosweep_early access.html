@@ -1,0 +1,615 @@
+Below is the HTML code for the MacroSweep landing page, designed to be modern, professional, mobile-responsive, and user-friendly, drawing inspiration from the provided UI example.
+
+This page is structured into several key sections:
+
+* **Navigation Bar:** A fixed, modern navigation bar with a subtle glass effect, including the brand logo and responsive links.
+* **Hero Section:** A bold and engaging introduction with a gradient text headline, clear call-to-action buttons, and trust indicators.
+* **Live Demo Section:** Showcases the core functionality with a dynamic, animated chart and real-time data representation.
+* **Features Section:** Highlights key benefits and features using sleek, interactive cards with icons.
+* **Call-to-Action (CTA) Section:** A prominent section encouraging user engagement with clear options for getting started or scheduling a demo.
+* **Footer:** Provides essential links and copyright information in a clean, minimalist design.
+
+The design incorporates a dark theme with vibrant gradient accents, subtle animations, and a focus on readability and visual appeal. It uses **Tailwind CSS** for rapid styling and includes custom CSS for unique elements like glass effects, gradient texts, and animations to ensure a polished look that appeals to a diverse audience.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacroSweep - AI-Powered Market Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e40af, #0891b2, #7c3aed);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 16px;
+        }
+
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 12px;
+            padding: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-area {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-grid {
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-link {
+            position: relative;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .metric-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            border-radius: 50%;
+            animation: float 8s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <div class="floating-elements">
+        <div class="floating-element" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="floating-element" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="floating-element" style="left: 40%; animation-delay: 6s;"></div>
+        <div class="floating-element" style="left: 50%; animation-delay: 1s;"></div>
+        <div class="floating-element" style="left: 60%; animation-delay: 3s;"></div>
+        <div class="floating-element" style="left: 70%; animation-delay: 5s;"></div>
+        <div class="floating-element" style="left: 80%; animation-delay: 7s;"></div>
+        <div class="floating-element" style="left: 90%; animation-delay: 2.5s;"></div>
+    </div>
+
+    <nav class="fixed top-0 w-full z-50 glass-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">MacroSweep</span>
+                </div>
+
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#demo" class="nav-link">Demo</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+
+                <button class="md:hidden text-gray-400 hover:text-white" id="mobile-menu-button">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Features</a>
+                <a href="#demo" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Demo</a>
+                <a href="#pricing" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Pricing</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-20 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center fade-in">
+                <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                    AI-Powered <span class="gradient-text">Market Intelligence</span>
+                </h1>
+                <p class="hero-subtitle text-lg md:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    Transform complex market data into actionable insights with precision AI analysis.
+                    Make informed decisions faster than ever before.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                    <button class="cta-button px-8 py-4 rounded-lg font-semibold text-white relative overflow-hidden">
+                        Start Analysis
+                        <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </button>
+                    <button class="px-8 py-4 border border-gray-600 rounded-lg font-semibold text-gray-300 hover:border-blue-500 hover:text-white transition-colors">
+                        Watch Demo
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                    <div class="metric-card">
+                        <div class="text-2xl font-bold gradient-text">99.9%</div>
+                        <div class="text-sm text-gray-400">Uptime</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="text-2xl font-bold gradient-text">< 100ms</div>
+                        <div class="text-sm text-gray-400">Response Time</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="text-2xl font-bold gradient-text">10K+</div>
+                        <div class="text-sm text-gray-400">Active Users</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="text-2xl font-bold gradient-text">24/7</div>
+                        <div class="text-sm text-gray-400">Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Live Market <span class="gradient-text">Dashboard</span>
+                </h2>
+                <p class="text-lg text-gray-300">Real-time analytics and insights at your fingertips</p>
+            </div>
+
+            <div class="chart-area p-6 mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-green-500 rounded-full pulse-animation"></div>
+                            <span class="text-sm font-medium">Live Data</span>
+                        </div>
+                        <div class="text-green-400 font-mono text-sm">+24.7% ↗</div>
+                    </div>
+                    <button id="playPause" class="px-3 py-1 bg-blue-500 bg-opacity-20 text-blue-400 rounded-lg text-sm hover:bg-opacity-30 transition-colors">
+                        <span id="playPauseText">Pause</span>
+                    </button>
+                </div>
+
+                <div class="chart-grid h-64 relative">
+                    <svg id="chart" class="w-full h-full" viewBox="0 0 400 160">
+                        <defs>
+                            <linearGradient id="chartGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#3b82f6" />
+                                <stop offset="50%" stop-color="#06b6d4" />
+                                <stop offset="100%" stop-color="#8b5cf6" />
+                            </linearGradient>
+                            <linearGradient id="fillGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="rgba(59, 130, 246, 0.3)" />
+                                <stop offset="100%" stop-color="rgba(59, 130, 246, 0)" />
+                            </linearGradient>
+                        </defs>
+                        <path id="chartLine" fill="none" stroke="url(#chartGradient)" stroke-width="3" opacity="0.9" />
+                        <path id="chartFill" fill="url(#fillGradient)" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Powerful <span class="gradient-text">Features</span>
+                </h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                    Everything you need to make informed trading decisions in one comprehensive platform
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-card p-6 hover-lift">
+                    <div class="feature-icon w-12 h-12 mb-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <circle cx="12" cy="12" r="6"></circle>
+                            <circle cx="12" cy="12" r="2"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Precision Targeting</h3>
+                    <p class="text-gray-300">AI algorithms identify high-probability opportunities with surgical precision, maximizing your trading success rate.</p>
+                </div>
+
+                <div class="glass-card p-6 hover-lift">
+                    <div class="feature-icon w-12 h-12 mb-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Risk Management</h3>
+                    <p class="text-gray-300">Advanced risk assessment tools help protect your portfolio from unexpected market volatility and downturns.</p>
+                </div>
+
+                <div class="glass-card p-6 hover-lift">
+                    <div class="feature-icon w-12 h-12 mb-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2"></polygon>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Lightning Speed</h3>
+                    <p class="text-gray-300">Process massive datasets in milliseconds, enabling real-time decision making when markets move fast.</p>
+                </div>
+
+                <div class="glass-card p-6 hover-lift">
+                    <div class="feature-icon w-12 h-12 mb-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Predictive Analytics</h3>
+                    <p class="text-gray-300">Machine learning models forecast market movements with unprecedented accuracy using historical patterns.</p>
+                </div>
+
+                <div class="glass-card p-6 hover-lift">
+                    <div class="feature-icon w-12 h-12 mb-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <rect x="9" y="9" width="6" height="6"></rect>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Custom Dashboards</h3>
+                    <p class="text-gray-300">Personalized interfaces tailored to your trading style and preferred markets for optimal workflow efficiency.</p>
+                </div>
+
+                <div class="glass-card p-6 hover-lift">
+                    <div class="feature-icon w-12 h-12 mb-4">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Smart Alerts</h3>
+                    <p class="text-gray-300">Intelligent notifications keep you informed of important market changes without overwhelming you with noise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="glass-card p-8 md:p-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                    Ready to Transform Your Trading?
+                </h2>
+                <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+                    Join thousands of successful traders who've elevated their strategies with MacroSweep's AI-powered insights.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="cta-button px-8 py-4 rounded-lg font-semibold text-white relative overflow-hidden">
+                        Get Early Access
+                        <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </button>
+                    <button class="px-8 py-4 border border-gray-600 rounded-lg font-semibold text-gray-300 hover:border-blue-500 hover:text-white transition-colors">
+                        Schedule Demo
+                    </button>
+                </div>
+
+                <p class="text-sm text-gray-400 mt-4">
+                    No credit card required • 14-day free trial • Cancel anytime
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-gray-700">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold gradient-text">MacroSweep</span>
+                </div>
+
+                <div class="flex space-x-6 text-sm text-gray-400">
+                    <a href="#" class="hover:text-blue-400 transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-blue-400 transition-colors">Terms of Service</a>
+                    <a href="#" class="hover:text-blue-400 transition-colors">Support</a>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+                <p>&copy; 2025 MacroSweep. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Chart Animation
+        class ChartAnimation {
+            constructor() {
+                this.isPlaying = true;
+                this.dataPoints = [];
+                this.animationId = null;
+                this.playPauseBtn = document.getElementById('playPause');
+                this.playPauseText = document.getElementById('playPauseText');
+                this.chartLine = document.getElementById('chartLine');
+                this.chartFill = document.getElementById('chartFill');
+
+                this.init();
+            }
+
+            init() {
+                this.generateData();
+                this.updateChart();
+                this.startAnimation();
+
+                this.playPauseBtn.addEventListener('click', () => {
+                    this.toggleAnimation();
+                });
+            }
+
+            generateData() {
+                this.dataPoints = [];
+                const baseY = 80;
+                for (let i = 0; i < 100; i++) {
+                    const x = i * 4;
+                    const y = baseY + Math.sin(i * 0.1) * 20 + Math.sin(i * 0.05) * 10 + (Math.random() - 0.5) * 8;
+                    this.dataPoints.push({x, y});
+                }
+            }
+
+            updateChart() {
+                // Create line path
+                const linePath = this.dataPoints.map((point, i) =>
+                    `${i === 0 ? 'M' : 'L'} ${point.x} ${point.y}`
+                ).join(' ');
+
+                // Create fill path
+                const fillPath = `M ${this.dataPoints[0].x} ${this.dataPoints[0].y} ` +
+                    this.dataPoints.slice(1).map(point => `L ${point.x} ${point.y}`).join(' ') +
+                    ` L ${this.dataPoints[this.dataPoints.length - 1].x} 160 L ${this.dataPoints[0].x} 160 Z`;
+
+                this.chartLine.setAttribute('d', linePath);
+                this.chartFill.setAttribute('d', fillPath);
+            }
+
+            toggleAnimation() {
+                this.isPlaying = !this.isPlaying;
+
+                if (this.isPlaying) {
+                    this.playPauseText.textContent = 'Pause';
+                    this.startAnimation();
+                } else {
+                    this.playPauseText.textContent = 'Play';
+                    if (this.animationId) {
+                        clearInterval(this.animationId);
+                    }
+                }
+            }
+
+            startAnimation() {
+                if (this.animationId) {
+                    clearInterval(this.animationId);
+                }
+
+                if (this.isPlaying) {
+                    this.animationId = setInterval(() => {
+                        this.generateData();
+                        this.updateChart();
+                    }, 2000);
+                }
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize chart animation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ChartAnimation();
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.glass-card, .metric-card');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
+```
