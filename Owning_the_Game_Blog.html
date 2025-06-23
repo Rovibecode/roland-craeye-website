@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .blog-posts {
+            list-style: none;
+        }
+
+        .blog-post {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .blog-post:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .post-date {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .post-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 12px;
+        }
+
+        .post-title a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .post-title a:hover {
+            color: #666;
+        }
+
+        .post-excerpt {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .read-more:hover {
+            color: #333;
+        }
+
+        footer {
+            margin-top: 80px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        footer a {
+            color: #999;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 40px 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .post-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Blog</h1>
+        <p class="subtitle">Thoughts on technology, design, and life</p>
+    </header>
+
+    <main>
+        <ul class="blog-posts">
+            <li class="blog-post">
+                <div class="post-date">June 23, 2025</div>
+                <h2 class="post-title">
+                    <a href="ai_data_privacy_blog_page.html">AI and Data Privacy: Navigating the New Digital Landscape</a>
+                </h2>
+                <p class="post-excerpt">
+                    As artificial intelligence becomes increasingly integrated into our daily lives, questions around data privacy and user consent have never been more critical. This piece explores the delicate balance between AI innovation and protecting personal information in our interconnected world.
+                </p>
+                <a href="ai_data_privacy_blog_page.html" class="read-more">Read more →</a>
+            </li>
+
+            <li class="blog-post">
+                <div class="post-date">June 15, 2025</div>
+                <h2 class="post-title">
+                    <a href="#">The Art of Minimalist Design</a>
+                </h2>
+                <p class="post-excerpt">
+                    In a world saturated with visual noise, minimalist design offers a path to clarity and focus. Exploring the principles that make simple designs powerful and how less can truly be more.
+                </p>
+                <a href="#" class="read-more">Read more →</a>
+            </li>
+
+            <li class="blog-post">
+                <div class="post-date">June 8, 2025</div>
+                <h2 class="post-title">
+                    <a href="#">Building Sustainable Digital Products</a>
+                </h2>
+                <p class="post-excerpt">
+                    The tech industry's environmental impact is growing rapidly. How can we create digital products that are not only user-friendly but also environmentally responsible? A look at sustainable development practices.
+                </p>
+                <a href="#" class="read-more">Read more →</a>
+            </li>
+
+            <li class="blog-post">
+                <div class="post-date">May 28, 2025</div>
+                <h2 class="post-title">
+                    <a href="#">The Future of Remote Collaboration</a>
+                </h2>
+                <p class="post-excerpt">
+                    Remote work has fundamentally changed how teams collaborate. What tools and practices are emerging to help distributed teams work more effectively together?
+                </p>
+                <a href="#" class="read-more">Read more →</a>
+            </li>
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Blog. All rights reserved.</p>
+    </footer>
+</body>
+</html>
