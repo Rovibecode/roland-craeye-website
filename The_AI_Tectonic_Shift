@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The AI Tectonic Shift: A Deep Dive into Open Source vs. Proprietary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Chosen Color Palette: Inspired by "Brilliant Blues" and dark theme */
+        /* Primary Accent: #58a6ff (Vibrant Blue) */
+        /* Secondary Accent: #7A5195 (Deep Purple) */
+        /* Background: #0d1117 (Dark Grey/Black) */
+        /* Text: #c9d1d9 (Light Grey) */
+        /* Card/Element Background: #161b22 (Slightly Lighter Dark Grey) */
+        /* Border/Grid Lines: #30363d (Medium Dark Grey) */
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; 
+            color: #c9d1d9;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 320px;
+            width: 100%;
+            max-width: 600px; /* Ensures charts don't get too wide */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px; /* Taller charts on larger screens */
+            }
+        }
+        .stat-card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+        }
+        .stat-number {
+            font-weight: 900;
+            color: #58a6ff; /* Vibrant blue accent */
+        }
+        .flow-chart-item {
+            border: 2px solid #30363d;
+            background-color: #161b22;
+        }
+        .flow-chart-arrow {
+            color: #58a6ff; /* Vibrant blue for arrows */
+        }
+        .section-title {
+            color: #58a6ff; /* Vibrant blue for section titles */
+        }
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+        }
+        .tech-innovation-item {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
+
+        <header class="text-center my-12">
+            <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">The AI Tectonic Shift: A Deep Dive</h1>
+            <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-gray-300">The global AI landscape is undergoing a profound transformation. This infographic explores the strategic surge of open-source models, particularly from China, challenging the traditional dominance of proprietary systems and reshaping the future of innovation, economics, and geopolitics.</p>
+        </header>
+
+        <main>
+            <section id="key-players" class="my-16">
+                <h2 class="text-3xl font-bold text-center section-title mb-12">Key Players & Their Contributions</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    
+                    <div class="card p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-bold text-white mb-4">Tencent's Hunyuan A13B: Efficiency Redefined</h3>
+                        <p class="mb-6 text-gray-300">Tencent's open-source model blends power with efficiency, showcasing advanced architectural design and rigorous training for real-world applications.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="stat-card p-4 rounded-lg text-center shadow-sm">
+                                <span class="text-5xl stat-number">13B</span>
+                                <p class="mt-2 text-sm text-gray-400">Active Parameters (from 80B MoE shell)</p>
+                            </div>
+                            <div class="stat-card p-4 rounded-lg text-center shadow-sm">
+                                <span class="text-5xl stat-number">256K</span>
+                                <p class="mt-2 text-sm text-gray-400">Token Context Window (NTK-aware Positional Encoding)</p>
+                            </div>
+                             <div class="stat-card p-4 rounded-lg text-center shadow-sm">
+                                <span class="text-4xl stat-number">>20K</span>
+                                <p class="mt-2 text-sm text-gray-400">Tool-Use Scenarios Trained (incl. SQL, search)</p>
+                            </div>
+                            <div class="stat-card p-4 rounded-lg text-center shadow-sm">
+                                <span class="text-4xl stat-number">/noink & /think</span>
+                                <p class="mt-2 text-sm text-gray-400">Dual Thinking Modes (Fast vs. Step-by-Step)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-bold text-white mb-4">BYU (Baidu)'s Reasoning Search Engine</h3>
+                        <p class="mb-6 text-gray-300">Addressing RAG limitations, Baidu's innovation offers true multi-step reasoning, dynamic problem-solving, and resilience to tool failures.</p>
+                        <div class="flex flex-col items-center justify-center space-y-2">
+                            <div class="flow-chart-item w-full md:w-3/4 p-3 rounded-lg text-center shadow-sm"><strong>Master Agent</strong><br><span class="text-sm text-gray-400">Deconstructs query</span></div>
+                            <div class="text-2xl flow-chart-arrow">↓</div>
+                            <div class="flow-chart-item w-full md:w-3/4 p-3 rounded-lg text-center shadow-sm"><strong>Planner Agent</strong><br><span class="text-sm text-gray-400">Creates DAG of subtasks, selects tools</span></div>
+                            <div class="text-2xl flow-chart-arrow">↓</div>
+                            <div class="flow-chart-item w-full md:w-3/4 p-3 rounded-lg text-center shadow-sm"><strong>Executive Agent</strong><br><span class="text-sm text-gray-400">Executes plan, re-plans if tools fail</span></div>
+                            <div class="text-2xl flow-chart-arrow">↓</div>
+                            <div class="flow-chart-item w-full md:w-3/4 p-3 rounded-lg text-center shadow-sm"><strong>Writer Agent</strong><br><span class="text-sm text-gray-400">Synthesizes coherent answer, filters contradictions</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 card p-6 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold text-white mb-6 text-center">Cutting-Edge Chinese Technical Innovations</h3>
+                    <p class="text-center max-w-3xl mx-auto mb-8 text-gray-300">Beyond architectural shifts, Chinese labs are pioneering fundamental advancements that enhance model efficiency, memory, and training capabilities.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="tech-innovation-item p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-white mb-1">🧠 Neuromorphic Tokenization</h4>
+                            <p class="text-sm text-gray-400">Information processing inspired by biological brains.</p>
+                        </div>
+                        <div class="tech-innovation-item p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-white mb-1">🔗 Cognitive Entanglement (Pangu-S)</h4>
+                            <p class="text-sm text-gray-400">Enables efficient operation of trillion-parameter sparse models on consumer GPUs.</p>
+                        </div>
+                        <div class="tech-innovation-item p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-white mb-1">🌊 Liquid Neural Pathways (Skywork)</h4>
+                            <p class="text-sm text-gray-400">Dynamically reconfigure model structure based on problem complexity.</p>
+                        </div>
+                        <div class="tech-innovation-item p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-white mb-1">🔄 Rotary Positional Embedding (YI34B)</h4>
+                            <p class="text-sm text-gray-400">Breakthrough for compressing long-term memory without information loss, enabling massive context windows.</p>
+                        </div>
+                        <div class="tech-innovation-item p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-white mb-1">🗣️ Bilingual Brain Architecture (Aquila 2)</h4>
+                            <p class="text-sm text-gray-400">Optimized for high fluency in both Chinese and English.</p>
+                        </div>
+                        <div class="tech-innovation-item p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-white mb-1">🐉 Dragon Scale Training</h4>
+                            <p class="text-sm text-gray-400">Achieves significantly cheaper pre-training using national supercomputing grids.</p>
+                        </div>
+                        <div class="tech-innovation-item p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-white mb-1">☯️ Taoist Compression Algorithms</h4>
+                            <p class="text-sm text-gray-400">Pruning non-essential model weights, inspired by traditional Chinese medicine.</p>
+                        </div>
+                        <div class="tech-innovation-item p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-white mb-1">🚧 Great Firewall Embeddings</h4>
+                            <p class="text-sm text-gray-400">Influencing model outputs based on ethical/political principles.</p>
+                        </div>
+                        <div class="tech-innovation-item p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold text-white mb-1">📈 Five-Year Plan Optimization</h4>
+                            <p class="text-sm text-gray-400">Strategic optimization aligned with national development goals.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="market-dynamics" class="my-24">
+                <h2 class="text-3xl font-bold text-center section-title mb-12">Market Dynamics & Geopolitical Implications</h2>
+                <p class="text-center max-w-3xl mx-auto mb-12 text-gray-300">The "open-source war" is reshaping global AI market dynamics, driving down costs and influencing adoption patterns, while also raising complex geopolitical questions.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="card p-6 rounded-xl shadow-md flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-white mb-2">The Cost Disruption</h3>
+                        <p class="mb-4 text-gray-300">Baidu's open-sourcing of its powerful Ernie line is a direct challenge to the high costs of proprietary models. Analysts estimate this move slashes deployment costs dramatically, a "Molotov cocktail for price."</p>
+                        <div class="chart-container">
+                            <canvas id="costChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl shadow-md flex flex-col justify-center">
+                        <h3 class="text-2xl font-bold text-white mb-2">China's Compute Self-Sufficiency Goal</h3>
+                        <p class="mb-4 text-gray-300">This open-source wave is a key part of Beijing's plan for global AI leadership by 2030. A core target is achieving near-total compute self-sufficiency within the next five years, reducing reliance on foreign hardware.</p>
+                        <div class="chart-container">
+                            <canvas id="selfSufficiencyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                 <div class="mt-8 card p-6 rounded-xl shadow-md">
+                    <h3 class="text-2xl font-bold text-white mb-2 text-center">Shrinking the Sticker Price: Impact of Chinese Open-Source</h3>
+                    <p class="mb-4 text-center max-w-2xl mx-auto text-gray-300">The collective efficiency gains from Chinese vendors (Tencent, Baidu, Huawei, Miniax, Alibaba, Deepseek) have caused the cost of running large models to plummet significantly in just one year.</p>
+                    <div class="chart-container">
+                        <canvas id="priceTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div class="card p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-bold text-white mb-4">The Global Adoption Wave</h3>
+                        <p class="mb-4 text-gray-300">Despite some concerns, the momentum for open-source AI is clear. The vast majority of enterprises are projected to integrate these models into their production workflows, especially in the Global South where cost-effectiveness is key.</p>
+                        <div class="chart-container">
+                            <canvas id="adoptionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-bold text-white mb-4">Geopolitical Tensions & Trust</h3>
+                        <p class="mb-6 text-gray-300">The rise of Chinese open-source AI models is accompanied by significant geopolitical concerns, particularly from a Western perspective.</p>
+                        <ul class="list-none space-y-3 text-gray-300">
+                            <li class="flex items-start">
+                                <span class="text-yellow-400 mr-3 mt-1">⚠️</span>
+                                <span><strong>Surveillance Backdoor Fears:</strong> US enterprises worry about potential data exfiltration or control via Chinese API-powered models.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-400 mr-3 mt-1">⚠️</span>
+                                <span><strong>Data Trust Issues:</strong> Hesitancy to entrust sensitive customer data, compounded by a lack of transparency in training data sources.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-400 mr-3 mt-1">⚠️</span>
+                                <span><strong>Shadow Fine-tuning:</strong> Allegations of decentralized user contributions quietly updating Chinese models, potentially benefiting PLA-linked research.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-400 mr-3 mt-1">⚠️</span>
+                                <span><strong>Ethical & Ideological Alignment:</strong> Concerns over "socialist core values" hardcoded into models' reward functions.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-400 mr-3 mt-1">⚠️</span>
+                                <span><strong>Military Dual-Use Potential:</strong> The inherent dual-use nature of advanced AI, raising concerns about its application in military contexts.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-400 mr-3 mt-1">⚠️</span>
+                                <span><strong>"AI Iron Curtain":</strong> The potential for a divided global AI infrastructure, with distinct ecosystems.</span>
+                            </li>
+                             <li class="flex items-start">
+                                <span class="text-yellow-400 mr-3 mt-1">⚠️</span>
+                                <span><strong>"AI Belt and Road":</strong> China's strategy to export its AI influence and infrastructure globally, particularly to developing nations.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="future-outlook" class="my-24">
+                <h2 class="text-3xl font-bold text-center section-title mb-12">The Future of AI Hegemony</h2>
+                <div class="card p-6 rounded-xl shadow-md text-center max-w-4xl mx-auto">
+                    <p class="text-lg text-gray-300 mb-4">The "age of US-led AI hegemony" is facing its strongest challenge yet. The strategic open-sourcing by Chinese tech giants is fundamentally altering the competitive landscape, pushing Western proprietary firms to re-evaluate their models and pricing.</p>
+                    <p class="text-lg text-gray-300">The future "soul of tomorrow's intelligence infrastructure" is likely to be a complex interplay of open and closed systems, where cost, accessibility, trust, and geopolitical alignment will define market leadership and global influence.</p>
+                    <p class="mt-6 text-sm text-gray-400">Western responses include OpenAI's lobbying efforts and Google's accelerated move towards open weights, indicating a recognition of this shifting paradigm.</p>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center my-12 text-sm text-gray-500">
+            <p>Data synthesized from "Briefing: The Open-Source AI Revolution and China's Strategic Surge" and "The Shifting Landscape of AI: Open Source vs. Proprietary Models - Study Guide".</p>
+            <p>Infographic created for illustrative purposes. All rights reserved. <a href="https://www.rolandcraeye.com" target="_blank" class="text-blue-400 hover:underline">www.rolandcraeye.com</a></p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Chart.js configuration constants
+        const CHART_FONT = {
+            family: "'Inter', sans-serif",
+            size: 12
+        };
+        const CHART_TEXT_COLOR = '#c9d1d9';
+        const CHART_GRID_COLOR = 'rgba(201, 209, 217, 0.1)';
+
+        // Common tooltip plugin configuration
+        const TOOLTIP_PLUGIN = {
+            tooltip: {
+                backgroundColor: '#161b22',
+                titleColor: CHART_TEXT_COLOR,
+                bodyColor: CHART_TEXT_COLOR,
+                borderColor: '#30363d',
+                borderWidth: 1,
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+        
+        // Function to wrap long labels for Chart.js
+        function wrapLabels(label, maxWidth = 16) {
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = word + ' ';
+                } else {
+                    currentLine += word + ' ';
+                }
+            });
+            lines.push(currentLine.trim());
+            return lines.filter(line => line.length > 0);
+        }
+
+        // Cost Comparison Chart
+        const costChartCtx = document.getElementById('costChart').getContext('2d');
+        new Chart(costChartCtx, {
+            type: 'bar',
+            data: {
+                labels: [wrapLabels('Proprietary Model Cost'), wrapLabels('Open-Source Model Cost')],
+                datasets: [{
+                    label: 'Relative Deployment Cost',
+                    data: [100, 20],
+                    backgroundColor: ['#7A5195', '#58a6ff'], // Deep Purple and Vibrant Blue
+                    borderColor: ['#7A5195', '#58a6ff'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Estimated Cost Reduction up to 80%',
+                        font: { size: 16, family: CHART_FONT.family },
+                        color: CHART_TEXT_COLOR
+                    },
+                    ...TOOLTIP_PLUGIN
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%'
+                            },
+                            color: CHART_TEXT_COLOR,
+                            font: CHART_FONT
+                        },
+                        grid: {
+                            color: CHART_GRID_COLOR
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: CHART_TEXT_COLOR,
+                            font: CHART_FONT
+                        },
+                        grid: {
+                            color: CHART_GRID_COLOR
+                        }
+                    }
+                }
+            }
+        });
+
+        // China's Self-Sufficiency Goal Chart
+        const selfSufficiencyChartCtx = document.getElementById('selfSufficiencyChart').getContext('2d');
+        new Chart(selfSufficiencyChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Target Reached', 'Remaining'],
+                datasets: [{
+                    data: [90, 10],
+                    backgroundColor: ['#58a6ff', '#30363d'], // Vibrant Blue and Medium Dark Grey
+                    borderColor: '#0d1117', // Background color for border
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            color: CHART_TEXT_COLOR,
+                            font: CHART_FONT
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'China\'s 90% Compute Self-Sufficiency Goal (within 5 years)',
+                        font: { size: 16, family: CHART_FONT.family },
+                        color: CHART_TEXT_COLOR
+                    },
+                    ...TOOLTIP_PLUGIN
+                },
+                cutout: '70%'
+            }
+        });
+        
+        // Enterprise Adoption Chart
+        const adoptionChartCtx = document.getElementById('adoptionChart').getContext('2d');
+        new Chart(adoptionChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Enterprises Adopting Open Models', 'Remaining'],
+                datasets: [{
+                    data: [85, 15],
+                    backgroundColor: ['#58a6ff', '#30363d'], // Vibrant Blue and Medium Dark Grey
+                    borderColor: '#0d1117', // Background color for border
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: 'bottom',
+                        labels: {
+                            color: CHART_TEXT_COLOR,
+                            font: CHART_FONT
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: '85% Enterprise Adoption by End of Next Year',
+                        font: { size: 16, family: CHART_FONT.family },
+                        color: CHART_TEXT_COLOR
+                    },
+                    ...TOOLTIP_PLUGIN
+                },
+                cutout: '70%'
+            }
+        });
+
+        // Price Trend Chart
+        const priceTrendChartCtx = document.getElementById('priceTrendChart').getContext('2d');
+        new Chart(priceTrendChartCtx, {
+            type: 'line',
+            data: {
+                labels: ['Last Year', 'Mid Year', 'This Year'],
+                datasets: [{
+                    label: 'Relative Cost to Run Large Models',
+                    data: [100, 60, 20],
+                    fill: true,
+                    backgroundColor: 'rgba(88, 166, 255, 0.2)', // Semi-transparent vibrant blue
+                    borderColor: '#58a6ff', // Vibrant blue
+                    tension: 0.3 // Smooth line
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        display: false
+                    },
+                    title: {
+                        display: false // No title for this chart, text above provides context
+                    },
+                    ...TOOLTIP_PLUGIN
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%'
+                            },
+                            color: CHART_TEXT_COLOR,
+                            font: CHART_FONT
+                        },
+                        grid: {
+                            color: CHART_GRID_COLOR
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: CHART_TEXT_COLOR,
+                            font: CHART_FONT
+                        },
+                        grid: {
+                            color: CHART_GRID_COLOR
+                        }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
