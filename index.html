@@ -3,1162 +3,799 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roland Craeye | Global Systems Architect & Income Designer</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <title>Roland Craeye - Operator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            color: #333;
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000000;
+            color: #e0e0e0;
             line-height: 1.6;
+            overflow-x: hidden;
         }
-        .hero-gradient {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #e0f2fe 100%);
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
-        .service-card {
-            transition: all 0.4s ease;
-            border: 1px solid transparent;
-        }
-        .service-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            border-color: #3366cc;
-        }
-        .testimonial-card {
-            transition: all 0.3s ease;
-        }
-        .testimonial-card:hover {
-            transform: scale(1.03);
-        }
-        .cta-button {
-            background: linear-gradient(135deg, #3366cc 0%, #4d7fd3 100%);
-            transition: all 0.3s ease;
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px -5px rgba(51, 102, 204, 0.4);
-        }
-        .section-heading::after {
-            content: "";
-            display: block;
-            width: 80px;
-            height: 4px;
-            margin-top: 16px;
-            background: linear-gradient(135deg, #3366cc 0%, #4d7fd3 100%);
-            border-radius: 2px;
-        }
-        .floating-whatsapp {
+
+        /* Cursor Glow */
+        .cursor-glow {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 100;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
         }
-        .stats-counter {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #3366cc 0%, #4d7fd3 100%);
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #000000;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(0, 150, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 150, 255, 0.04) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: gridMove 20s linear infinite;
+            transform: perspective(500px) rotateX(60deg);
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(100px); }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.8;
+            animation: float 25s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.6), transparent);
+            top: 5%;
+            left: 5%;
+        }
+
+        .orb-2 {
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.6), transparent);
+            bottom: 5%;
+            right: 5%;
+            animation-delay: -12s;
+        }
+
+        .orb-3 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.5), transparent);
+            top: 40%;
+            right: 15%;
+            animation-delay: -6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(80px, -80px) scale(1.2); }
+            50% { transform: translate(-60px, 60px) scale(0.85); }
+            75% { transform: translate(60px, 40px) scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1100px;
+            animation: heroFadeIn 1.5s ease forwards 0.5s;
+            opacity: 0;
+        }
+
+        @keyframes heroFadeIn {
+            to { opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #0096ff 50%, #9333ea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+
+        .hero .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: #b0b0b0;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hero .subline {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: #707070;
+            font-weight: 400;
+        }
+
+        /* Stats Ticker */
+        .stats-ticker {
+            background: rgba(0, 150, 255, 0.05);
+            border-top: 1px solid rgba(0, 150, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 150, 255, 0.2);
+            padding: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .ticker-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll-left 40s linear infinite;
+            font-size: 0.95rem;
+            color: #808080;
+        }
+
+        .ticker-content span {
+            margin: 0 3rem;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -10%;
+            right: -10%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 49%, rgba(0, 150, 255, 0.1) 49%, rgba(0, 150, 255, 0.1) 51%, transparent 51%);
+        }
+
+        /* Common Section Styles */
+        section:not(.hero):not(.stats-ticker) {
+            padding: 8rem 0;
+        }
+
+        section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 2rem;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .bio-text {
+            font-size: 1.2rem;
+            color: #c0c0c0;
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+            line-height: 1.9;
+        }
+
+        /* Who Section */
+        .who-section {
+            background: linear-gradient(180deg, #000000 0%, #0a0a14 100%);
+        }
+
+        .who-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .headshot-container {
+            position: relative;
+        }
+
+        .headshot {
+            width: 100%;
+            border-radius: 12px;
+            filter: grayscale(100%) contrast(1.2);
+            mix-blend-mode: luminosity;
+            opacity: 0.9;
+        }
+
+        .headshot-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.3), rgba(147, 51, 234, 0.2));
+            border-radius: 12px;
+            mix-blend-mode: multiply;
+            pointer-events: none;
+        }
+
+        .who-text {
+            flex: 1;
+        }
+
+        @media (max-width: 968px) {
+            .who-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .headshot-container {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+
+        .bio-highlight {
+            background: rgba(0, 150, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-left: 4px solid #0096ff;
+            padding: 2rem;
+            margin: 2.5rem 0;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 150, 255, 0.1);
+        }
+
+        .pull-quote {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.3;
+            color: #ffffff;
+            font-weight: 600;
+            margin: 4rem auto;
+            max-width: 900px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #0096ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .expertise-badge {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border: 2px solid #3366cc;
+
+        /* What Section */
+        .what-section {
+            background: #000000;
         }
-        /* Custom color classes */
-        .text-3366cc { color: #3366cc; }
-        .bg-3366cc { background-color: #3366cc; }
-        .hover\\:text-3366cc:hover { color: #3366cc; }
-        .border-3366cc { border-color: #3366cc; }
-        .focus\\:ring-3366cc:focus { --tw-ring-color: #3366cc; }
-        
-        /* Animated background */
-        .animated-bg {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+
+        .current-focus {
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.08) 0%, rgba(147, 51, 234, 0.08) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            padding: 3rem;
+            border-radius: 16px;
+            margin-bottom: 4rem;
+            box-shadow: 0 8px 32px rgba(0, 150, 255, 0.15);
         }
-        
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+
+        .current-focus h3 {
+            color: #0096ff;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1.5rem;
         }
-        
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+
+        .past-systems-brief {
+            font-size: 1.1rem;
+            color: #909090;
+            line-height: 1.8;
+            margin: 3rem 0;
+            font-style: italic;
         }
-        
-        .macrosweep-gradient {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffd700 100%);
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 3rem 0;
+            margin: 4rem 0;
         }
-        
-        .pulse-glow {
-            animation: pulse-glow 2s infinite;
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, rgba(0, 150, 255, 0.5), transparent);
         }
-        
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.4); }
-            50% { box-shadow: 0 0 30px rgba(255, 107, 53, 0.8); }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 3rem;
         }
-        
-       
-     /* AI-Powered Toolkits Section - EDGY VERSION */
-.ai-toolkits-section {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1e3a8a 100%);
-    padding: 80px 0;
-    position: relative;
-    overflow: hidden;
-}
 
-.ai-toolkits-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 0, 136, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(0, 136, 255, 0.1) 0%, transparent 50%),
-        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,255,136,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-    animation: pulse-bg 4s ease-in-out infinite alternate;
-}
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0.5rem;
+            width: 10px;
+            height: 10px;
+            background: #0096ff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.6);
+        }
 
-@keyframes pulse-bg {
-    0% { opacity: 0.3; }
-    100% { opacity: 0.7; }
-}
+        .timeline-year {
+            font-size: 1rem;
+            color: #0096ff;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
 
-.ai-toolkits-section .container {
-    position: relative;
-    z-index: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+        .timeline-title {
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
 
-.ai-toolkits-section .section-header {
-    text-align: center;
-    margin-bottom: 60px;
-}
+        .timeline-desc {
+            font-size: 1rem;
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
 
-.ai-toolkits-section h2 {
-    font-size: 3rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #00ff88 0%, #00aaff 50%, #ff0088 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 20px;
-    text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-    animation: glow-text 3s ease-in-out infinite alternate;
-}
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(0, 150, 255, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+            padding: 6rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 150, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 150, 255, 0.2);
+        }
 
-@keyframes glow-text {
-    0% { filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.5)); }
-    100% { filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.8)); }
-}
+        .cta-content h3 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
 
-.ai-toolkits-section .section-header p {
-    font-size: 1.3rem;
-    color: #00ff88;
-    font-weight: 400;
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
-}
+        .cta-content p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 3rem;
+        }
 
-.toolkits-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-}
+        .cta-button {
+            display: inline-block;
+            padding: 1.5rem 3rem;
+            background: rgba(0, 150, 255, 0.15);
+            border: 2px solid #0096ff;
+            color: #0096ff;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-.toolkit-card {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background: linear-gradient(145deg, rgba(0, 0, 0, 0.8), rgba(30, 58, 138, 0.2));
-    backdrop-filter: blur(15px);
-    border: 2px solid transparent;
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 150, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
 
-.toolkit-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, #00ff88, #00aaff, #ff0088, #ffaa00);
-    background-size: 400% 400%;
-    animation: gradient-border 3s ease infinite;
-    z-index: -1;
-    border-radius: 20px;
-    padding: 2px;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-}
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
 
-@keyframes gradient-border {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 150, 255, 0.4);
+            background: rgba(0, 150, 255, 0.25);
+        }
 
-.toolkit-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    box-shadow: 
-        0 25px 50px rgba(0, 255, 136, 0.3),
-        0 0 0 1px rgba(0, 255, 136, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
 
-.toolkit-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: all 0.4s ease;
-    filter: brightness(0.9) contrast(1.1);
-}
+        /* How Section */
+        .how-section {
+            background: linear-gradient(180deg, #000000 0%, #0a0a14 100%);
+        }
 
-.toolkit-card:hover .toolkit-image {
-    transform: scale(1.08);
-    filter: brightness(1.1) contrast(1.2) saturate(1.2);
-}
+        .section-intro {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            margin-bottom: 4rem;
+            max-width: 800px;
+            line-height: 1.8;
+        }
 
-.toolkit-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(
-        transparent, 
-        rgba(0, 0, 0, 0.7) 30%, 
-        rgba(0, 255, 136, 0.1) 70%, 
-        rgba(0, 0, 0, 0.9) 100%
-    );
-    padding: 40px 20px 20px;
-    color: white;
-    transform: translateY(100%);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        .philosophy-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
 
-.toolkit-card:hover .toolkit-overlay {
-    transform: translateY(0);
-    background: linear-gradient(
-        transparent, 
-        rgba(0, 0, 0, 0.8) 20%, 
-        rgba(0, 255, 136, 0.2) 60%, 
-        rgba(0, 0, 0, 0.95) 100%
-    );
-}
+        .philosophy-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
 
-.toolkit-overlay h3 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: #00ff88;
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
-}
+        .philosophy-card:nth-child(1) { border-top: 3px solid #0096ff; }
+        .philosophy-card:nth-child(2) { border-top: 3px solid #9333ea; }
+        .philosophy-card:nth-child(3) { border-top: 3px solid #00c8ff; }
 
-.toolkit-overlay p {
-    font-size: 0.95rem;
-    color: #ffffff;
-    margin: 0;
-    line-height: 1.5;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-}
+        .philosophy-card:hover {
+            transform: translateY(-12px);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 60px rgba(0, 150, 255, 0.15);
+        }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .ai-toolkits-section {
-        padding: 60px 0;
-    }
-    
-    .ai-toolkits-section h2 {
-        font-size: 2.5rem;
-    }
-    
-    .toolkits-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-    
-    .toolkit-overlay {
-        position: static;
-        transform: none;
-        background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 255, 136, 0.2));
-        padding: 15px;
-    }
-    
-    .toolkit-overlay h3 {
-        font-size: 1.1rem;
-    }
-    
-    .toolkit-overlay p {
-        font-size: 0.85rem;
-    }
-}
+        .philosophy-card .icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+        }
 
-@media (max-width: 480px) {
-    .toolkits-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    
-    .ai-toolkits-section h2 {
-        font-size: 2rem;
-    }
-}
-.toolkit-cta {
-    text-align: center;
-    margin-top: 50px;
-    padding: 30px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 16px;
-    border: 1px solid rgba(0, 255, 136, 0.3);
-}
+        .icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+            color: #0096ff;
+            transition: transform 0.3s ease;
+        }
 
-.cta-text {
-    color: #ffffff;
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-    font-weight: 400;
-}
+        .philosophy-card:nth-child(2) .icon svg { color: #9333ea; }
+        .philosophy-card:nth-child(3) .icon svg { color: #00c8ff; }
 
-.cta-button-toolkit {
-    display: inline-block;
-    background: linear-gradient(135deg, #00ff88 0%, #00aaff 100%);
-    color: #000000;
-    font-weight: 700;
-    padding: 15px 30px;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
-}
+        .philosophy-card:hover .icon svg {
+            transform: scale(1.1) rotate(5deg);
+        }
 
-.cta-button-toolkit:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0, 255, 136, 0.4);
-    background: linear-gradient(135deg, #00aaff 0%, #00ff88 100%);
-}
+        .philosophy-card h4 {
+            color: #ffffff;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
 
-        /* CSS for responsive video embedding */
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio (height / width = 9 / 16 = 0.5625) */
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    background: #000; /* Fallback background for loading */
-    border-radius: 8px; /* Consistent with your website's rounded corners */
-}
+        .philosophy-card p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
 
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0; /* Ensures no default iframe border */
-    border-radius: 8px; /* Match container rounding */
-    
-}
+        /* Contact Section */
+        .contact-section {
+            background: #000000;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .contact-link {
+            display: inline-block;
+            color: #0096ff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border: 2px solid rgba(0, 150, 255, 0.3);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(0, 150, 255, 0.05);
+        }
+
+        .contact-link:hover {
+            background: rgba(0, 150, 255, 0.15);
+            border-color: #0096ff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 150, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            background: #000000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            color: #606060;
+        }
+
+        .footer-links a {
+            color: #808080;
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #0096ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .philosophy-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links a {
+                margin: 0 1rem;
+            }
+        }
+
+        /* Noise Texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: overlay;
+        }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg fixed w-full z-20">
-        <div class="container px-4 mx-auto">
-            <div class="flex justify-between items-center py-4">
-                <div class="text-2xl font-bold text-gray-800">
-                    <span class="text-3366cc">Roland</span> Craeye
-                    <div class="text-xs text-gray-500 font-normal">Global Systems Architect</div>
-                </div>
-                <div class="hidden lg:flex space-x-8">
-                    <a href="#about" class="text-gray-600 hover:text-3366cc transition-colors font-medium">About</a>
-                    <a href="#ai-toolkits" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Toolkits</a>
-                    <a href="#start-here" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Start</a>
-                    <a href="#core-services" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Services</a>
-                    <a href="#wealth-building" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Wealth Building</a>
-                    <a href="#macrosweep" class="text-gray-600 hover:text-3366cc transition-colors font-medium">MacroSweep</a>
-                    <a href="#testimonials" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Results</a>
-                    <a href="gpt_built_for_you.html" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Your Assistant</a>
-                    <a href="ai_consulting_services.html" class="text-gray-600 hover:text-3366cc transition-colors font-medium">Free Consult</a>
-                </div>
-                <div class="lg:hidden flex items-center">
-                    <button class="text-gray-600 focus:outline-none" onclick="toggleMobileMenu()">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden lg:hidden pb-4">
-                <a href="#about" class="block text-gray-600 hover:text-3366cc py-2 font-medium">About</a>
-                <a href="#ai-toolkits" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Toolkits</a>
-                <a href="#start-here" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Start</a>
-                <a href="#core-services" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Services</a>
-                <a href="#wealth-building" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Wealth Building</a>
-                <a href="#macrosweep" class="block text-gray-600 hover:text-3366cc py-2 font-medium">MacroSweep</a>
-                <a href="#testimonials" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Results</a>
-                <a href="gpt_built_for_you.html" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Your Assistant</a>
-                <a href="ai_consulting services.html" class="block text-gray-600 hover:text-3366cc py-2 font-medium">Free Consult</a>
-            </div>
-        </div>
-    </nav>
+<body>
+    <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-24 hero-gradient relative overflow-hidden">
-        <div class="absolute inset-0 bg-black opacity-10"></div>
-        <div class="container px-4 mx-auto relative z-10">
-            <div class="flex flex-wrap items-center">
-                <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
-                    <div class="expertise-badge inline-block px-4 py-2 rounded-full mb-6">
-                        <span class="text-3366cc font-semibold text-sm">Prototyping tomorrow's value exchange systems</span>
-                    </div>
-                    <h1 class="text-5xl md:text-6xl font-bold text-white leading-tight mb-6">
-                        Build <span class="border-b-4 border-white">Unstoppable</span> Income Systems
-                    </h1>
-                    <p class="text-xl text-white opacity-95 mb-8 leading-relaxed">
-                        AI-powered workflows, real estate investments, and funding solutions that generate wealth across borders. 
-                        <strong>Location-proof income that works whether you're present or not.</strong>
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#start-here" 
-                           class="cta-button inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg">
-                            <i class="fas fa-rocket mr-2"></i> Start Here - See Pricing
-                        </a>
-                        <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20ready%20to%20build%20core%20income%20systems." target="_blank" 
-                           class="glass-effect inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg">
-                            <i class="fab fa-whatsapp mr-2"></i> Get Started Now
-                        </a>
-                    </div>
-                </div>
-                <div class="w-full lg:w-1/2 lg:pl-16">
-                    <div class="bg-white p-8 rounded-2xl shadow-2xl">
-                        <div class="flex items-center mb-8">
-                            <div class="w-26 h-26 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
-                               <img src="headshot001.jpeg" alt="Roland Craeye" class="w-24 h-24 rounded-full object-cover">
-                            </div>
-                            <div class="ml-6">
-                                <h3 class="font-bold text-2xl text-gray-800">Global Systems Architect</h3>
-                               <p class="text-gray-600 text-lg">Principal Consultant • Global Operator Systems</p>
-                            </div>
-                        </div>
-                        
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-center">
-                                <i class="fas fa-check-circle text-green-500 mr-3 text-lg"></i>
-                                <span class="font-medium">AI-powered income streams that work 24/7</span>
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check-circle text-green-500 mr-3 text-lg"></i>
-                                <span class="font-medium">AI-driven real estate analysis & deals</span>
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check-circle text-green-500 mr-3 text-lg"></i>
-                                <span class="font-medium">Automated funding & capital solutions</span>
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check-circle text-green-500 mr-3 text-lg"></i>
-                                <span class="font-medium">Cross-border workflow optimization</span>
-                            </li>
-                        </ul>
-                     
-                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg">
-                            <p class="text-3366cc font-semibold text-center">
-                                <i class="fas fa-award mr-2"></i>
-                                Building the post-employment economy
-                            </p>
-                         </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        
+        <div class="hero-content">
+            <h1>OPERATOR</h1>
+            <p class="tagline">30 years. 3 continents. Systems that compound.</p>
+            <p class="subline">Building AI infrastructure that captures what others miss.</p>
         </div>
     </section>
-<!-- AI-Powered Toolkits Section -->
-    <section id="ai-toolkits" class="ai-toolkits-section">
-    <div class="container">
-        <div class="section-header">
-            <h2>AI-Powered Toolkits</h2>
-            <p>Real platforms. Real results. Real-time intelligence.</p>
-        </div>
 
-        <div class="toolkits-grid">
-            <!-- AI Real Estate Analysis -->
-            <div class="toolkit-card">
-                <img src="AI Real Estate Analysis dashboard .png" alt="AI Real Estate Analysis Dashboard" class="toolkit-image">
-                <div class="toolkit-overlay">
-                    <h3>AI Real Estate Analysis</h3>
-                    <p>Machine learning-powered deal evaluation and market analysis</p>
-                </div>
-            </div>
-
-            <!-- AI Funding Solutions -->
-            <div class="toolkit-card">
-                <img src="AI Funding Solutions mobile component.png" alt="AI Funding Solutions Mobile" class="toolkit-image">
-                <div class="toolkit-overlay">
-                    <h3>AI Funding Solutions</h3>
-                    <p>Intelligent capital matching and automated processing</p>
-                </div>
-            </div>
-
-            <!-- CloserCore AI -->
-            <div class="toolkit-card">
-                <img src="CloserCore AI™ app.png" alt="CloserCore AI App" class="toolkit-image">
-                <div class="toolkit-overlay">
-                    <h3>CloserCore AI™</h3>
-                    <p>AI-powered business automation and optimization</p>
-                </div>
-            </div>
-
-            <!-- MacroSweep Reflex -->
-            <a href="Macrosweep_early%20access.html" style="text-decoration: none; color: inherit;">
-            <div class="toolkit-card">
-            <img src="MacroSweep Reflex™ mobile app.png" alt="MacroSweep Reflex Mobile App" class="toolkit-image">
-            <div class="toolkit-overlay">
-            <h3>MacroSweep Reflex™</h3>
-            <p>Tactical trading system for volatile markets</p>
+    <!-- Stats Ticker -->
+    <div class="stats-ticker">
+        <div class="ticker-content">
+            <span>8,247 decisions automated this week</span>
+            <span>•</span>
+            <span>8 time zones</span>
+            <span>•</span>
+            <span>3 manual interventions</span>
+            <span>•</span>
+            <span>98.7% uptime</span>
+            <span>•</span>
+            <span>3 continents</span>
+            <span>•</span>
+            <span>42 concurrent processes</span>
+            <span>•</span>
+            <span>8,247 decisions automated this week</span>
+            <span>•</span>
+            <span>8 time zones</span>
+            <span>•</span>
+            <span>3 manual interventions</span>
+            <span>•</span>
+            <span>98.7% uptime</span>
+            <span>•</span>
+            <span>3 continents</span>
+            <span>•</span>
+            <span>42 concurrent processes</span>
         </div>
     </div>
-</a>
-        </div>
-        <!-- Responsive Video Embed Code -->
-<div class="video-container">
-    <iframe
-        src="https://www.youtube.com/embed/IU56oX0x2L4?modestbranding=1&amp;rel=0"
-        title="YouTube video player"
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-    </iframe>
-</div>
-        <div class="toolkit-cta">
-    <p class="cta-text">These systems are currently deployed with select clients.</p>
-    <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I%20want%20early%20access%20to%20your%20AI%20toolkits.%20Can%20we%20discuss%20implementation?" class="cta-button-toolkit">
-    Request Early Access
-</a>
-</div>
-    </div>
-         
-</section>
-    
-    <!-- Start Here Section -->
-    <section id="start-here" class="py-24 bg-gradient-to-br from-blue-50 to-indigo-50">
-        <div class="container px-4 mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-gray-800 mb-6">Start Here: Your Path to Income Freedom</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Proven process, immediate action. Choose your tier and start building today.
-                </p>
-            </div>
+
+    <div class="section-divider"></div>
+
+    <!-- Who -->
+    <section class="who-section">
+        <div class="container">
+            <h2>Who?</h2>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                <!-- Tier 1 Pricing Card -->
-                <div class="service-card bg-white rounded-2xl shadow-lg p-8 border-2 border-blue-200">
-                    <div class="text-center mb-8">
-                        <div class="expertise-badge inline-block px-4 py-2 rounded-full mb-4">
-                            <span class="text-3366cc font-semibold">TIER 1 - START HERE</span>
-                        </div>
-                        <h3 class="text-3xl font-bold text-gray-800 mb-4">Core AI Systems</h3>
-                        <div class="text-5xl font-bold text-3366cc mb-2">Custom Quote</div>
-                        <p class="text-gray-600">Based on your needs</p>
-                        <p class="text-gray-600">One-time investment or Retainer</p>
-                    </div>
-                    
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <i class="fas fa-robot text-blue-500 mt-1 mr-3"></i>
-                            <span>AI workflow automation design</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-globe text-blue-500 mt-1 mr-3"></i>
-                            <span>Income system architecture</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-chart-line text-blue-500 mt-1 mr-3"></i>
-                            <span>Business optimization analysis</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-video text-blue-500 mt-1 mr-3"></i>
-                            <span>Content & UGC systems</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-clock text-blue-500 mt-1 mr-3"></i>
-                            <span>Fast-track implementation</span>
-                        </li>
-                    </ul>
-                    
-                    <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20ready%20to%20start%20with%20Tier%201%20Core%20AI%20Systems." target="_blank" 
-                       class="cta-button w-full text-center inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg">
-                        <i class="fas fa-rocket mr-2"></i> Start Tier 1 Now
-                    </a>
+            <div class="who-content">
+                <div class="headshot-container">
+                    <img src="https://i.postimg.cc/15ySh2w5/roland-headshot.jpg" alt="Roland Craeye" class="headshot">
+                    <div class="headshot-overlay"></div>
                 </div>
                 
-                <!-- Tier 2 Pricing Card -->
-                <div class="service-card bg-white rounded-2xl shadow-lg p-8 border-2 border-green-200">
-                    <div class="text-center mb-8">
-                        <div class="expertise-badge inline-block px-4 py-2 rounded-full mb-4" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #10b981;">
-                            <span class="text-green-600 font-semibold">TIER 2 - SCALE UP</span>
-                        </div>
-                        <h3 class="text-3xl font-bold text-gray-800 mb-4">AI Wealth Building</h3>
-                        <div class="text-5xl font-bold text-green-600 mb-2">Flexible Fees</div>
-                        <p class="text-gray-600">Success-based • Retainers</p>
-                        <p class="text-gray-600">Broker fees</p>
+                <div class="who-text">
+                    <p class="bio-text">Roland has spent over three decades working across the US, Europe, and now Asia in sales, training, and systems-focused roles. That mix of ground-level operations and strategic work now feeds into how he designs AI-powered operators.</p>
+                    
+                    <div class="bio-highlight">
+                        <p class="bio-text" style="margin-bottom: 0;">He focuses on leverage. Assets and infrastructure that run with minimal ongoing involvement while compounding cashflow over time.</p>
                     </div>
                     
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start">
-                            <i class="fas fa-brain text-green-500 mt-1 mr-3"></i>
-                            <span>AI-powered real estate analysis</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-building text-green-500 mt-1 mr-3"></i>
-                            <span>Automated deal evaluation systems</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-dollar-sign text-green-500 mt-1 mr-3"></i>
-                            <span>AI-driven funding solutions</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-chart-pie text-green-500 mt-1 mr-3"></i>
-                            <span>Automated investment tracking</span>
-                        </li>
-                       <li class="flex items-start">
-                        <i class="fas fa-handshake text-green-500 mt-1 mr-3"></i>
-                        <span>Performance-based options available</span>
-                        </li>
-                    </ul>
+                    <p class="bio-text">He builds and owns specific systems. When a system needs him every day, it gets redesigned or retired.</p>
                     
-                    <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20interested%20in%20Tier%202%20AI%20Wealth%20Building%20services." target="_blank" 
-                       class="w-full text-center inline-block bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-colors">
-                        <i class="fas fa-chart-line mr-2"></i> Explore Tier 2
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Process Steps -->
-            <div class="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 class="text-2xl font-bold text-center text-gray-800 mb-8">Simple 3-Step Process</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-white font-bold text-xl">1</span>
-                        </div>
-                        <h4 class="font-bold text-lg mb-2">Free 30-Min Consultation</h4>
-                        <p class="text-gray-600">WhatsApp call to assess your needs and recommend the right tier</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-white font-bold text-xl">2</span>
-                        </div>
-                        <h4 class="font-bold text-lg mb-2">Custom Proposal</h4>
-                        <p class="text-gray-600">Detailed scope, timeline, and investment based on your specific situation</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-white font-bold text-xl">3</span>
-                        </div>
-                        <h4 class="font-bold text-lg mb-2">Implementation</h4>
-                        <p class="text-gray-600">Weekly check-ins, milestone delivery, and system optimization</p>
-                    </div>
-                </div>
-                
-                <div class="text-center mt-8">
-                    <div class="bg-red-100 border border-red-300 rounded-lg p-4 inline-block">
-                        <p class="text-red-700 font-semibold">
-                            <i class="fas fa-clock mr-2"></i>
-                            Limited: Currently only 3 new clients per month
-                        </p>
+                    <div class="pull-quote">
+                        "If it needs me daily, it's not done yet."
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24">
-        <div class="container px-4 mx-auto">
-            <div class="flex flex-wrap items-center">
-                <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
-                    <div class="rounded-2xl overflow-hidden shadow-2xl">
-                        <div class="p-10 bg-white">
-                            <h3 class="text-3xl font-bold mb-4 text-gray-800">The Global Systems Architect</h3>
-                            <p class="mb-6 text-gray-600 text-lg leading-relaxed">
-                                With over three decades of experience across the US, Europe, and Asia, I've mastered the art of creating systems that generate wealth whether you're present or not. My expertise spans AI workflow design, real estate investment, business funding, and content ecosystems.
-                            </p>
-                            <p class="mb-6 text-gray-600 text-lg leading-relaxed">
-                                What separates me from the crowd is my rare combination of technical mastery, financial acumen, and human understanding. While others see AI as merely a tool, I recognize it as a transformative force for reshaping how value is created and captured across global markets.
-                            </p>
-                            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border-l-4 border-3366cc">
-                                <p class="text-gray-700 italic text-lg font-medium">
-                                    "Freedom isn't found in escaping life; it's in designing a life you don't need to escape from."
-                                </p>
-                                <p class="text-3366cc font-semibold mt-2">— Roland Craeye</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full lg:w-1/2 lg:pl-16">
-                    <h2 class="section-heading text-4xl font-bold text-gray-800 mb-8">Multi-Domain AI Expertise</h2>
-                    <p class="text-gray-600 mb-8 text-lg">
-                        I design AI-powered income systems for professionals who work across borders. Every service tier leverages artificial intelligence to maximize efficiency and profitability.
-                    </p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-                        <div class="bg-white p-6 rounded-xl shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-robot text-3366cc mr-4 text-2xl"></i>
-                                <div>
-                                    <p class="font-bold text-lg">AI Systems Design</p>
-                                    <p class="text-sm text-gray-600">Cutting-edge workflows</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-brain text-3366cc mr-4 text-2xl"></i>
-                                <div>
-                                    <p class="font-bold text-lg">AI Real Estate Analysis</p>
-                                    <p class="text-sm text-gray-600">Data-driven investments</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-chart-line text-3366cc mr-4 text-2xl"></i>
-                                <div>
-                                    <p class="font-bold text-lg">AI Funding Solutions</p>
-                                    <p class="text-sm text-gray-600">Automated capital access</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-lg">
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-globe text-3366cc mr-4 text-2xl"></i>
-                                <div>
-                                    <p class="font-bold text-lg">Global Operations</p>
-                                    <p class="text-sm text-gray-600">US, Europe, Asia</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="section-divider"></div>
 
-    <!-- Core Services (Tier 1) -->
-    <section id="core-services" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div class="container px-4 mx-auto">
-            <div class="text-center mb-20">
-                <div class="expertise-badge inline-block px-6 py-3 rounded-full mb-6">
-                    <span class="text-3366cc font-semibold">TIER 1 - CORE SERVICES</span>
-                </div>
-                <h2 class="text-4xl font-bold text-gray-800 mb-6">AI Automation & Business Systems</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    My primary expertise: Building intelligent systems that automate your business operations and create sustainable income streams that work 24/7.
-                </p>
-            </div>
+    <!-- What -->
+    <section class="what-section">
+        <div class="container">
+            <h2>What?</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- AI Workflow Design Card -->
-                <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i class="fas fa-robot text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">AI Workflow Design</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Custom AI systems that automate processes, enhance decision-making, and create new revenue streams through intelligent automation.
-                    </p>
-                    <ul class="text-gray-600 space-y-3 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Workflow analysis & optimization</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>AI tool integration & training</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Custom solution architecture</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Income Systems Architecture Card -->
-                <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i class="fas fa-globe text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Income Systems Architecture</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        End-to-end income generation systems designed to create sustainable revenue streams across borders and time zones.
-                    </p>
-                    <ul class="text-gray-600 space-y-3 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Global payment infrastructure</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Diversified income streams</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                            <span>Cross-border optimization</span>
-                        </li>
-                    </ul>
-                </div>
+            <div class="current-focus">
+                <h3>Current Focus: Global Operator Systems</h3>
+                <p class="bio-text">Roland runs <strong>Global Operator Systems</strong>, where the current flagship is <strong>VoiceCloser</strong>. An AI voice and SMS infrastructure layer that answers calls 24/7, separates emergencies from routine jobs, and either activates on-call technicians or books non-urgent work automatically for small service businesses.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- Wealth Building Services (Tier 2) -->
-    <section id="wealth-building" class="py-24">
-        <div class="container px-4 mx-auto">
-            <div class="text-center mb-20">
-                <div class="expertise-badge inline-block px-6 py-3 rounded-full mb-6" style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #10b981;">
-                    <span class="text-green-600 font-semibold">TIER 2 - WEALTH BUILDING SERVICES</span>
-                </div>
-                <h2 class="text-4xl font-bold text-gray-800 mb-6">AI-Powered Real Estate & Funding</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Advanced AI systems for clients ready to scale wealth through automated real estate analysis and intelligent funding solutions.
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- AI Real Estate Investment Card -->
-                <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i class="fas fa-brain text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">AI Real Estate Analysis</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Machine learning-powered deal evaluation, market analysis, and investment strategies for multi-family, commercial, and fix-and-flip properties.
-                    </p>
-                    <ul class="text-gray-600 space-y-3 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-robot text-green-500 mt-1 mr-3"></i>
-                            <span>AI-powered deal scoring</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-chart-bar text-green-500 mt-1 mr-3"></i>
-                            <span>Automated market analysis</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-calculator text-green-500 mt-1 mr-3"></i>
-                            <span>Predictive ROI modeling</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- AI Funding Solutions Card -->
-                <div class="service-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-8">
-                        <i class="fas fa-microchip text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">AI Funding Solutions</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Intelligent capital matching, automated application processing, and AI-driven funding optimization for businesses and investments.
-                    </p>
-                    <ul class="text-gray-600 space-y-3 mb-6">
-                        <li class="flex items-start">
-                            <i class="fas fa-search text-purple-500 mt-1 mr-3"></i>
-                            <span>AI lender matching</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-cogs text-purple-500 mt-1 mr-3"></i>
-                            <span>Automated application prep</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-chart-line text-purple-500 mt-1 mr-3"></i>
-                            <span>Funding optimization algorithms</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- MacroSweep Section -->
-    <section id="macrosweep" class="py-24 macrosweep-gradient">
-    <div class="container px-4 mx-auto">
-        <div class="text-center text-white mb-16">
-            <div class="inline-block bg-white bg-opacity-20 px-6 py-3 rounded-full mb-6 pulse-glow">
-                <span class="font-bold text-lg">NOW ACCEPTING PREORDERS</span>
-            </div>
-            <h2 class="text-5xl font-bold mb-6">MacroSweep Reflex™</h2>
-            <p class="text-2xl mb-8 opacity-95 max-w-2xl mx-auto">
-                Built for traders navigating chaos.
+            <p class="past-systems-brief">
+                Past systems: lead gen workflows, real estate analysis tools, funding automation, content distribution. Different problems. Same approach. Build it. Own it. Move on.
             </p>
-        </div>
 
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 border border-white border-opacity-20">
-                <div class="text-white text-center">
-                    <p class="text-xl leading-relaxed mb-8">
-                        Discover the AI-powered tactical system that brings sniper-grade clarity to volatile markets.
-                        Unlock precision, mitigate risk, and seize high-probability trade setups.
-                    </p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2018–2020</div>
+                    <div class="timeline-title">Lead Generation Systems</div>
+                    <div class="timeline-desc">Built pipeline systems keeping prospects warm across 8 time zones. Automated scoring and nurture sequences. Exited when manual intervention exceeded value.</div>
+                </div>
 
-                   <a href="Macrosweep_early%20access.html" class="inline-block bg-white text-black font-bold px-8 py-4 rounded-lg text-lg hover:bg-gray-100 transition-colors pulse-glow">
-                    <i class="fas fa-arrow-right mr-2"></i> Learn More & Get Early Access
-                    </a>
+                <div class="timeline-item">
+                    <div class="timeline-year">2020–2022</div>
+                    <div class="timeline-title">Real Estate Analysis Tools</div>
+                    <div class="timeline-desc">Deal screening and scenario modeling infrastructure. Killed bad investments before site visits. Sold when market required hands-on strategy.</div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div class="container px-4 mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="text-4xl font-bold text-gray-800 mb-6">Real Results from Real Clients</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    See how professionals across industries have transformed their businesses with AI-powered income systems.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="flex items-center mb-6">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="ml-2 text-gray-600 font-medium">AI Automation</span>
-                    </div>
-                    <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
-                        "The AI workflow system generates consistent leads while I sleep. What used to take 20 hours a week now runs on autopilot, and my conversion rates improved by 35%."
-                    </p>
-                    <div class="flex items-center">
-                        <div class="mr-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="text-3366cc font-bold">CZ</span>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="font-bold">Christina Z.</p>
-                            <p class="text-sm text-gray-600">Digital Marketing Agency Owner</p>
-                        </div>
-                    </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2022–2023</div>
+                    <div class="timeline-title">Funding Automation</div>
+                    <div class="timeline-desc">AI-powered matching and application workflows. Connected founders with capital while everyone slept. Moved on after regulatory complexity increased.</div>
                 </div>
-                
-                <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="flex items-center mb-6">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="ml-2 text-gray-600 font-medium">AI Real Estate</span>
-                    </div>
-                    <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
-                        "The AI real estate analysis helped me identify a multi-family deal that generates $4,200 monthly cash flow. The automated screening saved me from several bad investments too."
-                    </p>
-                    <div class="flex items-center">
-                        <div class="mr-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="text-3366cc font-bold">MT</span>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="font-bold">Michael T.</p>
-                            <p class="text-sm text-gray-600">Real Estate Investor</p>
-                        </div>
-                    </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2023–2024</div>
+                    <div class="timeline-title">Content Distribution Systems</div>
+                    <div class="timeline-desc">AI-driven coordination keeping brands visible across continents and time zones. Zero daily input required. Scaled then stepped back.</div>
                 </div>
-                
-                <div class="testimonial-card bg-white rounded-2xl shadow-lg p-8 h-full">
-                    <div class="flex items-center mb-6">
-                        <div class="text-yellow-400 flex">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span class="ml-2 text-gray-600 font-medium">AI Funding</span>
-                    </div>
-                    <p class="text-gray-600 italic mb-6 text-lg leading-relaxed">
-                        "The AI funding system matched me with the perfect lender and automated the entire application process. Secured $250K in working capital in just 48 hours."
-                    </p>
-                    <div class="flex items-center">
-                        <div class="mr-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                <span class="text-3366cc font-bold">SB</span>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="font-bold">Sarah B.</p>
-                            <p class="text-sm text-gray-600">SaaS Company Founder</p>
-                        </div>
-                    </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2024–Present</div>
+                    <div class="timeline-title">VoiceCloser</div>
+                    <div class="timeline-desc">AI phone and SMS operators for service businesses. Capturing missed revenue 24/7. Currently active and scaling.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="py-24 animated-bg">
-        <div class="container px-4 mx-auto">
-            <div class="text-center text-white">
-                <h2 class="text-4xl font-bold mb-16">Proven AI-Powered Results</h2>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div class="text-center">
-                        <div class="stats-counter mb-4">3X</div>
-                        <p class="text-xl font-medium">Average ROI</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="stats-counter mb-4">$12M+</div>
-                        <p class="text-xl font-medium">Client Revenue Impact</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="stats-counter mb-4">95%</div>
-                        <p class="text-xl font-medium">Client Retention Rate</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="stats-counter mb-4">21+</div>
-                        <p class="text-xl font-medium">Countries Served</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA Section -->
-    <section class="py-24 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
-        <div class="container px-4 mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-6">Ready to Build Your AI-Powered Income System?</h2>
-            <p class="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
-                Start with Tier 1 core automation, then scale to AI-powered wealth building. Your journey to financial freedom starts with one WhatsApp message.
-            </p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20ready%20to%20start%20with%20Tier%201%20AI%20systems." target="_blank" 
-                   class="bg-white text-blue-600 font-semibold px-8 py-4 rounded-lg text-lg hover:bg-gray-100 transition-colors">
-                    <i class="fas fa-rocket mr-2"></i> Start Tier 1 Now
-                </a>
-                <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I%20want%20to%20learn%20about%20the%20complete%20system." target="_blank" 
-                   class="glass-effect border-2 border-white text-white font-semibold px-8 py-4 rounded-lg text-lg hover:bg-white hover:text-blue-600 transition-all">
-                    <i class="fas fa-comments mr-2"></i> Free Consultation
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h3>See what's running now</h3>
+                <p>VoiceCloser and the infrastructure behind it. Built for operators who can't afford to miss calls.</p>
+                <a href="https://www.globaloperatorsystems.com" class="cta-button" target="_blank">
+                    <span>GlobalOperatorSystems.com →</span>
                 </a>
             </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Contact -->
+    <section class="contact-section">
+        <div class="container">
+            <h2>Connect</h2>
+            <a href="mailto:team@globaloperatorsystems.com" class="contact-link">team@globaloperatorsystems.com</a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-16">
-        <div class="container px-4 mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="md:col-span-2">
-                    <div class="text-2xl font-bold mb-4">
-                        <span class="text-blue-400">Roland</span> Craeye
-                    </div>
-                    <p class="text-gray-300 mb-6 leading-relaxed">
-                        Global Systems Architect specializing in AI automation, income system design, AI-powered real estate investment, and intelligent funding solutions. Building the post-employment economy one AI system at a time.
-                    </p>
-                    <p class="text-gray-400 text-sm mt-3 italic">
-                        No WhatsApp? Connect via IG or LinkedIn below ↓
-                    </p>
-                 <div class="flex space-x-4">
-                    <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20interested%20in%20your%20AI-powered%20services." target="_blank" class="text-gray-400 hover:text-green-400 transition-colors">
-                    <i class="fab fa-whatsapp text-2xl"></i>
-                    </a>
-                        <a href="https://instagram.com/rolandcraeye" target="_blank" class="text-gray-400 hover:text-pink-400 transition-colors">
-                        <i class="fab fa-instagram text-2xl"></i>
-                        </a>
-                            <a href="https://linkedin.com/in/rolandcraeye" target="_blank" class="text-gray-400 hover:text-blue-400 transition-colors">
-                             <i class="fab fa-linkedin text-2xl"></i>
-                            </a>
-                        </div>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>&copy; 2025 Roland Craeye</div>
+                <div class="footer-links">
+                    <a href="https://www.globaloperatorsystems.com" target="_blank">Global Operator Systems</a>
+                    <a href="https://linkedin.com/in/rolandcraeye" target="_blank">LinkedIn</a>
                 </div>
-                
-                <div>
-                    <h4 class="font-bold text-lg mb-4">AI-Powered Services</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><a href="#start-here" class="hover:text-white transition-colors">Start Here</a></li>
-                        <li><a href="gpt_built_for_you.html" class="hover:text-white transition-colors">We build your custom GPT assistant.</a></li> 
-                        <li><a href="#core-services" class="hover:text-white transition-colors">Tier 1: Core AI Systems</a></li>
-                        <li><a href="#ai-toolkits" class="hover:text-white transition-colors">AI Toolkits</a></li>                        
-                        <li><a href="#wealth-building" class="hover:text-white transition-colors">Tier 2: AI Wealth Building</a></li>
-                        <li><a href="#macrosweep" class="hover:text-white transition-colors">MacroSweep Reflex™</a></li>
-                        <li><a href="ai_consulting_services.html" class="hover:text-white transition-colors">AI Consulting Services</a></li> 
-                        <li><a href="ai_second_brain.html" class="hover:text-white transition-colors">AI Second Brain</a></li> 
-                        <li><a href="build_your_agent_2.html" class="hover:text-white transition-colors">Build Your Agent With Us</a></li> 
-                        <li><a href="next_gen_work_report.html" class="hover:text-white transition-colors">The Work Evolution Report</a></li> 
-                        <li><a href="Owning_the_Game_Blog.html" class="hover:text-white transition-colors">Blog: Owning the Game</a></li> 
-                        <li><a href="The_AI_Tectonic_Shift.html" class="hover:text-white transition-colors">Infographic: The AI Tectonic Shift</a></li> 
-
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 Roland Craeye | Global Operator Systems. All rights reserved.</p>
-                <p class="mt-2">Building unstoppable AI-powered income systems across borders.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Floating WhatsApp Button -->
-    <div class="floating-whatsapp">
-        <a href="https://wa.me/15127313529?text=Hi%20Roland!%20I'm%20interested%20in%20your%20AI-powered%20services." target="_blank" 
-           class="bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all hover:scale-110">
-            <i class="fab fa-whatsapp text-2xl"></i>
-        </a>
-    </div>
-
     <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
+        // Cursor Glow
+        const cursorGlow = document.getElementById('cursorGlow');
+        let mouseX = 0, mouseY = 0;
+        let glowX = 0, glowY = 0;
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
 
-        // Add scroll effect to navigation
-        // Add scroll effect to navigation
-window.addEventListener('scroll', function() {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 100) {
-        nav.classList.add('shadow-xl');
-    } else {
-        nav.classList.remove('shadow-xl');
-    }
-});
+        function animateGlow() {
+            glowX += (mouseX - glowX) * 0.1;
+            glowY += (mouseY - glowY) * 0.1;
+            
+            cursorGlow.style.left = glowX + 'px';
+            cursorGlow.style.top = glowY + 'px';
+            
+            requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+
+        // Parallax on hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.8;
+            }
+        });
     </script>
 </body>
 </html>
