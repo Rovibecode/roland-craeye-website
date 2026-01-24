@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roland Craeye - Operator</title>
+    <title>Roland Craeye</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@200;300;400;600;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,85 +14,106 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #000000;
-            color: #e0e0e0;
-            line-height: 1.6;
+            background: #0a0a0a;
+            color: #e8e8e8;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Cursor Glow */
-        .cursor-glow {
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 150, 255, 0.2) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: screen;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: #000000;
-            overflow: hidden;
-        }
-
-        .hero::before {
+        /* Concrete texture background */
+        body::after {
             content: '';
-            position: absolute;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='concrete'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='6' type='fractalNoise'/%3E%3CfeColorMatrix values='0 0 0 0 0.05, 0 0 0 0 0.05, 0 0 0 0 0.05, 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23concrete)'/%3E%3C/svg%3E");
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Heavy grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background-image: 
-                linear-gradient(rgba(0, 150, 255, 0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 150, 255, 0.04) 1px, transparent 1px);
-            background-size: 100px 100px;
-            animation: gridMove 20s linear infinite;
-            transform: perspective(500px) rotateX(60deg);
+            background: 
+                radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.7) 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3.5' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 10000;
+            animation: heavyGrain 4s steps(12) infinite;
+            mix-blend-mode: overlay;
+            opacity: 0.25;
         }
 
-        @keyframes gridMove {
-            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(100px); }
+        @keyframes heavyGrain {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-8%, -8%) rotate(45deg); }
+            40% { transform: translate(8%, -8%) rotate(90deg); }
+            60% { transform: translate(-8%, 8%) rotate(180deg); }
+            80% { transform: translate(8%, 8%) rotate(270deg); }
         }
 
+        /* Cursor glow */
+        #cursor-glow {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.25) 0%, rgba(147, 51, 234, 0.15) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: screen;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Hero - Split screen */
+        .hero {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 42% 58%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Floating orbs - MORE VISIBLE */
         .orb {
             position: absolute;
             border-radius: 50%;
             filter: blur(100px);
-            opacity: 0.8;
-            animation: float 25s ease-in-out infinite;
+            opacity: 0.7;
+            animation: floatOrb 25s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 2;
         }
 
         .orb-1 {
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(0, 150, 255, 0.6), transparent);
-            top: 5%;
-            left: 5%;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.8), transparent);
+            top: -15%;
+            left: -5%;
+            animation-delay: 0s;
         }
 
         .orb-2 {
             width: 550px;
             height: 550px;
-            background: radial-gradient(circle, rgba(147, 51, 234, 0.6), transparent);
-            bottom: 5%;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.7), transparent);
+            bottom: -10%;
             right: 5%;
             animation-delay: -12s;
         }
@@ -100,316 +121,280 @@
         .orb-3 {
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(0, 200, 255, 0.5), transparent);
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.6), transparent);
             top: 40%;
-            right: 15%;
+            right: 20%;
             animation-delay: -6s;
         }
 
-        @keyframes float {
+        @keyframes floatOrb {
             0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(80px, -80px) scale(1.2); }
-            50% { transform: translate(-60px, 60px) scale(0.85); }
-            75% { transform: translate(60px, 40px) scale(1.1); }
+            33% { transform: translate(120px, -120px) scale(1.15); }
+            66% { transform: translate(-100px, 100px) scale(0.9); }
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 1100px;
-            animation: heroFadeIn 1.5s ease forwards 0.5s;
-            opacity: 0;
-        }
-
-        @keyframes heroFadeIn {
-            to { opacity: 1; }
-        }
-
-        .hero h1 {
-            font-size: clamp(4rem, 12vw, 10rem);
-            font-weight: 700;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #ffffff 0%, #0096ff 50%, #9333ea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            letter-spacing: -0.03em;
-            text-transform: uppercase;
-        }
-
-        .hero .tagline {
-            font-size: clamp(1.2rem, 3vw, 1.6rem);
-            color: #b0b0b0;
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-        }
-
-        .hero .subline {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            color: #707070;
-            font-weight: 400;
-        }
-
-        /* Stats Ticker */
-        .stats-ticker {
-            background: rgba(0, 150, 255, 0.05);
-            border-top: 1px solid rgba(0, 150, 255, 0.2);
-            border-bottom: 1px solid rgba(0, 150, 255, 0.2);
-            padding: 1.5rem 0;
-            overflow: hidden;
-        }
-
-        .ticker-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: scroll-left 40s linear infinite;
-            font-size: 0.95rem;
-            color: #808080;
-        }
-
-        .ticker-content span {
-            margin: 0 3rem;
-        }
-
-        @keyframes scroll-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Section Divider */
-        .section-divider {
-            height: 150px;
+        /* Image section - brutalist clip */
+        .image-section {
             position: relative;
             overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+            z-index: 3;
         }
 
-        .section-divider::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -10%;
-            right: -10%;
+        .hero-image {
+            width: 120%;
             height: 100%;
-            background: linear-gradient(135deg, transparent 49%, rgba(0, 150, 255, 0.1) 49%, rgba(0, 150, 255, 0.1) 51%, transparent 51%);
+            object-fit: cover;
+            object-position: center;
+            filter: grayscale(100%) contrast(1.6) brightness(0.5);
+            animation: heroZoom 50s ease-in-out infinite alternate;
         }
 
-        /* Common Section Styles */
-        section:not(.hero):not(.stats-ticker) {
-            padding: 8rem 0;
+        @keyframes heroZoom {
+            0% { transform: scale(1.1) rotate(0deg); }
+            100% { transform: scale(1.3) rotate(1deg); }
         }
 
-        section h2 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 2rem;
-            color: #ffffff;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .bio-text {
-            font-size: 1.2rem;
-            color: #c0c0c0;
-            margin-bottom: 1.5rem;
-            max-width: 900px;
-            line-height: 1.9;
-        }
-
-        /* Who Section */
-        .who-section {
-            background: linear-gradient(180deg, #000000 0%, #0a0a14 100%);
-        }
-
-        .who-content {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 4rem;
-            align-items: start;
-        }
-
-        .headshot-container {
-            position: relative;
-        }
-
-        .headshot {
-            width: 100%;
-            border-radius: 12px;
-            filter: grayscale(100%) contrast(1.2);
-            mix-blend-mode: luminosity;
-            opacity: 0.9;
-        }
-
-        .headshot-overlay {
+        .image-section::after {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 150, 255, 0.3), rgba(147, 51, 234, 0.2));
-            border-radius: 12px;
+            background: linear-gradient(90deg, transparent 0%, rgba(0, 150, 255, 0.15) 50%, #0a0a0a 100%);
             mix-blend-mode: multiply;
-            pointer-events: none;
         }
 
-        .who-text {
-            flex: 1;
+        /* Text section */
+        .text-section {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10% 0 8%;
+            z-index: 4;
         }
 
-        @media (max-width: 968px) {
-            .who-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .headshot-container {
-                max-width: 300px;
-                margin: 0 auto;
-            }
-        }
-
-        .bio-highlight {
-            background: rgba(0, 150, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-left: 4px solid #0096ff;
-            padding: 2rem;
-            margin: 2.5rem 0;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 150, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 150, 255, 0.1);
-        }
-
-        .pull-quote {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            line-height: 1.3;
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(70px, 10vw, 180px);
+            font-weight: 900;
+            line-height: 0.88;
+            letter-spacing: -0.04em;
             color: #ffffff;
-            font-weight: 600;
-            margin: 4rem auto;
-            max-width: 900px;
-            text-align: center;
-            background: linear-gradient(135deg, #ffffff 0%, #0096ff 100%);
+            text-transform: uppercase;
+            position: relative;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: nameReveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s;
+        }
+
+        @keyframes nameReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .name::after {
+            content: 'Roland Craeye';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            background: linear-gradient(135deg, #0096ff, #9333ea);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            opacity: 0.2;
+            z-index: -1;
         }
 
-        /* What Section */
-        .what-section {
-            background: #000000;
-        }
-
-        .current-focus {
-            background: linear-gradient(135deg, rgba(0, 150, 255, 0.08) 0%, rgba(147, 51, 234, 0.08) 100%);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 150, 255, 0.3);
-            padding: 3rem;
-            border-radius: 16px;
+        .title {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #0096ff, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 4rem;
-            box-shadow: 0 8px 32px rgba(0, 150, 255, 0.15);
+            opacity: 0;
+            animation: fadeUp 1.5s ease forwards 1.2s;
         }
 
-        .current-focus h3 {
-            color: #0096ff;
-            font-size: clamp(1.5rem, 3vw, 2rem);
-            margin-bottom: 1.5rem;
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
         }
 
-        .past-systems-brief {
-            font-size: 1.1rem;
-            color: #909090;
+        .tagline {
+            font-size: 18px;
             line-height: 1.8;
-            margin: 3rem 0;
-            font-style: italic;
+            color: #a8a8a8;
+            max-width: 500px;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeUp 1.5s ease forwards 1.5s;
         }
 
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding: 3rem 0;
-            margin: 4rem 0;
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(0, 150, 255, 0.3);
+            border-radius: 20px;
+            opacity: 0;
+            animation: fadeUp 1.5s ease forwards 2s;
+            z-index: 5;
         }
 
-        .timeline::before {
+        .scroll-indicator::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, transparent, rgba(0, 150, 255, 0.5), transparent);
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -4px;
-            top: 0.5rem;
-            width: 10px;
-            height: 10px;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 8px;
             background: #0096ff;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 150, 255, 0.6);
+            border-radius: 2px;
+            animation: scrollMove 2s ease-in-out infinite;
         }
 
-        .timeline-year {
-            font-size: 1rem;
-            color: #0096ff;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+        @keyframes scrollMove {
+            0%, 100% { top: 8px; opacity: 1; }
+            50% { top: 20px; opacity: 0.3; }
         }
 
-        .timeline-title {
-            font-size: 1.3rem;
+        /* Content sections */
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Main content section */
+        .main-content {
+            padding: 15vh 0;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-left: 8%;
+            padding-right: 8%;
+        }
+
+        .main-content p {
+            font-size: 24px;
+            line-height: 1.9;
+            margin-bottom: 2.5rem;
+            color: #c0c0c0;
+            font-weight: 300;
+        }
+
+        .main-content p:first-child {
+            font-size: 38px;
+            font-weight: 400;
             color: #ffffff;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            margin-bottom: 5rem;
         }
 
-        .timeline-desc {
-            font-size: 1rem;
-            color: #a0a0a0;
-            line-height: 1.6;
+        .main-content p strong {
+            color: #ffffff;
+            font-weight: 500;
         }
 
-        /* CTA Section */
+        /* Diagonal divider - MORE VISIBLE */
+        .slash-divider {
+            width: 100%;
+            height: 40vh;
+            position: relative;
+            overflow: hidden;
+            margin: 10vh 0;
+        }
+
+        .slash-divider::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -20%;
+            width: 140%;
+            height: 100%;
+            background: linear-gradient(162deg, transparent 48%, rgba(0, 150, 255, 0.3) 48%, rgba(147, 51, 234, 0.3) 52%, transparent 52%);
+            animation: slashMove 15s ease-in-out infinite;
+        }
+
+        @keyframes slashMove {
+            0%, 100% { transform: translateX(0) scaleX(1); }
+            50% { transform: translateX(60px) scaleX(1.08); }
+        }
+
+        /* CTA Section - off-grid */
         .cta-section {
-            background: linear-gradient(135deg, rgba(0, 150, 255, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
-            padding: 6rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(0, 150, 255, 0.2);
-            border-bottom: 1px solid rgba(0, 150, 255, 0.2);
+            padding: 12vh 8%;
+            position: relative;
         }
 
-        .cta-content h3 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            color: #ffffff;
-            margin-bottom: 1.5rem;
+        .cta-block {
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: 12%;
+            background: rgba(5, 5, 10, 0.9);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(0, 150, 255, 0.2);
+            padding: 5rem;
+            position: relative;
+        }
+
+        .cta-block::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            pointer-events: none;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
             font-weight: 700;
-        }
-
-        .cta-content p {
-            font-size: 1.2rem;
-            color: #b0b0b0;
+            color: #ffffff;
             margin-bottom: 3rem;
+            line-height: 1.2;
         }
 
         .cta-button {
             display: inline-block;
-            padding: 1.5rem 3rem;
-            background: rgba(0, 150, 255, 0.15);
+            padding: 1.4rem 3.5rem;
+            background: transparent;
             border: 2px solid #0096ff;
             color: #0096ff;
             text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 700;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -417,195 +402,198 @@
         .cta-button::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(0, 150, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
-
-        .cta-button:hover::before {
-            width: 300px;
-            height: 300px;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #0096ff, #9333ea);
+            transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
         }
 
         .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0, 150, 255, 0.4);
-            background: rgba(0, 150, 255, 0.25);
-        }
-
-        .cta-button span {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* How Section */
-        .how-section {
-            background: linear-gradient(180deg, #000000 0%, #0a0a14 100%);
-        }
-
-        .section-intro {
-            font-size: 1.2rem;
-            color: #a0a0a0;
-            margin-bottom: 4rem;
-            max-width: 800px;
-            line-height: 1.8;
-        }
-
-        .philosophy-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .philosophy-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            padding: 3rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
-        }
-
-        .philosophy-card:nth-child(1) { border-top: 3px solid #0096ff; }
-        .philosophy-card:nth-child(2) { border-top: 3px solid #9333ea; }
-        .philosophy-card:nth-child(3) { border-top: 3px solid #00c8ff; }
-
-        .philosophy-card:hover {
-            transform: translateY(-12px);
-            background: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 60px rgba(0, 150, 255, 0.15);
-        }
-
-        .philosophy-card .icon {
-            width: 60px;
-            height: 60px;
-            margin-bottom: 1.5rem;
-        }
-
-        .icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 1.5;
-            color: #0096ff;
-            transition: transform 0.3s ease;
-        }
-
-        .philosophy-card:nth-child(2) .icon svg { color: #9333ea; }
-        .philosophy-card:nth-child(3) .icon svg { color: #00c8ff; }
-
-        .philosophy-card:hover .icon svg {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .philosophy-card h4 {
             color: #ffffff;
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            border-color: #9333ea;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 50px rgba(0, 150, 255, 0.4);
         }
 
-        .philosophy-card p {
-            color: #b0b0b0;
-            line-height: 1.8;
-            font-size: 1.05rem;
+        .cta-button:hover::before {
+            left: 0;
         }
 
-        /* Contact Section */
+        /* Contact section */
         .contact-section {
-            background: #000000;
-            padding: 6rem 0;
-            text-align: center;
+            padding: 8vh 8% 15vh;
         }
 
-        .contact-link {
-            display: inline-block;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-label {
+            font-size: 12px;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
             color: #0096ff;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 600;
-            padding: 1rem 2rem;
-            border: 2px solid rgba(0, 150, 255, 0.3);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            background: rgba(0, 150, 255, 0.05);
+            margin-bottom: 2rem;
+            font-weight: 800;
         }
 
-        .contact-link:hover {
-            background: rgba(0, 150, 255, 0.15);
-            border-color: #0096ff;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(0, 150, 255, 0.3);
+        .contact-item {
+            margin-bottom: 2rem;
+        }
+
+        .contact-item a {
+            display: inline-block;
+            font-size: 20px;
+            color: #e8e8e8;
+            text-decoration: none;
+            font-weight: 300;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 0;
+        }
+
+        .contact-item a::before {
+            content: '→';
+            position: absolute;
+            left: -30px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #0096ff;
+        }
+
+        .contact-item a:hover {
+            color: #ffffff;
+            padding-left: 30px;
+        }
+
+        .contact-item a:hover::before {
+            opacity: 1;
+            left: 0;
+        }
+
+        .linkedin-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 16px;
+        }
+
+        .linkedin-link svg {
+            width: 22px;
+            height: 22px;
+            fill: #666666;
+            transition: fill 0.3s ease;
+        }
+
+        .linkedin-link:hover svg {
+            fill: #0096ff;
+        }
+
+        .quote-block {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #ffffff;
+            font-style: italic;
         }
 
         /* Footer */
         footer {
-            padding: 3rem 0;
-            background: #000000;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.95rem;
+            text-align: right;
+            padding: 0 8% 5vh;
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #333333;
+            font-weight: 800;
         }
 
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            color: #606060;
-        }
-
-        .footer-links a {
-            color: #808080;
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #0096ff;
-        }
-
-        /* Responsive */
-        @media (max-width: 968px) {
-            .philosophy-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-links a {
-                margin: 0 1rem;
-            }
-        }
-
-        /* Noise Texture */
-        body::before {
-            content: '';
+        /* Vertical accent text */
+        .vertical-accent {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 10000;
-            mix-blend-mode: overlay;
+            left: 2.5rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: #1a1a1a;
+            font-weight: 800;
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .image-section {
+                height: 100vh;
+                clip-path: none;
+            }
+
+            .text-section {
+                padding: 6rem 6% 4rem;
+            }
+
+            .name {
+                font-size: 60px;
+            }
+
+            .main-content {
+                padding: 8vh 6%;
+            }
+
+            .main-content p {
+                font-size: 18px;
+            }
+
+            .main-content p:first-child {
+                font-size: 28px;
+            }
+
+            .cta-block {
+                margin-right: 0;
+                padding: 3rem 2rem;
+            }
+
+            .cta-title {
+                font-size: 36px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .quote-block {
+                font-size: 28px;
+            }
+
+            .vertical-accent {
+                display: none;
+            }
+
+            .slash-divider {
+                height: 20vh;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="cursor-glow" id="cursorGlow"></div>
+    <div id="cursor-glow"></div>
+    <div class="vertical-accent">Taiwan · Asia · Worldwide</div>
 
     <!-- Hero -->
     <section class="hero">
@@ -613,161 +601,76 @@
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
         
-        <div class="hero-content">
-            <h1>OPERATOR</h1>
+        <div class="image-section">
+            <img src="https://i.postimg.cc/15ySh2w5/roland-headshot.jpg" alt="Roland Craeye" class="hero-image">
+        </div>
+        
+        <div class="text-section">
+            <h1 class="name">Roland<br>Craeye</h1>
+            <p class="title">Operator</p>
             <p class="tagline">30 years. 3 continents. Systems that compound.</p>
-            <p class="subline">Building AI infrastructure that captures what others miss.</p>
         </div>
+
+        <div class="scroll-indicator"></div>
     </section>
 
-    <!-- Stats Ticker -->
-    <div class="stats-ticker">
-        <div class="ticker-content">
-            <span>8,247 decisions automated this week</span>
-            <span>•</span>
-            <span>8 time zones</span>
-            <span>•</span>
-            <span>3 manual interventions</span>
-            <span>•</span>
-            <span>98.7% uptime</span>
-            <span>•</span>
-            <span>3 continents</span>
-            <span>•</span>
-            <span>42 concurrent processes</span>
-            <span>•</span>
-            <span>8,247 decisions automated this week</span>
-            <span>•</span>
-            <span>8 time zones</span>
-            <span>•</span>
-            <span>3 manual interventions</span>
-            <span>•</span>
-            <span>98.7% uptime</span>
-            <span>•</span>
-            <span>3 continents</span>
-            <span>•</span>
-            <span>42 concurrent processes</span>
-        </div>
-    </div>
-
-    <div class="section-divider"></div>
-
-    <!-- Who -->
-    <section class="who-section">
-        <div class="container">
-            <h2>Who?</h2>
+    <!-- Content -->
+    <section class="content">
+        <!-- Main content -->
+        <div class="main-content">
+            <p>Patterns most people miss.</p>
             
-            <div class="who-content">
-                <div class="headshot-container">
-                    <img src="LI headshot 2026.jpg" alt="Roland Craeye" class="headshot">
-                    <div class="headshot-overlay"></div>
-                </div>
-                
-                <div class="who-text">
-                    <p class="bio-text">Roland has spent over three decades working across the US, Europe, and now Asia in sales, training, and systems-focused roles. That mix of ground-level operations and strategic work now feeds into how he designs AI-powered operators.</p>
-                    
-                    <div class="bio-highlight">
-                        <p class="bio-text" style="margin-bottom: 0;">He focuses on leverage. Assets and infrastructure that run with minimal ongoing involvement while compounding cashflow over time.</p>
-                    </div>
-                    
-                    <p class="bio-text">He builds and owns specific systems. When a system needs him every day, it gets redesigned or retired.</p>
-                    
-                    <div class="pull-quote">
-                        "If it needs me daily, it's not done yet."
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- What -->
-    <section class="what-section">
-        <div class="container">
-            <h2>What?</h2>
+            <p>Built systems that worked without me. Lead generation. Real estate infrastructure. Funding automation. Content distribution.</p>
             
-            <div class="current-focus">
-                <h3>Current Focus: Global Operator Systems</h3>
-                <p class="bio-text">Roland runs <strong>Global Operator Systems</strong>. The current flagship is <strong>VoiceCloser</strong>. An AI voice and SMS layer that answers calls 24/7 for small service businesses, separates emergencies from routine jobs, and either activates on-call technicians or books non-urgent work automatically."</p>
-            </div>
-
-            <p class="past-systems-brief">
-                Past systems: lead gen workflows, real estate analysis tools, funding automation, content distribution. Different problems. Same design principle: build infrastructure that compounds, then step back when it no longer needs daily attention.
-            </p>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">2018–2020</div>
-                    <div class="timeline-title">Lead Generation Systems</div>
-                    <div class="timeline-desc">Built pipeline systems keeping prospects warm across multiple time zones. Automated scoring and nurture sequences.</div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-year">2020–2022</div>
-                    <div class="timeline-title">Real Estate Analysis Tools</div>
-                    <div class="timeline-desc">Deal screening and scenario modeling infrastructure. Killed bad investments before site visits.</div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-year">2022–2023</div>
-                    <div class="timeline-title">Funding Automation</div>
-                    <div class="timeline-desc">AI-powered matching and application workflows. Connected founders with capital while everyone slept.</div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-year">2023–2024</div>
-                    <div class="timeline-title">Content Distribution Systems</div>
-                    <div class="timeline-desc">AI-driven coordination keeping brands visible across continents and time zones. Zero daily input required.</div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-year">2024–Present</div>
-                    <div class="timeline-title">VoiceCloser</div>
-                    <div class="timeline-desc">AI phone and SMS operators for service businesses. Capturing missed revenue 24/7. Currently active and scaling.</div>
-                </div>
-            </div>
+            <p>Ran teams I didn't need to manage. When something required me daily, I redesigned it or walked away.</p>
+            
+            <p>Trained in disciplines that take decades. Communication systems. Strategic decision architecture. Movement mastery across multiple lineages.</p>
+            
+            <p>Now: proprietary work. Freedom. Precision.</p>
         </div>
-    </section>
 
-    <!-- CTA -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h3>See what's running now</h3>
-                <p>VoiceCloser and the infrastructure behind it. Built for operators who can't afford to miss calls.</p>
+        <div class="slash-divider"></div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <div class="cta-block">
+                <h2 class="cta-title">See what's running now</h2>
                 <a href="https://www.globaloperatorsystems.com" class="cta-button" target="_blank">
-                    <span>GlobalOperatorSystems.com →</span>
+                    Global Operator Systems →
                 </a>
             </div>
         </div>
-    </section>
 
-    <div class="section-divider"></div>
-
-    <!-- Contact -->
-    <section class="contact-section">
-        <div class="container">
-            <h2>Connect</h2>
-            <a href="mailto:team@globaloperatorsystems.com" class="contact-link">team@globaloperatorsystems.com</a>
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <div class="contact-grid">
+                <div>
+                    <div class="contact-label">Connect</div>
+                    <div class="contact-item">
+                        <a href="mailto:team@globaloperatorsystems.com">team@globaloperatorsystems.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <a href="https://linkedin.com/in/rolandcraeye" target="_blank" class="linkedin-link">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <p class="quote-block">"If it needs me daily, it's not done yet."</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div>&copy; 2025 Roland Craeye</div>
-                <div class="footer-links">
-                    <a href="https://www.globaloperatorsystems.com" target="_blank">Global Operator Systems</a>
-                    <a href="https://linkedin.com/in/rolandcraeye" target="_blank">LinkedIn</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <footer>© 2026 · Taiwan</footer>
 
     <script>
-        // Cursor Glow
-        const cursorGlow = document.getElementById('cursorGlow');
+        // Smooth cursor glow follow
+        const glow = document.getElementById('cursor-glow');
         let mouseX = 0, mouseY = 0;
         let glowX = 0, glowY = 0;
 
@@ -777,25 +680,61 @@
         });
 
         function animateGlow() {
-            glowX += (mouseX - glowX) * 0.1;
-            glowY += (mouseY - glowY) * 0.1;
+            const dx = mouseX - glowX;
+            const dy = mouseY - glowY;
             
-            cursorGlow.style.left = glowX + 'px';
-            cursorGlow.style.top = glowY + 'px';
+            glowX += dx * 0.05;
+            glowY += dy * 0.05;
+            
+            glow.style.left = glowX + 'px';
+            glow.style.top = glowY + 'px';
             
             requestAnimationFrame(animateGlow);
         }
         animateGlow();
 
-        // Parallax on hero
+        // Parallax on scroll
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero-content');
-            if (hero && scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-                hero.style.opacity = 1 - (scrolled / window.innerHeight) * 0.8;
+            const image = document.querySelector('.hero-image');
+            const orbs = document.querySelectorAll('.orb');
+            
+            if (image && scrolled < window.innerHeight) {
+                image.style.transform = `scale(1.1) translateY(${scrolled * 0.3}px)`;
             }
+
+            orbs.forEach((orb, i) => {
+                const speed = 0.15 + (i * 0.1);
+                orb.style.transform = `translateY(${scrolled * speed}px)`;
+            });
         });
+
+        // OMINOUS glitch - more frequent, more intense
+        const name = document.querySelector('.name');
+        setInterval(() => {
+            if (Math.random() > 0.92) {
+                const intensity = Math.random() * 8 + 4;
+                name.style.textShadow = `${intensity}px 0 #0096ff, -${intensity}px 0 #9333ea`;
+                name.style.transform = `translateX(${Math.random() * 4 - 2}px)`;
+                setTimeout(() => {
+                    name.style.textShadow = 'none';
+                    name.style.transform = 'none';
+                }, 80);
+            }
+        }, 100);
+
+        // Random flicker on orbs - adds to ominous feel
+        const orbs = document.querySelectorAll('.orb');
+        setInterval(() => {
+            orbs.forEach(orb => {
+                if (Math.random() > 0.95) {
+                    orb.style.opacity = '0.3';
+                    setTimeout(() => {
+                        orb.style.opacity = '0.7';
+                    }, 100);
+                }
+            });
+        }, 200);
     </script>
 </body>
 </html>
