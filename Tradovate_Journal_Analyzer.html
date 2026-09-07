@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tradovate Journal Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+
+    :root,[data-theme="light"]{--bg:#f7f6f2;--surface:#f9f8f5;--surface2:#fbfbf9;--surfoff:#f3f0ec;--text:#28251d;--muted:#7a7974;--inv:#f9f8f4;--pri:#01696f;--prih:#0c4e54;--ok:#437a22;--err:#a13544;--warn:#964219;--r-md:.5rem;--r-lg:.75rem;--r-xl:1rem;--r-full:9999px;--sh-sm:0 1px 2px rgba(20,18,14,.06);--sh-md:0 4px 12px rgba(20,18,14,.08);}
+    [data-theme="dark"]{--bg:#111315;--surface:#171a1d;--surface2:#1c2024;--surfoff:#14181b;--text:#e5e8eb;--muted:#98a2ad;--inv:#0d0f11;--pri:#4f98a3;--prih:#67aab4;--ok:#69b36d;--err:#db6f7c;--warn:#d09b58;--sh-sm:0 1px 2px rgba(0,0,0,.2);--sh-md:0 4px 12px rgba(0,0,0,.3);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{min-height:100vh;font-family:'IBM Plex Sans',sans-serif;font-size:clamp(1rem,.95rem + .25vw,1.125rem);line-height:1.55;color:var(--text);background:radial-gradient(circle at top right,rgba(79,152,163,.08),transparent 28%),linear-gradient(180deg,var(--bg),var(--surfoff))}
+    button,input,select,textarea{font:inherit;color:inherit}
+    button{cursor:pointer;border:none;transition:background 180ms ease,color 180ms ease}
+    .shell{max-width:1280px;margin:0 auto;padding:1.5rem;display:grid;gap:1.5rem}
+    .topbar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;align-items:center;padding:1.25rem;border:1px solid rgba(255,255,255,.08);background:rgba(23,26,29,.82);backdrop-filter:blur(14px);border-radius:var(--r-xl);box-shadow:var(--sh-md);position:static;z-index:10}
+    .brand{display:flex;align-items:center;gap:1rem}
+    .logo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(79,152,163,.18),rgba(79,152,163,.04));border:1px solid rgba(79,152,163,.25);color:var(--pri);flex-shrink:0}
+    .brand h1{font-size:clamp(1.4rem,1.1rem + 1vw,1.9rem);line-height:1.05;letter-spacing:-.03em}
+    .brand p{color:var(--muted);font-size:clamp(.875rem,.8rem + .35vw,1rem);margin-top:4px}
+    .topbar-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:0 1rem;border-radius:var(--r-md);font-size:clamp(.875rem,.8rem + .35vw,1rem);font-weight:600;border:1px solid transparent}
+    .btn-primary{background:var(--pri);color:var(--inv)}.btn-primary:hover{background:var(--prih)}
+    .btn-secondary{background:var(--surface2);border-color:rgba(255,255,255,.08);color:var(--text)}.btn-secondary:hover{background:rgba(255,255,255,.06)}
+    .grid{display:grid;grid-template-columns:360px 1fr;gap:1.5rem;align-items:start}
+    .panel,.kpi,.chart-card,.table-card,.summary-card{background:rgba(23,26,29,.86);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-xl);box-shadow:var(--sh-sm);overflow:hidden}
+    .sidebar{display:grid;gap:1.5rem;position:sticky;top:100px}
+    .ph{padding:1.25rem;border-bottom:1px solid rgba(255,255,255,.08)}
+    .ph h2{font-size:clamp(1.1rem,1rem + .5vw,1.4rem);line-height:1.1;margin-bottom:4px}
+    .ph p{color:var(--muted);font-size:clamp(.875rem,.8rem + .35vw,1rem)}
+    .pb{padding:1.25rem}
+    .upload-zone{border:1.5px dashed rgba(79,152,163,.4);border-radius:var(--r-lg);padding:1.5rem;display:grid;gap:1rem;background:rgba(79,152,163,.06)}
+    .upload-zone input[type="file"]{width:100%;padding:.75rem;background:var(--surface2);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-md)}
+    .fg{display:grid;gap:1rem;margin-top:1.25rem}
+    .field label{display:block;font-size:clamp(.75rem,.7rem + .25vw,.875rem);font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.5rem}
+    .field input{width:100%;min-height:44px;padding:0 .75rem;border-radius:var(--r-md);background:var(--surface2);border:1px solid rgba(255,255,255,.08);outline:none}
+    .field input:focus{border-color:var(--pri);box-shadow:0 0 0 3px rgba(79,152,163,.15)}
+    .hint{margin-top:.5rem;color:var(--muted);font-size:clamp(.75rem,.7rem + .25vw,.875rem)}
+    .srow{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+    .chip{display:inline-flex;align-items:center;min-height:36px;padding:0 .75rem;border-radius:var(--r-full);background:var(--surface2);border:1px solid rgba(255,255,255,.08);color:var(--muted);font-size:clamp(.75rem,.7rem + .25vw,.875rem);font-weight:600;letter-spacing:.04em}
+    .main{display:grid;gap:1.5rem}
+    .kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+    .kpi{padding:1.25rem}
+    .kpi .lbl{color:var(--muted);font-size:clamp(.75rem,.7rem + .25vw,.875rem);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
+    .kpi .val{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;font-size:clamp(1.3rem,1.1rem + .8vw,1.8rem);font-weight:600;letter-spacing:-.03em}
+    .kpi .sub{margin-top:.5rem;font-size:clamp(.875rem,.8rem + .35vw,1rem);color:var(--muted)}
+    .pos{color:var(--ok)}.neg{color:var(--err)}.neu{color:var(--warn)}
+    .cg{display:grid;grid-template-columns:1.3fr 1fr;gap:1.5rem}
+    .dg{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+    .cw{padding:1.25rem;height:300px}
+    .tw{padding:0 1.25rem 1.25rem;overflow-x:auto}
+    table{width:100%;border-collapse:collapse;min-width:400px}
+    th,td{text-align:left;padding:.75rem .65rem;border-bottom:1px solid rgba(255,255,255,.08);font-size:clamp(.875rem,.8rem + .35vw,1rem)}
+    th{color:var(--muted);font-size:clamp(.75rem,.7rem + .25vw,.875rem);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+    td.n{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}
+    .summary-card .pb{display:grid;gap:1rem}
+    .bullet{padding:1rem;background:var(--surface2);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-lg);font-size:clamp(.875rem,.8rem + .35vw,1rem)}
+    .bullet strong{color:var(--prih)}
+    .empty{padding:3rem;text-align:center;color:var(--muted)}
+    .foot{color:var(--muted);font-size:clamp(.75rem,.7rem + .25vw,.875rem);text-align:center;padding-bottom:2rem}
+    @media(max-width:1100px){.grid,.cg,.dg,.kpi-grid{grid-template-columns:1fr}.sidebar{position:static}.cw{height:240px}}
+    @media(max-width:640px){.shell,.topbar{padding:1rem}.brand h1{font-size:1.3rem}}
+
+  </style>
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17 9 12l3 3 8-8"/><path d="M18 7h2v2"/><path d="M4 20h16"/></svg>
+    </div>
+    <div>
+      <h1>Tradovate Journal Analyzer</h1>
+      <p>Drop in the Tradovate Performance CSV. Math runs entirely in the browser.</p>
+    </div>
+  </div>
+  <div class="topbar-actions">
+    <button class="btn btn-secondary" id="themeBtn">Toggle theme</button>
+    <button class="btn btn-secondary" id="sampleBtn">Download sample CSV</button>
+  </div>
+</header>
+
+<div class="grid">
+<aside class="sidebar">
+  <section class="panel">
+    <div class="ph"><h2>Upload CSV</h2><p>Use Tradovate Performance export: Accounts &rarr; Performance &rarr; Export CSV. Handles the $(nn.nn) negative format automatically.</p></div>
+    <div class="pb">
+      <div class="upload-zone">
+        <input type="file" id="csvInput" accept=".csv"/>
+        <div class="hint">Required columns: symbol, pnl, boughtTimestamp, soldTimestamp, qty. Daily P&L uses exit time (matches Notion). Hourly/session analysis uses entry time.</div>
+      </div>
+      <div class="fg">
+        <div class="field">
+          <label>Commission per side, per contract ($)</label>
+          <input id="commInput" type="number" step="0.01" value="0.37"/>
+          <div class="hint">Net P&amp;L = Tradovate gross minus 2 &times; commission &times; qty. Set 0 for gross only.</div>
+        </div>
+        <div class="field">
+          <label>Leak minimum trades</label>
+          <input id="threshInput" type="number" step="1" value="3"/>
+          <div class="hint">Only flag a time/day/contract as a leak if it has at least this many trades. Use 3–5 for weekly data, 8–10 for monthly.</div>
+        </div>
+
+      </div>
+      <div class="srow">
+        <span class="chip" id="statusFile">No file loaded</span>
+        <span class="chip" id="statusTrades">0 trades</span>
+        <span class="chip" id="statusWeek">--</span>
+      </div>
+    </div>
+  </section>
+  <section class="panel">
+    <div class="ph"><h2>Export steps</h2></div>
+    <div class="pb" style="display:grid;gap:.75rem">
+      <div class="bullet">1. Tradovate &rarr; <strong>Accounts</strong></div>
+      <div class="bullet">2. Click <strong>Performance</strong> tab</div>
+      <div class="bullet">3. Set your date range</div>
+      <div class="bullet">4. <strong>Export &rarr; CSV</strong> (top right)</div>
+      <div class="bullet">5. Drop the file into the uploader above</div>
+    </div>
+  </section>
+</aside>
+
+<main class="main">
+  <section class="kpi-grid">
+    <article class="kpi"><div class="lbl">Net P&amp;L</div><div class="val" id="kNet">$0.00</div><div class="sub" id="kNetSub">Waiting for data</div></article>
+    <article class="kpi"><div class="lbl">Win Rate</div><div class="val" id="kWR">0.0%</div><div class="sub" id="kWRSub">0 / 0 trades</div></article>
+    <article class="kpi"><div class="lbl">Expectancy</div><div class="val" id="kExp">$0.00</div><div class="sub" id="kExpSub">Avg P&amp;L per trade</div></article>
+    <article class="kpi"><div class="lbl">Worst Leak</div><div class="val" id="kLeak">None</div><div class="sub" id="kLeakSub">Upload data to detect</div></article>
+  </section>
+  <section class="cg">
+    <article class="chart-card"><div class="ph"><h2>Equity curve</h2><p>Cumulative net P&amp;L sorted by entry time.</p></div><div class="cw"><canvas id="eqChart"></canvas></div></article>
+    <article class="summary-card"><div class="ph"><h2>Pattern summary</h2><p>Written readout from actual trade math.</p></div><div class="pb" id="summary"><div class="empty">Upload a CSV to generate the readout.</div></div></article>
+  </section>
+  <section class="dg">
+    <article class="chart-card"><div class="ph"><h2>Hourly edge</h2><p id="tzLabel">Total P&amp;L by entry hour.</p></div><div class="cw"><canvas id="hrChart"></canvas></div></article>
+    <article class="chart-card"><div class="ph"><h2>Daily P&amp;L</h2><p>Net result per trading day.</p></div><div class="cw"><canvas id="dayChart"></canvas></div></article>
+  </section>
+  <section class="dg">
+    <article class="table-card"><div class="ph"><h2>By hour block</h2></div><div class="tw" id="hrTable"></div></article>
+    <article class="table-card"><div class="ph"><h2>By weekday</h2></div><div class="tw" id="wdTable"></div></article>
+  </section>
+  <section class="dg">
+    <article class="table-card"><div class="ph"><h2>By contract</h2></div><div class="tw" id="ctTable"></div></article>
+    <article class="table-card"><div class="ph"><h2>Flagged leaks</h2></div><div class="tw" id="lkTable"></div></article>
+  </section>
+  <section class="dg">
+    <article class="table-card"><div class="ph"><h2>All trades</h2></div><div class="tw" id="allTable"></div></article>
+    <article class="table-card"><div class="ph"><h2>Daily summary</h2></div><div class="tw" id="dsTable"></div></article>
+  </section>
+
+  <section class="panel" id="notionSection" style="margin-top:0">
+    <div class="ph" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem">
+      <div><h2>Notion journal export</h2><p>Paste-ready summary of everything that moves the needle.</p></div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+        <button class="btn btn-primary" id="copyBtn">Copy to clipboard</button>
+        <button class="btn btn-secondary" id="dlMdBtn">Download .md</button>
+      </div>
+    </div>
+    <div class="pb">
+      <pre id="notionOut" style="white-space:pre-wrap;word-break:break-word;font-family:'IBM Plex Mono',monospace;font-size:clamp(.75rem,.7rem + .25vw,.875rem);color:var(--text);background:var(--surface2);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-lg);padding:1.25rem;line-height:1.7;max-height:520px;overflow-y:auto">Upload a CSV to generate your Notion export.</pre>
+    </div>
+  </section>
+</main>
+</div>
+<div class="foot">Net P&amp;L = Tradovate gross P&amp;L minus commissions set above. No data leaves your browser.</div>
+</div>
+<script>
+
+// Contract specs (not used for P&L calc since CSV has explicit pnl)
+const SPECS={MES:5,ES:50,MNQ:2,NQ:20,MGC:10,GC:100,MCL:100,CL:1000,M6E:12500,M6A:10000,M6B:6250,MYM:0.5,YM:5,RTY:50,M2K:5};
+const TIMEZONE_LABEL='UTC+8 (Taiwan time)';
+
+const SAMPLE=`symbol,_priceFormat,_priceFormatType,_tickSize,buyFillId,sellFillId,qty,buyPrice,sellPrice,pnl,boughtTimestamp,soldTimestamp,duration
+MNQM6,-2,0,0.25,111,222,7,25102.75,25098.00,$(66.50),04/13/2026 15:27:55,04/13/2026 15:24:11,3min 44sec
+MNQM6,-2,0,0.25,333,444,9,25133.00,25164.50,$567.00,04/13/2026 20:37:15,04/13/2026 20:46:31,9min 15sec
+MNQM6,-2,0,0.25,555,666,6,25199.00,25232.25,$399.00,04/13/2026 21:26:48,04/13/2026 21:30:01,3min 13sec
+MNQM6,-2,0,0.25,777,888,2,25216.75,25193.00,$(95.00),04/13/2026 21:48:45,04/13/2026 21:37:43,11min 1sec
+MNQM6,-2,0,0.25,999,101,2,25306.75,25260.00,$(187.00),04/13/2026 22:08:09,04/13/2026 22:15:55,7min 46sec
+MNQM6,-2,0,0.25,102,103,6,25639.50,25617.25,$(267.00),04/14/2026 15:30:39,04/14/2026 15:23:11,7min 28sec
+MNQM6,-2,0,0.25,104,105,5,25649.75,25661.25,$115.00,04/14/2026 16:30:19,04/14/2026 17:20:10,49min 51sec
+MNQM6,-2,0,0.25,106,107,7,25644.75,25645.50,$10.50,04/14/2026 18:07:48,04/14/2026 18:12:30,4min 42sec
+MNQM6,-2,0,0.25,108,109,7,25674.00,25652.75,$(297.50),04/14/2026 21:30:00,04/14/2026 21:27:53,2min 7sec
+MNQM6,-2,0,0.25,110,111,7,25747.00,25717.25,$(416.50),04/14/2026 21:42:13,04/14/2026 21:41:56,17sec
+MNQM6,-2,0,0.25,112,113,1,26378.25,26449.25,$142.00,04/16/2026 06:32:50,04/16/2026 10:01:21,3h 28min
+MNQM6,-2,0,0.25,114,115,2,26378.25,26446.75,$274.00,04/16/2026 06:32:50,04/16/2026 10:03:42,3h 30min
+MNQM6,-2,0,0.25,116,117,8,26433.00,26430.25,$(44.00),04/16/2026 16:44:36,04/16/2026 16:45:08,32sec
+MNQM6,-2,0,0.25,118,119,8,26433.75,26447.25,$216.00,04/16/2026 16:45:49,04/16/2026 17:22:13,36min 23sec
+MNQM6,-2,0,0.25,120,121,2,26591.00,26613.00,$88.00,04/17/2026 20:14:38,04/17/2026 20:40:50,26min 11sec
+MNQM6,-2,0,0.25,122,123,2,26707.75,26660.00,$(191.00),04/17/2026 21:30:11,04/17/2026 21:32:36,2min 24sec`;
+
+// ── CSV parser (no regex on line splits) ──
+function splitLine(line){
+  var out=[],cur='',q=false;
+  for(var i=0;i<line.length;i++){
+    var c=line[i];
+    if(c==='"'){if(q&&line[i+1]==='"'){cur+='"';i++;}else q=!q;}
+    else if(c===','&&!q){out.push(cur);cur='';}
+    else cur+=c;
+  }
+  out.push(cur);
+  return out;
+}
+function normaliseHeader(h){return h.toLowerCase().trim().replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'');}
+function parseCSV(text){
+  // remove carriage returns without regex
+  var clean='';
+  for(var i=0;i<text.length;i++){if(text[i]!=='\r')clean+=text[i];}
+  var lines=clean.split('\n').filter(function(l){return l.trim()!=='';});
+  if(lines.length<2)throw new Error('CSV must have a header row and at least one data row.');
+  var headers=splitLine(lines[0]).map(normaliseHeader);
+  var rows=[];
+  for(var i=1;i<lines.length;i++){
+    var cells=splitLine(lines[i]);
+    var row={};
+    headers.forEach(function(h,j){row[h]=(cells[j]||'').trim();});
+    rows.push(row);
+  }
+  return rows;
+}
+
+// Parse Tradovate pnl: "$60.00"->60, "$(80.00)"->-80
+function parsePnl(v){
+  if(v==null||v==='')return null;
+  var s=String(v);
+  // remove whitespace char by char
+  var s2='';for(var i=0;i<s.length;i++){if(s[i]!==' '&&s[i]!=='\t')s2+=s[i];}
+  var neg=s2.indexOf('(')>=0;
+  var clean='';
+  for(var i=0;i<s2.length;i++){var c=s2[i];if(c!=='$'&&c!=='('&&c!==')'&&c!==',')clean+=c;}
+  var num=Number(clean);
+  if(!isFinite(num))return null;
+  return neg?-num:num;
+}
+function parseNum(v){
+  if(v==null||v==='')return 0;
+  var s=String(v),clean='';
+  for(var i=0;i<s.length;i++){var c=s[i];if(c!=='$'&&c!==','&&c!==' ')clean+=c;}
+  var n=Number(clean);
+  return isFinite(n)?n:0;
+}
+function parseDT(v){
+  if(!v)return null;
+  // MM/DD/YYYY HH:MM:SS
+  var m=String(v).match(/(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}:\d{2}(?::\d{2})?)/);
+  if(m){
+    var sec=m[4].length===5?m[4]+':00':m[4];
+    var d=new Date(m[3]+'-'+m[1]+'-'+m[2]+'T'+sec);
+    if(!isNaN(d.getTime()))return d;
+  }
+  var d2=new Date(v);
+  return isNaN(d2.getTime())?null:d2;
+}
+function rootOf(sym){return String(sym||'').toUpperCase().replace(/[A-Z]\d+$/,'').replace(/\d+$/,'');}
+function hourBlock(dt){var h=dt.getHours(),n=(h+1)%24;return pad(h)+':00-'+pad(n)+':00';}
+function pad(n){return n<10?'0'+n:String(n);}
+var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function buildTrades(rows,commPerSide){
+  var out=[];
+  rows.forEach(function(row,i){
+    var symbol=row.symbol||row.contract||'Unknown';
+    var root=rootOf(symbol);
+    var grossPnl=parsePnl(row.pnl);
+    if(grossPnl===null)return;
+    var qty=parseNum(row.qty||row.quantity||'1')||1;
+    var commission=commPerSide*2*qty;
+    var pnl=grossPnl-commission;
+    var entryDT=parseDT(row.boughttimestamp||row.bought_timestamp||row.entrytime||row.entry_time||row.date);
+    var exitDT2=parseDT(row.soldtimestamp||row.sold_timestamp||row.exittime||row.exit_time);
+    // Date/day bucketing uses EXIT time (matches Notion journal)
+    // Hourly/session bucketing uses ENTRY time (shows when you traded)
+    var dateDT=exitDT2||entryDT;
+    var entryDate=dateDT?dateDT.toISOString().slice(0,10):'Unknown';
+    out.push({
+      id:i+1,symbol:symbol,root:root,qty:qty,
+      buyPrice:parseNum(row.buyprice||row.buy_price),
+      sellPrice:parseNum(row.sellprice||row.sell_price),
+      grossPnl:grossPnl,commission:commission,pnl:pnl,
+      entryDT:entryDT,entryDate:entryDate,
+      hourBlock:entryDT?hourBlock(entryDT):'Unknown',
+      weekday:entryDT?DAYS[entryDT.getDay()]:'Unknown',
+      duration:row.duration||''
+    });
+  });
+  return out;
+}
+
+function groupBy(trades,key){
+  var map={};
+  trades.forEach(function(t){var k=t[key]||'Unknown';if(!map[k])map[k]=[];map[k].push(t);});
+  return Object.keys(map).map(function(label){
+    var items=map[label];
+    var wins=items.filter(function(t){return t.pnl>0;});
+    var total=items.reduce(function(s,t){return s+t.pnl;},0);
+    return {label:label,trades:items.length,wins:wins.length,winRate:items.length?wins.length/items.length:0,totalPnl:total,avgTrade:items.length?total/items.length:0};
+  });
+}
+function overall(trades){
+  if(!trades.length)return {total:0,gross:0,wins:0,trades:0,winRate:0,avgTrade:0,best:0,worst:0,totalComm:0};
+  var total=trades.reduce(function(s,t){return s+t.pnl;},0);
+  var gross=trades.reduce(function(s,t){return s+t.grossPnl;},0);
+  var wins=trades.filter(function(t){return t.pnl>0;}).length;
+  var best=Math.max.apply(null,trades.map(function(t){return t.pnl;}));
+  var worst=Math.min.apply(null,trades.map(function(t){return t.pnl;}));
+  var totalComm=trades.reduce(function(s,t){return s+t.commission;},0);
+  return {total:total,gross:gross,wins:wins,trades:trades.length,winRate:trades.length?wins/trades.length:0,avgTrade:trades.length?total/trades.length:0,best:best,worst:worst,totalComm:totalComm};
+}
+function dailySummary(trades){
+  var map={};
+  trades.forEach(function(t){if(!map[t.entryDate])map[t.entryDate]=[];map[t.entryDate].push(t);});
+  return Object.keys(map).sort().map(function(date){
+    var items=map[date];
+    var gross=items.reduce(function(s,t){return s+t.grossPnl;},0);
+    var comm=items.reduce(function(s,t){return s+t.commission;},0);
+    var net=items.reduce(function(s,t){return s+t.pnl;},0);
+    return {date:date,trades:items.length,gross:gross,comm:comm,net:net};
+  });
+}
+
+function fmtM(n){return (n<0?'-':'')+'$'+Math.abs(n).toFixed(2);}
+function fmtP(n){return (n*100).toFixed(1)+'%';}
+
+function renderKPIs(stats,leak){
+  var kNet=document.getElementById('kNet');
+  kNet.textContent=fmtM(stats.total);
+  kNet.className='val '+(stats.total>0?'pos':stats.total<0?'neg':'neu');
+  document.getElementById('kNetSub').textContent='Gross '+fmtM(stats.gross)+' \u2212 Comm '+fmtM(stats.totalComm);
+  document.getElementById('kWR').textContent=fmtP(stats.winRate);
+  document.getElementById('kWRSub').textContent=stats.wins+' winners / '+stats.trades+' trades';
+  var kExp=document.getElementById('kExp');
+  kExp.textContent=fmtM(stats.avgTrade);
+  kExp.className='val '+(stats.avgTrade>0?'pos':stats.avgTrade<0?'neg':'neu');
+  document.getElementById('kExpSub').textContent='Best '+fmtM(stats.best)+' \u2022 Worst '+fmtM(stats.worst);
+  var kLeak=document.getElementById('kLeak');
+  kLeak.textContent=leak?leak.label:'None';
+  kLeak.className='val '+(leak?'neg':'');
+  document.getElementById('kLeakSub').textContent=leak?fmtM(leak.avgTrade)+' avg over '+leak.trades+' trades':'No qualifying cluster found';
+}
+
+function tbl(cols,rows){
+  if(!rows.length)return '<div class="empty">No data.</div>';
+  var h='<table><thead><tr>'+cols.map(function(c){return '<th>'+c.l+'</th>';}).join('')+'</tr></thead><tbody>';
+  var b=rows.map(function(r){
+    return '<tr>'+cols.map(function(c){
+      var v=c.r?c.r(r[c.k],r):r[c.k];
+      return '<td class="'+(c.n?'n':'')+'">'+v+'</td>';
+    }).join('')+'</tr>';
+  }).join('');
+  return h+b+'</tbody></table>';
+}
+var GC=[{k:'label',l:'Group'},{k:'trades',l:'Trades',n:true},{k:'winRate',l:'Win%',n:true,r:function(v){return fmtP(v);}},{k:'avgTrade',l:'Avg',n:true,r:function(v){return fmtM(v);}},{k:'totalPnl',l:'Total P&L',n:true,r:function(v){return fmtM(v);}}];
+var WD_ORDER=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday','Unknown'];
+
+function renderTables(trades,hrG,wdG,ctG,leaks,daily){
+  document.getElementById('hrTable').innerHTML=tbl(GC,hrG.slice().sort(function(a,b){return a.label<b.label?-1:1;}));
+  document.getElementById('wdTable').innerHTML=tbl(GC,wdG.slice().sort(function(a,b){return WD_ORDER.indexOf(a.label)-WD_ORDER.indexOf(b.label);}));
+  document.getElementById('ctTable').innerHTML=tbl(GC,ctG.slice().sort(function(a,b){return b.totalPnl-a.totalPnl;}));
+  document.getElementById('lkTable').innerHTML=tbl(GC,leaks);
+  var allCols=[{k:'id',l:'#',n:true},{k:'entryDate',l:'Date'},{k:'symbol',l:'Symbol'},{k:'qty',l:'Qty',n:true},{k:'grossPnl',l:'Gross P&L',n:true,r:function(v){return fmtM(v);}},{k:'commission',l:'Comm',n:true,r:function(v){return fmtM(v);}},{k:'pnl',l:'Net P&L',n:true,r:function(v){return fmtM(v);}},{k:'duration',l:'Duration'}];
+  document.getElementById('allTable').innerHTML=tbl(allCols,trades.slice().sort(function(a,b){return (a.entryDT||0)-(b.entryDT||0);}));
+  var dsCols=[{k:'date',l:'Date'},{k:'trades',l:'Trades',n:true},{k:'gross',l:'Gross',n:true,r:function(v){return fmtM(v);}},{k:'comm',l:'Comm',n:true,r:function(v){return fmtM(v);}},{k:'net',l:'Net P&L',n:true,r:function(v){return fmtM(v);}}];
+  document.getElementById('dsTable').innerHTML=tbl(dsCols,daily);
+}
+
+function renderSummary(trades,stats,hrG,ctG,leaks){
+  var bh=hrG.slice().sort(function(a,b){return b.avgTrade-a.avgTrade;})[0];
+  var wh=hrG.slice().sort(function(a,b){return a.avgTrade-b.avgTrade;})[0];
+  var bc=ctG.slice().sort(function(a,b){return b.totalPnl-a.totalPnl;})[0];
+  var wc=ctG.slice().sort(function(a,b){return a.totalPnl-b.totalPnl;})[0];
+  var s='';
+  s+='<div class="bullet"><strong>Net result:</strong> '+fmtM(stats.total)+' across '+stats.trades+' trades (gross '+fmtM(stats.gross)+', commissions '+fmtM(stats.totalComm)+'). Win rate '+fmtP(stats.winRate)+', expectancy '+fmtM(stats.avgTrade)+' per trade.</div>';
+  if(bc)s+='<div class="bullet"><strong>Best contract:</strong> '+bc.label+' \u2014 '+fmtM(bc.totalPnl)+' over '+bc.trades+' trades ('+fmtP(bc.winRate)+' win rate).</div>';
+  if(wc&&bc&&wc.label!==bc.label)s+='<div class="bullet"><strong>Worst contract:</strong> '+wc.label+' \u2014 '+fmtM(wc.totalPnl)+' over '+wc.trades+' trades.</div>';
+  if(bh)s+='<div class="bullet"><strong>Best time block:</strong> '+bh.label+' \u2014 '+fmtM(bh.totalPnl)+' total, '+fmtM(bh.avgTrade)+' avg.</div>';
+  if(wh)s+='<div class="bullet"><strong>Weakest time block:</strong> '+wh.label+' \u2014 '+fmtM(wh.totalPnl)+' total. Consider a cutoff here.</div>';
+  if(leaks.length){s+='<div class="bullet"><strong>Flagged leaks:</strong> '+leaks.map(function(l){return l.label+' ('+fmtM(l.avgTrade)+' avg, '+l.trades+' trades)';}).join('; ')+'.</div>';}
+  else{s+='<div class="bullet"><strong>Leak scan:</strong> No qualifying negative cluster met the minimum sample size.</div>';}
+  document.getElementById('summary').innerHTML=s;
+}
+
+var CHARTS={};
+function destroyCharts(){Object.keys(CHARTS).forEach(function(k){if(CHARTS[k])CHARTS[k].destroy();});}
+function cp(){var css=getComputedStyle(document.documentElement);return {pri:css.getPropertyValue('--pri').trim(),ok:css.getPropertyValue('--ok').trim(),err:css.getPropertyValue('--err').trim(),muted:css.getPropertyValue('--muted').trim(),text:css.getPropertyValue('--text').trim()};}
+function baseOpts(p){return {maintainAspectRatio:false,responsive:true,plugins:{legend:{labels:{color:p.text,font:{family:'IBM Plex Sans',size:12}}},tooltip:{callbacks:{label:function(ctx){return fmtM(ctx.parsed.y!=null?ctx.parsed.y:ctx.parsed);}}}},scales:{x:{ticks:{color:p.muted,maxRotation:0,autoSkip:true,font:{family:'IBM Plex Sans',size:11}},grid:{display:false}},y:{ticks:{color:p.muted,callback:function(v){return fmtM(v);},font:{family:'IBM Plex Sans',size:11}},grid:{color:'rgba(255,255,255,.08)'}}}};}
+
+function renderCharts(trades,hrG,daily){
+  destroyCharts();
+  var p=cp();
+  var sorted=trades.slice().sort(function(a,b){return (a.entryDT||0)-(b.entryDT||0);});
+  var running=0;
+  var eqLabels=[],eqData=[];
+  sorted.forEach(function(t){running+=t.pnl;eqLabels.push(t.entryDate);eqData.push(running);});
+  CHARTS.eq=new Chart(document.getElementById('eqChart'),{type:'line',data:{labels:eqLabels,datasets:[{label:'Cumulative Net P&L',data:eqData,borderColor:p.pri,backgroundColor:'rgba(79,152,163,.18)',borderWidth:2,fill:true,tension:0.28,pointRadius:2}]},options:baseOpts(p)});
+  var hrs=hrG.slice().sort(function(a,b){return a.label<b.label?-1:1;});
+  CHARTS.hr=new Chart(document.getElementById('hrChart'),{type:'bar',data:{labels:hrs.map(function(d){return d.label;}),datasets:[{label:'Total P&L',data:hrs.map(function(d){return d.totalPnl;}),backgroundColor:hrs.map(function(d){return d.totalPnl>=0?'rgba(105,179,109,.7)':'rgba(219,111,124,.72)';}),borderRadius:6}]},options:baseOpts(p)});
+  CHARTS.day=new Chart(document.getElementById('dayChart'),{type:'bar',data:{labels:daily.map(function(d){return d.date;}),datasets:[{label:'Daily Net P&L',data:daily.map(function(d){return d.net;}),backgroundColor:daily.map(function(d){return d.net>=0?'rgba(79,152,163,.75)':'rgba(219,111,124,.72)';}),borderRadius:6}]},options:baseOpts(p)});
+}
+
+function analyze(text,filename){
+  try{
+    var rows=parseCSV(text);
+    var commPerSide=parseFloat(document.getElementById('commInput').value)||0;
+    var threshold=Math.max(1,parseInt(document.getElementById('threshInput').value)||3);
+    var trades=buildTrades(rows,commPerSide);
+    if(!trades.length)throw new Error('No valid trades found. Ensure your CSV has pnl and boughtTimestamp columns.');
+    var stats=overall(trades);
+    var hrG=groupBy(trades,'hourBlock');
+    var wdG=groupBy(trades,'weekday');
+    var ctG=groupBy(trades,'root');
+    var allGroups=hrG.concat(wdG).concat(ctG);
+    var leaks=allGroups.filter(function(g){return g.trades>=threshold&&g.avgTrade<0;}).sort(function(a,b){return a.avgTrade-b.avgTrade;});
+    var daily=dailySummary(trades);
+    var dates=Object.keys(trades.reduce(function(m,t){m[t.entryDate]=1;return m;},{})).sort();
+    document.getElementById('statusFile').textContent=filename;
+    document.getElementById('statusTrades').textContent=trades.length+' trades';
+    document.getElementById('statusWeek').textContent=dates.length?dates[0]+' \u2192 '+dates[dates.length-1]:'--';
+    renderKPIs(stats,leaks[0]||null);
+    renderSummary(trades,stats,hrG,ctG,leaks);
+    renderTables(trades,hrG,wdG,ctG,leaks,daily);
+    renderCharts(trades,hrG,daily);
+    generateNotion(trades,stats,hrG,wdG,ctG,leaks,daily);
+  }catch(err){
+    document.getElementById('summary').innerHTML='<div class="bullet"><strong>Import error:</strong> '+err.message+'</div>';
+    document.getElementById('statusFile').textContent='Error';
+    console.error(err);
+  }
+}
+
+
+function generateNotion(trades, stats, hrG, wdG, ctG, leaks, daily) {
+  var dateRange = '';
+  var dates = daily.map(function(d){return d.date;}).sort();
+  if(dates.length) dateRange = dates[0] + ' to ' + dates[dates.length-1];
+
+  var profFactor = (function(){
+    var gw=0,gl=0;
+    trades.forEach(function(t){if(t.pnl>0)gw+=t.pnl;else gl+=Math.abs(t.pnl);});
+    return gl>0?(gw/gl).toFixed(2):'N/A';
+  })();
+  var avgWin=(function(){var w=trades.filter(function(t){return t.pnl>0;});return w.length?w.reduce(function(s,t){return s+t.pnl;},0)/w.length:0;})();
+  var avgLoss=(function(){var l=trades.filter(function(t){return t.pnl<=0;});return l.length?l.reduce(function(s,t){return s+t.pnl;},0)/l.length:0;})();
+
+  // Consecutive loss streak
+  var maxStreak=0,curStreak=0;
+  var sorted=trades.slice().sort(function(a,b){return (a.entryDT||0)-(b.entryDT||0);});
+  sorted.forEach(function(t){if(t.pnl<=0){curStreak++;if(curStreak>maxStreak)maxStreak=curStreak;}else curStreak=0;});
+
+  // Max drawdown from equity curve
+  var peak=0,maxDD=0,running=0;
+  sorted.forEach(function(t){running+=t.pnl;if(running>peak)peak=running;var dd=peak-running;if(dd>maxDD)maxDD=dd;});
+
+  // Best/worst hour
+  var bh=hrG.slice().sort(function(a,b){return b.avgTrade-a.avgTrade;})[0];
+  var wh=hrG.slice().sort(function(a,b){return a.avgTrade-b.avgTrade;})[0];
+
+  // Best/worst weekday
+  var bwd=wdG.slice().sort(function(a,b){return b.totalPnl-a.totalPnl;})[0];
+  var wwd=wdG.slice().sort(function(a,b){return a.totalPnl-b.totalPnl;})[0];
+
+  // Contracts
+  var ctLines=ctG.slice().sort(function(a,b){return b.totalPnl-a.totalPnl;}).map(function(c){
+    return '  '+c.label+': '+fmtM(c.totalPnl)+' | '+c.trades+' trades | '+fmtP(c.winRate)+' WR | Avg '+fmtM(c.avgTrade);
+  }).join('\n');
+
+  // Daily
+  var dsLines=daily.map(function(d){
+    return '  '+d.date+': '+fmtM(d.net)+(d.net>=0?' +':'')+' ('+d.trades+' trades, gross '+fmtM(d.gross)+', comm -'+fmtM(d.comm)+')';
+  }).join('\n');
+
+  // Leaks
+  var leakLines=leaks.length?leaks.map(function(l){return '  ! '+l.label+': '+fmtM(l.avgTrade)+' avg over '+l.trades+' trades';}).join('\n'):'  None flagged at current threshold.';
+
+  var now=new Date();
+  var ts=now.toISOString().slice(0,10)+' '+pad(now.getHours())+':'+pad(now.getMinutes());
+
+  var out =
+'# Trading Performance Report\n'+
+'Generated: '+ts+' | '+TIMEZONE_LABEL+'\n'+
+'Period: '+dateRange+'\n'+
+'\n'+
+'---\n'+
+'\n'+
+'## Summary\n'+
+'- Net P&L:        '+fmtM(stats.total)+'\n'+
+'- Gross P&L:      '+fmtM(stats.gross)+'\n'+
+'- Commissions:    -'+fmtM(stats.totalComm)+'\n'+
+'- Total trades:   '+stats.trades+'\n'+
+'- Win rate:       '+fmtP(stats.winRate)+' ('+stats.wins+' wins / '+(stats.trades-stats.wins)+' losses)\n'+
+'- Expectancy:     '+fmtM(stats.avgTrade)+' per trade\n'+
+'- Avg win:        '+fmtM(avgWin)+'\n'+
+'- Avg loss:       '+fmtM(avgLoss)+'\n'+
+'- Profit factor:  '+profFactor+'\n'+
+'- Largest win:    '+fmtM(stats.best)+'\n'+
+'- Largest loss:   '+fmtM(stats.worst)+'\n'+
+'- Max drawdown:   -'+fmtM(maxDD)+'\n'+
+'- Max consec. losses: '+maxStreak+'\n'+
+'\n'+
+'---\n'+
+'\n'+
+'## Daily Breakdown\n'+
+dsLines+'\n'+
+'\n'+
+'---\n'+
+'\n'+
+'## By Contract\n'+
+ctLines+'\n'+
+'\n'+
+'---\n'+
+'\n'+
+'## Session Edge ('+TIMEZONE_LABEL+')\n'+
+'Best hour:   '+(bh?bh.label+' — '+fmtM(bh.totalPnl)+' total, '+fmtM(bh.avgTrade)+' avg ('+bh.trades+' trades)':'N/A')+'\n'+
+'Worst hour:  '+(wh?wh.label+' — '+fmtM(wh.totalPnl)+' total, '+fmtM(wh.avgTrade)+' avg ('+wh.trades+' trades)':'N/A')+'\n'+
+'\n'+
+'Best day:    '+(bwd?bwd.label+' — '+fmtM(bwd.totalPnl)+' total, '+fmtM(bwd.avgTrade)+' avg ('+bwd.trades+' trades)':'N/A')+'\n'+
+'Worst day:   '+(wwd?wwd.label+' — '+fmtM(wwd.totalPnl)+' total, '+fmtM(wwd.avgTrade)+' avg ('+wwd.trades+' trades)':'N/A')+'\n'+
+'\n'+
+'---\n'+
+'\n'+
+'## Flagged Leaks\n'+
+leakLines+'\n'+
+'\n'+
+'---\n'+
+'\n'+
+'## Notes\n'+
+'(Add your manual observations here)\n'+
+'\n';
+
+  document.getElementById('notionOut').textContent=out;
+
+  document.getElementById('copyBtn').onclick=function(){
+    navigator.clipboard.writeText(out).then(function(){
+      var b=document.getElementById('copyBtn');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy to clipboard';},2000);
+    }).catch(function(){
+      document.getElementById('notionOut').select();document.execCommand('copy');
+    });
+  };
+
+  document.getElementById('dlMdBtn').onclick=function(){
+    var blob=new Blob([out],{type:'text/markdown'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='trading-report-'+dateRange+'.md';a.click();
+  };
+}
+
+document.getElementById('csvInput').addEventListener('change',function(e){
+  var file=e.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(){analyze(reader.result,file.name);};
+  reader.readAsText(file);
+});
+['commInput','threshInput'].forEach(function(id){
+  document.getElementById(id).addEventListener('change',function(){
+    var inp=document.getElementById('csvInput');
+    if(inp.files[0]){var r=new FileReader();r.onload=function(){analyze(r.result,inp.files[0].name);};r.readAsText(inp.files[0]);}
+  });
+});
+document.getElementById('themeBtn').addEventListener('click',function(){
+  var cur=document.documentElement.getAttribute('data-theme');
+  document.documentElement.setAttribute('data-theme',cur==='dark'?'light':'dark');
+  var inp=document.getElementById('csvInput');
+  if(inp.files[0]){var r=new FileReader();r.onload=function(){analyze(r.result,inp.files[0].name);};r.readAsText(inp.files[0]);}
+});
+document.getElementById('sampleBtn').addEventListener('click',function(){
+  var blob=new Blob([SAMPLE],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sample-tradovate-performance.csv';a.click();
+});
+
+var tzEl=document.getElementById('tzLabel');if(tzEl){tzEl.textContent='All times in '+TIMEZONE_LABEL+'.';}
+
+analyze(SAMPLE,'sample-tradovate-performance.csv');
+
+</script>
+</body></html>
