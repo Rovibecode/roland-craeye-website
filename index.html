@@ -10,13 +10,14 @@ Index · HTML
 <meta name="description" content="Roland Craeye, full-time trader based in Taiwan, focused on ICT-based price action.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="Roland--79.jpg" fetchpriority="high">
 <style>
   :root {
     --bg: #0A0A0A;
     --accent: #C1622D;
     --accent-dim: rgba(193, 98, 45, 0.35);
+    --accent-glow: rgba(193, 98, 45, 0.25);
     --white: #F5F5F5;
     --body: #B0B0B0;
     --muted: #707070;
@@ -43,7 +44,10 @@ Index · HTML
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     position: relative;
+    overflow-x: hidden;
   }
+ 
+  body.fine-pointer { cursor: none; }
  
   /* Fine grain texture — a single cheap SVG filter, no image request */
   body::before {
@@ -60,6 +64,48 @@ Index · HTML
   ::selection {
     background: var(--accent);
     color: var(--white);
+  }
+ 
+  /* ---------- CUSTOM CURSOR ---------- */
+ 
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 2000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+ 
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+ 
+  .cursor-ring {
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--accent-dim);
+    opacity: 0;
+    transition: opacity 0.2s ease, width 0.25s var(--ease), height 0.25s var(--ease), border-color 0.25s ease, background 0.25s ease;
+  }
+ 
+  body.fine-pointer .cursor-dot,
+  body.fine-pointer .cursor-ring {
+    opacity: 1;
+  }
+ 
+  .cursor-ring.hovering {
+    width: 60px;
+    height: 60px;
+    background: var(--accent);
+    mix-blend-mode: difference;
+    border-color: transparent;
   }
  
   a {
@@ -80,11 +126,33 @@ Index · HTML
   }
  
   .label {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 0.15em;
     color: var(--accent);
     font-weight: 500;
+  }
+ 
+  /* ---------- REVEAL MASK (headline / label / subhead) ---------- */
+ 
+  .mask {
+    display: block;
+    overflow: hidden;
+  }
+ 
+  .mask > * {
+    display: inline-block;
+    transform: translateY(105%);
+    animation: reveal 1s var(--ease) forwards;
+  }
+ 
+  @keyframes reveal {
+    to { transform: translateY(0); }
+  }
+ 
+  @media (prefers-reduced-motion: reduce) {
+    .mask > * { animation: none; transform: none; }
   }
  
   /* ---------- HERO ---------- */
@@ -105,6 +173,7 @@ Index · HTML
     height: 45vh;
     overflow: hidden;
     position: relative;
+    will-change: transform;
   }
  
   @media (min-width: 768px) {
@@ -114,18 +183,53 @@ Index · HTML
     }
   }
  
+  .hero-photo-tilt {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.1s linear;
+  }
+ 
   .hero-photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transform: scale(1.06);
-    animation: settle 1.4s var(--ease) forwards;
+    transform: scale(1.08);
+    filter: grayscale(1) contrast(1.05);
+    animation: settle 1.6s var(--ease) forwards, colorize 2s ease-out forwards;
+    animation-delay: 0s, 0.5s;
   }
  
   @keyframes settle {
-    from { transform: scale(1.06); }
+    from { transform: scale(1.08); }
     to { transform: scale(1); }
+  }
+ 
+  @keyframes colorize {
+    from { filter: grayscale(1) contrast(1.05); }
+    to { filter: grayscale(0) contrast(1.05); }
+  }
+ 
+  @media (prefers-reduced-motion: reduce) {
+    .hero-photo { animation: none; transform: none; filter: none; }
+  }
+ 
+  /* Diagonal light sweep on hover — a single deliberate accent, not a static glow */
+  .hero-photo-wrap::before {
+    content: "";
+    position: absolute;
+    inset: -20% -60%;
+    background: linear-gradient(75deg, transparent 40%, rgba(245, 245, 245, 0.12) 50%, transparent 60%);
+    transform: translateX(-60%);
+    transition: transform 0.9s var(--ease);
+    pointer-events: none;
+    z-index: 2;
+  }
+ 
+  .hero-photo-wrap:hover::before {
+    transform: translateX(60%);
   }
  
   /* Subtle edge vignette on the photo only — no color overlay */
@@ -135,10 +239,7 @@ Index · HTML
     inset: 0;
     box-shadow: inset 0 0 8vw 1vw rgba(0, 0, 0, 0.45);
     pointer-events: none;
-  }
- 
-  @media (prefers-reduced-motion: reduce) {
-    .hero-photo { animation: none; transform: none; }
+    z-index: 1;
   }
  
   .hero-text {
@@ -155,15 +256,13 @@ Index · HTML
     .hero-text { padding: 0 5rem; }
   }
  
-  /* Faint price-action trace behind the copy — ties to the work, stays quiet */
+  /* Price-action candles behind the copy, printing themselves in once on load */
   .price-trace {
     position: absolute;
     top: 50%;
     left: 0;
     width: 140%;
     transform: translateY(-50%);
-    stroke: var(--accent);
-    opacity: 0.07;
     z-index: 0;
     pointer-events: none;
   }
@@ -172,39 +271,63 @@ Index · HTML
     .price-trace { left: -10%; }
   }
  
-  .hero-text > * {
-    position: relative;
-    z-index: 1;
-    opacity: 0;
-    transform: translateY(14px);
-    animation: rise 0.9s var(--ease) forwards;
+  .price-trace .candle {
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scaleY(0);
+    animation: growCandle 0.55s var(--ease) forwards;
   }
  
-  .hero-text .label { animation-delay: 0.15s; }
-  .hero-text h1 { animation-delay: 0.3s; }
-  .hero-text .subhead { animation-delay: 0.45s; }
+  .price-trace .candle.up {
+    fill: var(--accent);
+    stroke: var(--accent);
+    opacity: 0.28;
+  }
  
-  @keyframes rise {
-    to { opacity: 1; transform: translateY(0); }
+  .price-trace .candle.down {
+    fill: var(--muted);
+    stroke: var(--muted);
+    opacity: 0.2;
+  }
+ 
+  .price-trace .candle line {
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+  }
+ 
+  @keyframes growCandle {
+    to { transform: scaleY(1); }
   }
  
   @media (prefers-reduced-motion: reduce) {
-    .hero-text > * { animation: none; opacity: 1; transform: none; }
+    .price-trace .candle { animation: none; transform: scaleY(1); }
+  }
+ 
+  .hero-text .label,
+  .hero-text .subhead {
+    position: relative;
+    z-index: 1;
   }
  
   .hero-text h1 {
-    font-weight: 600;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    position: relative;
+    z-index: 1;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.6rem, 6.5vw, 4.75rem);
     color: var(--white);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 0 0 0.9rem 0;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin: 0 0 1rem 0;
   }
  
-  .hero-text .label {
+  .hero-text .label.mask {
     margin-bottom: 1.25rem;
-    display: block;
   }
+ 
+  .hero-text .mask > * { animation-delay: 0.15s; }
+  .hero-text h1 .mask > * { animation-delay: 0.32s; }
+  .hero-text .subhead.mask > * { animation-delay: 0.5s; }
  
   .hero-text .subhead {
     font-size: 1.1rem;
@@ -260,6 +383,21 @@ Index · HTML
     text-align: center;
   }
  
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+ 
+  .reveal-on-scroll.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+ 
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
+  }
+ 
   .content .label {
     display: block;
     margin-bottom: 1.25rem;
@@ -273,9 +411,10 @@ Index · HTML
   /* ---------- TOOLS ---------- */
  
   .tool-sub {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
     color: var(--white);
-    font-weight: 500;
-    font-size: 1.15rem;
+    font-weight: 600;
+    font-size: 1.2rem;
     margin: 0 0 0.75rem 0;
   }
  
@@ -289,11 +428,12 @@ Index · HTML
     overflow: hidden;
     aspect-ratio: 16 / 10;
     background: #141414;
-    transition: border-color 0.3s ease;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
   }
  
   .tool-screenshot-frame:hover {
-    border-color: rgba(193, 98, 45, 0.4);
+    border-color: rgba(193, 98, 45, 0.5);
+    box-shadow: 0 0 40px -12px var(--accent-glow);
   }
  
   .tool-screenshot {
@@ -301,6 +441,11 @@ Index · HTML
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.6s var(--ease);
+  }
+ 
+  .tool-screenshot-frame:hover .tool-screenshot {
+    transform: scale(1.03);
   }
  
   .tool-caption {
@@ -317,6 +462,12 @@ Index · HTML
     position: relative;
   }
  
+  footer a {
+    display: inline-block;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 500;
+  }
+ 
   footer .copyright {
     margin-top: 1rem;
     font-size: 0.8rem;
@@ -326,30 +477,28 @@ Index · HTML
 </head>
 <body>
  
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+ 
   <section class="hero">
-    <div class="hero-photo-wrap">
-      <img
-        class="hero-photo"
-        src="Roland--79.jpg"
-        alt="Roland Craeye walking with a rolling suitcase, photo desaturated except for the orange suitcase and tan shoes"
-        width="900"
-        height="1200"
-        fetchpriority="high"
-        decoding="async"
-      >
+    <div class="hero-photo-wrap" id="heroPhotoWrap">
+      <div class="hero-photo-tilt" id="heroTilt">
+        <img
+          class="hero-photo"
+          src="Roland--79.jpg"
+          alt="Roland Craeye walking with a rolling suitcase, photo desaturated except for the orange suitcase and tan shoes"
+          width="900"
+          height="1200"
+          fetchpriority="high"
+          decoding="async"
+        >
+      </div>
     </div>
     <div class="hero-text">
-      <svg class="price-trace" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true">
-        <polyline
-          points="0,80 40,60 80,70 120,30 160,45 200,20 240,50 280,35 320,65 360,40 400,55 440,15 480,40 520,25 560,45 600,30"
-          fill="none"
-          stroke-width="1.5"
-          vector-effect="non-scaling-stroke"
-        />
-      </svg>
-      <h1>Roland Craeye</h1>
-      <span class="label">Full-Time Trader · Taiwan</span>
-      <p class="subhead">After three decades across the US, Europe, and Asia, Roland now trades full-time, focused on ICT-based price action.</p>
+      <svg class="price-trace" id="priceTrace" viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <span class="label mask"><span>Full-Time Trader · Global</span></span>
+      <h1 class="mask"><span>Roland Craeye</span></h1>
+      <p class="subhead mask"><span>After three decades across the US, Europe, and Asia, Roland now trades full-time, focused on ICT-based price action.</span></p>
     </div>
     <div class="scroll-cue" aria-hidden="true">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -359,14 +508,14 @@ Index · HTML
   </section>
  
   <section aria-labelledby="about-label">
-    <div class="content">
+    <div class="content reveal-on-scroll">
       <span class="label" id="about-label">About</span>
-      <p>Roland spent over 30 years working across the US, Europe, and Asia before shifting fully into trading. His approach is built around ICT (Inner Circle Trader) concepts — liquidity, market structure, and price action.</p>
+      <p>Roland spent over 30 years in business across the US, Europe, and Asia before shifting fully into trading. His approach is built around ICT (Inner Circle Trader) concepts — liquidity, market structure, and price action.</p>
     </div>
   </section>
  
   <section aria-labelledby="tools-label">
-    <div class="content">
+    <div class="content reveal-on-scroll">
       <span class="label" id="tools-label">Tools</span>
       <p class="tool-sub">Tradovate Analyzer</p>
       <p class="tool-line">A tool built for personal use to analyze trading performance and refine execution.</p>
@@ -386,9 +535,175 @@ Index · HTML
   </section>
  
   <footer>
-    <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a id="linkedinLink" href="https://www.linkedin.com/in/rolandcraeye/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     <p class="copyright">© 2026 Roland Craeye</p>
   </footer>
+ 
+<script>
+(function () {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(pointer: fine)').matches;
+ 
+  /* ---- Randomized candlestick chart, printing in slowly like a live feed ---- */
+  var traceSvg = document.getElementById('priceTrace');
+  if (traceSvg) {
+    var SVGNS = 'http://www.w3.org/2000/svg';
+    var count = 24;
+    var spacing = 600 / count;
+    var candleWidth = Math.min(spacing * 0.38, 11);
+    var level = 85; // running "price" — smaller = higher on screen
+    var delay = reduceMotion ? 0 : 0.3;
+ 
+    for (var i = 0; i < count; i++) {
+      var open = level;
+      var delta = (Math.random() - 0.5) * 70; // wide random walk step — volatile market
+      var close = Math.max(12, Math.min(158, open + delta));
+      level = close;
+ 
+      var bodyTop = Math.min(open, close);
+      var bodyBottom = Math.max(open, close);
+      if (bodyBottom - bodyTop < 4) { bodyBottom = bodyTop + 4; } // keep dojis visible
+ 
+      var wickTop = Math.max(4, bodyTop - (5 + Math.random() * 20));
+      var wickBottom = Math.min(166, bodyBottom + (5 + Math.random() * 20));
+ 
+      var up = close < open; // smaller level = higher price = rising
+      var x = i * spacing + spacing / 2;
+ 
+      var g = document.createElementNS(SVGNS, 'g');
+      g.setAttribute('class', 'candle ' + (up ? 'up' : 'down'));
+      g.style.animationDelay = delay.toFixed(2) + 's';
+ 
+      var wick = document.createElementNS(SVGNS, 'line');
+      wick.setAttribute('x1', x);
+      wick.setAttribute('x2', x);
+      wick.setAttribute('y1', wickTop);
+      wick.setAttribute('y2', wickBottom);
+ 
+      var body = document.createElementNS(SVGNS, 'rect');
+      body.setAttribute('x', x - candleWidth / 2);
+      body.setAttribute('y', bodyTop);
+      body.setAttribute('width', candleWidth);
+      body.setAttribute('height', bodyBottom - bodyTop);
+ 
+      g.appendChild(wick);
+      g.appendChild(body);
+      traceSvg.appendChild(g);
+ 
+      // Irregular gaps between appearances — a real feed doesn't tick on a metronome
+      delay += reduceMotion ? 0 : 0.22 + Math.random() * 0.5;
+    }
+  }
+ 
+  /* ---- Custom cursor ---- */
+  if (finePointer && !reduceMotion) {
+    document.body.classList.add('fine-pointer');
+    var dot = document.querySelector('.cursor-dot');
+    var ring = document.querySelector('.cursor-ring');
+    var rx = 0, ry = 0, tx = 0, ty = 0;
+ 
+    window.addEventListener('mousemove', function (e) {
+      tx = e.clientX;
+      ty = e.clientY;
+      dot.style.transform = 'translate(' + tx + 'px,' + ty + 'px) translate(-50%,-50%)';
+    });
+ 
+    function loop() {
+      rx += (tx - rx) * 0.18;
+      ry += (ty - ry) * 0.18;
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+      requestAnimationFrame(loop);
+    }
+    loop();
+ 
+    document.querySelectorAll('a, .hero-photo-wrap, .tool-screenshot-frame').forEach(function (el) {
+      el.addEventListener('mouseenter', function () { ring.classList.add('hovering'); });
+      el.addEventListener('mouseleave', function () { ring.classList.remove('hovering'); });
+    });
+  }
+ 
+  /* ---- Hero photo tilt + scroll parallax ---- */
+  var wrap = document.getElementById('heroPhotoWrap');
+  var tilt = document.getElementById('heroTilt');
+ 
+  if (!reduceMotion && wrap && tilt) {
+    function applyTilt(clientX, clientY) {
+      var rect = wrap.getBoundingClientRect();
+      var px = (clientX - rect.left) / rect.width - 0.5;
+      var py = (clientY - rect.top) / rect.height - 0.5;
+      tilt.style.transform = 'perspective(1000px) rotateY(' + (px * 6) + 'deg) rotateX(' + (py * -6) + 'deg)';
+    }
+    function resetTilt() {
+      tilt.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+    }
+ 
+    // Desktop: follows the mouse
+    wrap.addEventListener('mousemove', function (e) { applyTilt(e.clientX, e.clientY); });
+    wrap.addEventListener('mouseleave', resetTilt);
+ 
+    // Mobile/touch: follows a finger dragged across the photo
+    wrap.addEventListener('touchmove', function (e) {
+      var t = e.touches[0];
+      if (t) applyTilt(t.clientX, t.clientY);
+    }, { passive: true });
+    wrap.addEventListener('touchend', resetTilt);
+  }
+ 
+  if (!reduceMotion && wrap) {
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(function () {
+          var offset = Math.min(window.scrollY * 0.12, 60);
+          wrap.style.transform = 'translate3d(0,' + offset + 'px,0)';
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+ 
+  /* ---- Footer link: magnetic pull on desktop, tap pulse on touch ---- */
+  var magnetic = document.getElementById('linkedinLink');
+  if (!reduceMotion && magnetic) {
+    if (finePointer) {
+      magnetic.addEventListener('mousemove', function (e) {
+        var rect = magnetic.getBoundingClientRect();
+        var mx = e.clientX - (rect.left + rect.width / 2);
+        var my = e.clientY - (rect.top + rect.height / 2);
+        magnetic.style.transform = 'translate(' + (mx * 0.3) + 'px,' + (my * 0.3) + 'px)';
+      });
+      magnetic.addEventListener('mouseleave', function () {
+        magnetic.style.transform = 'translate(0,0)';
+      });
+    } else {
+      magnetic.style.transition = 'transform 0.2s ' + 'var(--ease)';
+      magnetic.addEventListener('touchstart', function () {
+        magnetic.style.transform = 'scale(0.94)';
+      }, { passive: true });
+      magnetic.addEventListener('touchend', function () {
+        magnetic.style.transform = 'scale(1)';
+      });
+    }
+  }
+ 
+  /* ---- One-shot scroll reveal ---- */
+  var revealTargets = document.querySelectorAll('.reveal-on-scroll');
+  if ('IntersectionObserver' in window && revealTargets.length) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    revealTargets.forEach(function (el) { observer.observe(el); });
+  } else {
+    revealTargets.forEach(function (el) { el.classList.add('in-view'); });
+  }
+})();
+</script>
  
 </body>
 </html>
