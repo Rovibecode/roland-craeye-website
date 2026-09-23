@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roland Craeye — Full-Time Trader</title>
-<meta name="description" content="Roland Craeye, Intraday Trader, focused on ICT-based price action.">
+<meta name="description" content="Roland Craeye, full-time trader based in Taiwan, focused on ICT-based price action.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -21,18 +21,18 @@
     --muted: #707070;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
- 
+
   * { box-sizing: border-box; }
- 
+
   html {
     scroll-behavior: smooth;
     background: var(--bg);
   }
- 
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
   }
- 
+
   body {
     margin: 0;
     background: var(--bg);
@@ -44,9 +44,9 @@
     position: relative;
     overflow-x: hidden;
   }
- 
+
   body.fine-pointer { cursor: none; }
- 
+
   /* Fine grain texture — a single cheap SVG filter, no image request */
   body::before {
     content: "";
@@ -58,14 +58,14 @@
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
- 
+
   ::selection {
     background: var(--accent);
     color: var(--white);
   }
- 
+
   /* ---------- CUSTOM CURSOR ---------- */
- 
+
   .cursor-dot, .cursor-ring {
     position: fixed;
     top: 0;
@@ -76,7 +76,7 @@
     transform: translate(-50%, -50%);
     will-change: transform;
   }
- 
+
   .cursor-dot {
     width: 6px;
     height: 6px;
@@ -84,7 +84,7 @@
     opacity: 0;
     transition: opacity 0.2s ease;
   }
- 
+
   .cursor-ring {
     width: 34px;
     height: 34px;
@@ -92,12 +92,12 @@
     opacity: 0;
     transition: opacity 0.2s ease, width 0.25s var(--ease), height 0.25s var(--ease), border-color 0.25s ease, background 0.25s ease;
   }
- 
+
   body.fine-pointer .cursor-dot,
   body.fine-pointer .cursor-ring {
     opacity: 1;
   }
- 
+
   .cursor-ring.hovering {
     width: 60px;
     height: 60px;
@@ -105,24 +105,24 @@
     mix-blend-mode: difference;
     border-color: transparent;
   }
- 
+
   a {
     color: var(--white);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: color 0.2s ease, border-color 0.2s ease;
   }
- 
+
   a:hover, a:focus-visible {
     color: var(--accent);
     border-color: var(--accent);
   }
- 
+
   a:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
- 
+
   .label {
     font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
     text-transform: uppercase;
@@ -131,41 +131,41 @@
     color: var(--accent);
     font-weight: 500;
   }
- 
+
   /* ---------- REVEAL MASK (headline / label / subhead) ---------- */
- 
+
   .mask {
     display: block;
     overflow: hidden;
   }
- 
+
   .mask > * {
     display: inline-block;
     transform: translateY(105%);
     animation: reveal 1s var(--ease) forwards;
   }
- 
+
   @keyframes reveal {
     to { transform: translateY(0); }
   }
- 
+
   @media (prefers-reduced-motion: reduce) {
     .mask > * { animation: none; transform: none; }
   }
- 
+
   /* ---------- HERO ---------- */
- 
+
   .hero {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     position: relative;
   }
- 
+
   @media (min-width: 768px) {
     .hero { flex-direction: row; }
   }
- 
+
   .hero-photo-wrap {
     width: 100%;
     height: 45vh;
@@ -173,14 +173,14 @@
     position: relative;
     will-change: transform;
   }
- 
+
   @media (min-width: 768px) {
     .hero-photo-wrap {
       width: 45%;
       height: 100vh;
     }
   }
- 
+
   .hero-photo-tilt {
     width: 100%;
     height: 100%;
@@ -188,7 +188,7 @@
     will-change: transform;
     transition: transform 0.1s linear;
   }
- 
+
   .hero-photo {
     width: 100%;
     height: 100%;
@@ -199,21 +199,21 @@
     animation: settle 1.6s var(--ease) forwards, colorize 2s ease-out forwards;
     animation-delay: 0s, 0.5s;
   }
- 
+
   @keyframes settle {
     from { transform: scale(1.08); }
     to { transform: scale(1); }
   }
- 
+
   @keyframes colorize {
     from { filter: grayscale(1) contrast(1.05); }
     to { filter: grayscale(0) contrast(1.05); }
   }
- 
+
   @media (prefers-reduced-motion: reduce) {
     .hero-photo { animation: none; transform: none; filter: none; }
   }
- 
+
   /* Diagonal light sweep on hover — a single deliberate accent, not a static glow */
   .hero-photo-wrap::before {
     content: "";
@@ -225,11 +225,11 @@
     pointer-events: none;
     z-index: 2;
   }
- 
+
   .hero-photo-wrap:hover::before {
     transform: translateX(60%);
   }
- 
+
   /* Subtle edge vignette on the photo only — no color overlay */
   .hero-photo-wrap::after {
     content: "";
@@ -239,7 +239,7 @@
     pointer-events: none;
     z-index: 1;
   }
- 
+
   .hero-text {
     flex: 1;
     display: flex;
@@ -249,11 +249,11 @@
     position: relative;
     overflow: hidden;
   }
- 
+
   @media (min-width: 768px) {
     .hero-text { padding: 0 5rem; }
   }
- 
+
   /* Price-action candles behind the copy, printing themselves in once on load */
   .price-trace {
     position: absolute;
@@ -264,49 +264,49 @@
     z-index: 0;
     pointer-events: none;
   }
- 
+
   @media (min-width: 768px) {
     .price-trace { left: -10%; }
   }
- 
+
   .price-trace .candle {
     transform-box: fill-box;
     transform-origin: center;
     transform: scaleY(0);
     animation: growCandle 0.55s var(--ease) forwards;
   }
- 
+
   .price-trace .candle.up {
     fill: var(--accent);
     stroke: var(--accent);
     opacity: 0.28;
   }
- 
+
   .price-trace .candle.down {
     fill: var(--muted);
     stroke: var(--muted);
     opacity: 0.2;
   }
- 
+
   .price-trace .candle line {
     stroke-width: 1.5;
     vector-effect: non-scaling-stroke;
   }
- 
+
   @keyframes growCandle {
     to { transform: scaleY(1); }
   }
- 
+
   @media (prefers-reduced-motion: reduce) {
     .price-trace .candle { animation: none; transform: scaleY(1); }
   }
- 
+
   .hero-text .label,
   .hero-text .subhead {
     position: relative;
     z-index: 1;
   }
- 
+
   .hero-text h1 {
     position: relative;
     z-index: 1;
@@ -318,21 +318,21 @@
     letter-spacing: -0.03em;
     margin: 0 0 1rem 0;
   }
- 
+
   .hero-text .label.mask {
     margin-bottom: 1.25rem;
   }
- 
+
   .hero-text .mask > * { animation-delay: 0.15s; }
   .hero-text h1 .mask > * { animation-delay: 0.32s; }
   .hero-text .subhead.mask > * { animation-delay: 0.5s; }
- 
+
   .hero-text .subhead {
     font-size: 1.1rem;
     max-width: 42ch;
     color: var(--body);
   }
- 
+
   .scroll-cue {
     position: absolute;
     bottom: 2rem;
@@ -342,23 +342,23 @@
     animation: fadeInOut 2.6s ease-in-out infinite;
     z-index: 2;
   }
- 
+
   @media (prefers-reduced-motion: reduce) {
     .scroll-cue { animation: none; opacity: 0.6; }
   }
- 
+
   @keyframes fadeInOut {
     0%, 100% { opacity: 0.25; }
     50% { opacity: 0.9; }
   }
- 
+
   /* ---------- SECTIONS ---------- */
- 
+
   section {
     padding: 6rem 1.75rem;
     position: relative;
   }
- 
+
   section + section::before,
   footer::before {
     content: "";
@@ -370,44 +370,48 @@
     height: 1px;
     background: var(--accent-dim);
   }
- 
+
   @media (max-width: 767px) {
     section { padding: 3rem 1.75rem; }
   }
- 
+
   .content {
     max-width: 640px;
     margin: 0 auto;
     text-align: center;
   }
- 
+
   .reveal-on-scroll {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
   }
- 
+
   .reveal-on-scroll.in-view {
     opacity: 1;
     transform: translateY(0);
   }
- 
+
   @media (prefers-reduced-motion: reduce) {
     .reveal-on-scroll { opacity: 1; transform: none; transition: none; }
   }
- 
+
   .content .label {
     display: block;
     margin-bottom: 1.25rem;
   }
- 
+
   .content p {
     max-width: 60ch;
     margin: 0 auto;
   }
- 
+
   /* ---------- TOOLS ---------- */
- 
+
+  .tools-wrap {
+    text-align: center;
+  }
+
   .tool-sub {
     font-family: 'Space Grotesk', system-ui, sans-serif;
     color: var(--white);
@@ -415,25 +419,50 @@
     font-size: 1.2rem;
     margin: 0 0 0.75rem 0;
   }
- 
+
   .tool-line {
     margin-bottom: 2.5rem;
   }
- 
+
+  .tool-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.1rem;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .tool-gallery { grid-template-columns: 1fr; }
+  }
+
   .tool-screenshot-frame {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    background: #141414;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     overflow: hidden;
     aspect-ratio: 16 / 10;
-    background: #141414;
+    cursor: pointer;
     transition: border-color 0.35s ease, box-shadow 0.35s ease;
   }
- 
-  .tool-screenshot-frame:hover {
+
+  .tool-screenshot-frame:hover,
+  .tool-screenshot-frame:focus-visible {
     border-color: rgba(193, 98, 45, 0.5);
     box-shadow: 0 0 40px -12px var(--accent-glow);
   }
- 
+
+  .tool-screenshot-frame:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
   .tool-screenshot {
     width: 100%;
     height: 100%;
@@ -441,31 +470,89 @@
     display: block;
     transition: transform 0.6s var(--ease);
   }
- 
-  .tool-screenshot-frame:hover .tool-screenshot {
+
+  .tool-screenshot-frame:hover .tool-screenshot,
+  .tool-screenshot-frame:focus-visible .tool-screenshot {
     transform: scale(1.03);
   }
- 
+
   .tool-caption {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     font-size: 0.85rem;
     color: var(--muted);
   }
- 
+
+  /* ---------- LIGHTBOX ---------- */
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5vh 5vw;
+    background: rgba(6, 6, 6, 0.92);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .lightbox-img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 6px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.97);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .lightbox.open .lightbox-img {
+    transform: scale(1);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.75rem;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .lightbox-close:hover,
+  .lightbox-close:focus-visible {
+    color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lightbox, .lightbox-img { transition: none; }
+  }
+
   /* ---------- FOOTER ---------- */
- 
+
   footer {
     padding: 4rem 1.75rem 3rem;
     text-align: center;
     position: relative;
   }
- 
+
   footer a {
     display: inline-block;
     font-family: 'Space Grotesk', system-ui, sans-serif;
     font-weight: 500;
   }
- 
+
   footer .copyright {
     margin-top: 1rem;
     font-size: 0.8rem;
@@ -474,10 +561,10 @@
 </style>
 </head>
 <body>
- 
+
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
- 
+
   <section class="hero">
     <div class="hero-photo-wrap" id="heroPhotoWrap">
       <div class="hero-photo-tilt" id="heroTilt">
@@ -494,7 +581,7 @@
     </div>
     <div class="hero-text">
       <svg class="price-trace" id="priceTrace" viewBox="0 0 600 170" preserveAspectRatio="none" aria-hidden="true"></svg>
-      <span class="label mask"><span>Intraday Trader · Global</span></span>
+      <span class="label mask"><span>Full-Time Trader · Global</span></span>
       <h1 class="mask"><span>Roland Craeye</span></h1>
       <p class="subhead mask"><span>After three decades across the US, Europe, and Asia, Roland now trades full-time, focused on ICT-based price action.</span></p>
     </div>
@@ -504,44 +591,86 @@
       </svg>
     </div>
   </section>
- 
+
   <section aria-labelledby="about-label">
     <div class="content reveal-on-scroll">
       <span class="label" id="about-label">About</span>
       <p>Roland spent over 30 years in business across the US, Europe, and Asia before shifting fully into trading. His approach is built around ICT (Inner Circle Trader) concepts — liquidity, market structure, and price action.</p>
     </div>
   </section>
- 
+
   <section aria-labelledby="tools-label">
-    <div class="content reveal-on-scroll">
-      <span class="label" id="tools-label">Tools</span>
-      <p class="tool-sub">Tradovate Analyzer</p>
-      <p class="tool-line">A tool built for personal use to analyze trading performance and refine execution.</p>
-      <div class="tool-screenshot-frame">
-        <img
-          class="tool-screenshot"
-          src="Trade_Analyzer_screenshot.jpg"
-          alt="Screenshot of the Tradovate Analyzer tool"
-          loading="lazy"
-          decoding="async"
-          width="1600"
-          height="1000"
-        >
+    <div class="tools-wrap reveal-on-scroll">
+      <div class="content">
+        <span class="label" id="tools-label">Tools</span>
+        <p class="tool-sub">Tradovate Analyzer</p>
+        <p class="tool-line">A tool built for personal use to analyze trading performance and refine execution.</p>
+      </div>
+      <div class="tool-gallery">
+        <button type="button" class="tool-screenshot-frame" aria-label="View larger screenshot 1 of the Tradovate Analyzer">
+          <img
+            class="tool-screenshot"
+            src="1790135907788_Trade_Analyzer_screenshot_1.jpg"
+            alt="Tradovate Analyzer dashboard showing net P&L, win rate, expectancy, and an equity curve"
+            loading="lazy"
+            decoding="async"
+            width="1600"
+            height="1000"
+          >
+        </button>
+        <button type="button" class="tool-screenshot-frame" aria-label="View larger screenshot 2 of the Tradovate Analyzer">
+          <img
+            class="tool-screenshot"
+            src="1790135907789_Trade_Analyzer_screenshot_2.jpg"
+            alt="Tradovate Analyzer hourly edge and daily P&L charts with by-hour and by-weekday tables"
+            loading="lazy"
+            decoding="async"
+            width="1600"
+            height="1000"
+          >
+        </button>
+        <button type="button" class="tool-screenshot-frame" aria-label="View larger screenshot 3 of the Tradovate Analyzer">
+          <img
+            class="tool-screenshot"
+            src="1790135907789_Trade_Analyzer_screenshot_3.jpg"
+            alt="Tradovate Analyzer trade log and Notion journal export summary"
+            loading="lazy"
+            decoding="async"
+            width="1600"
+            height="1000"
+          >
+        </button>
+        <button type="button" class="tool-screenshot-frame" aria-label="View larger screenshot 4 of the Tradovate Analyzer">
+          <img
+            class="tool-screenshot"
+            src="1790135907789_Trade_Analyzer_screenshot_4.jpg"
+            alt="Tradovate Analyzer Notion export showing daily breakdown, by-contract, and session-edge stats"
+            loading="lazy"
+            decoding="async"
+            width="1600"
+            height="1000"
+          >
+        </button>
       </div>
       <p class="tool-caption">Available on request.</p>
     </div>
   </section>
- 
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close image">&times;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  </div>
+
   <footer>
     <a id="linkedinLink" href="https://www.linkedin.com/in/rolandcraeye/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     <p class="copyright">© 2026 Roland Craeye</p>
   </footer>
- 
+
 <script>
 (function () {
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var finePointer = window.matchMedia('(pointer: fine)').matches;
- 
+
   /* ---- Randomized candlestick chart, printing in slowly like a live feed ---- */
   var traceSvg = document.getElementById('priceTrace');
   if (traceSvg) {
@@ -551,61 +680,100 @@
     var candleWidth = Math.min(spacing * 0.38, 11);
     var level = 85; // running "price" — smaller = higher on screen
     var delay = reduceMotion ? 0 : 0.3;
- 
+
     for (var i = 0; i < count; i++) {
       var open = level;
       var delta = (Math.random() - 0.5) * 70; // wide random walk step — volatile market
       var close = Math.max(12, Math.min(158, open + delta));
       level = close;
- 
+
       var bodyTop = Math.min(open, close);
       var bodyBottom = Math.max(open, close);
       if (bodyBottom - bodyTop < 4) { bodyBottom = bodyTop + 4; } // keep dojis visible
- 
+
       var wickTop = Math.max(4, bodyTop - (5 + Math.random() * 20));
       var wickBottom = Math.min(166, bodyBottom + (5 + Math.random() * 20));
- 
+
       var up = close < open; // smaller level = higher price = rising
       var x = i * spacing + spacing / 2;
- 
+
       var g = document.createElementNS(SVGNS, 'g');
       g.setAttribute('class', 'candle ' + (up ? 'up' : 'down'));
       g.style.animationDelay = delay.toFixed(2) + 's';
- 
+
       var wick = document.createElementNS(SVGNS, 'line');
       wick.setAttribute('x1', x);
       wick.setAttribute('x2', x);
       wick.setAttribute('y1', wickTop);
       wick.setAttribute('y2', wickBottom);
- 
+
       var body = document.createElementNS(SVGNS, 'rect');
       body.setAttribute('x', x - candleWidth / 2);
       body.setAttribute('y', bodyTop);
       body.setAttribute('width', candleWidth);
       body.setAttribute('height', bodyBottom - bodyTop);
- 
+
       g.appendChild(wick);
       g.appendChild(body);
       traceSvg.appendChild(g);
- 
+
       // Irregular gaps between appearances — a real feed doesn't tick on a metronome
       delay += reduceMotion ? 0 : 0.22 + Math.random() * 0.5;
     }
   }
- 
+
+  /* ---- Screenshot lightbox ---- */
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxClose = document.getElementById('lightboxClose');
+  var galleryFrames = document.querySelectorAll('.tool-screenshot-frame');
+
+  function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  galleryFrames.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var img = btn.querySelector('img');
+      openLightbox(img.currentSrc || img.src, img.alt);
+    });
+  });
+
+  if (lightbox) {
+    lightbox.addEventListener('click', closeLightbox);
+  }
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeLightbox();
+    });
+  }
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
   /* ---- Custom cursor ---- */
   if (finePointer && !reduceMotion) {
     document.body.classList.add('fine-pointer');
     var dot = document.querySelector('.cursor-dot');
     var ring = document.querySelector('.cursor-ring');
     var rx = 0, ry = 0, tx = 0, ty = 0;
- 
+
     window.addEventListener('mousemove', function (e) {
       tx = e.clientX;
       ty = e.clientY;
       dot.style.transform = 'translate(' + tx + 'px,' + ty + 'px) translate(-50%,-50%)';
     });
- 
+
     function loop() {
       rx += (tx - rx) * 0.18;
       ry += (ty - ry) * 0.18;
@@ -613,17 +781,17 @@
       requestAnimationFrame(loop);
     }
     loop();
- 
+
     document.querySelectorAll('a, .hero-photo-wrap, .tool-screenshot-frame').forEach(function (el) {
       el.addEventListener('mouseenter', function () { ring.classList.add('hovering'); });
       el.addEventListener('mouseleave', function () { ring.classList.remove('hovering'); });
     });
   }
- 
+
   /* ---- Hero photo tilt + scroll parallax ---- */
   var wrap = document.getElementById('heroPhotoWrap');
   var tilt = document.getElementById('heroTilt');
- 
+
   if (!reduceMotion && wrap && tilt) {
     function applyTilt(clientX, clientY) {
       var rect = wrap.getBoundingClientRect();
@@ -634,11 +802,11 @@
     function resetTilt() {
       tilt.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
     }
- 
+
     // Desktop: follows the mouse
     wrap.addEventListener('mousemove', function (e) { applyTilt(e.clientX, e.clientY); });
     wrap.addEventListener('mouseleave', resetTilt);
- 
+
     // Mobile/touch: follows a finger dragged across the photo
     wrap.addEventListener('touchmove', function (e) {
       var t = e.touches[0];
@@ -646,7 +814,7 @@
     }, { passive: true });
     wrap.addEventListener('touchend', resetTilt);
   }
- 
+
   if (!reduceMotion && wrap) {
     var ticking = false;
     window.addEventListener('scroll', function () {
@@ -660,7 +828,7 @@
       }
     }, { passive: true });
   }
- 
+
   /* ---- Footer link: magnetic pull on desktop, tap pulse on touch ---- */
   var magnetic = document.getElementById('linkedinLink');
   if (!reduceMotion && magnetic) {
@@ -684,7 +852,7 @@
       });
     }
   }
- 
+
   /* ---- One-shot scroll reveal ---- */
   var revealTargets = document.querySelectorAll('.reveal-on-scroll');
   if ('IntersectionObserver' in window && revealTargets.length) {
@@ -702,7 +870,6 @@
   }
 })();
 </script>
- 
+
 </body>
 </html>
- 
